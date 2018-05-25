@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="css/style.css">
+  <title>Document</title>
+</head>
+
+<body>
+  <form class="" action="index.html" method="post">
+    <input list="type_of_info" name="" value="">
+    <datalist class="" id="type_of_info">
+      <option value="providers"></option>
+      <option value="bill"></option>
+      <option value="bank"></option>
+      <option value="storage"></option>
+    </datalist>
+  </form>
+  <!-- SECTION FOR PROVIDERS -->
+  <section class="provider">
+    <form class="" action="index.html" method="post">
+      <input type="number" name="provider_id" placeholder="provider ID" >
+      <input type="text" name="name_of_prov" placeholder="Name of provider">
+      <input type="text" name="city" placeholder="City">
+      <input type="text" name="street" placeholder="Street">
+      <input type="number" name="built" placeholder="Built">
+      <input type="number" name="flat" placeholder="Flat">
+    </form>
+  </section>
+  <!-- SECTION FOR BILL -->
+  <section class="bill">
+    <form class="" action="index.html" method="post">
+      <input type="number" name="bill_id" placeholder="Bill ID" >
+      <input type="date" name="date_of_bill" placeholder="Date of bill">
+      <input type="number" name="number_from_prov" placeholder="Number from provider">
+      <input type="number" name="sum_of_bill" placeholder="Sum of bill">
+      <input type="number" name="provider_id" placeholder="Provider ID">
+      <input type="number" name="account_id" placeholder="Account ID">
+    </form>
+  </section>
+  <!-- SECTION FOR BANK -->
+  <section class="bill">
+    <form class="" action="index.html" method="post">
+      <input type="number" name="bill_id" placeholder="Bill ID" >
+      <input type="date" name="date_of_bill" placeholder="Date of bill">
+      <input type="number" name="number_from_prov" placeholder="Number from provider">
+      <input type="number" name="sum_of_bill" placeholder="Sum of bill">
+      <input type="number" name="provider_id" placeholder="Provider ID">
+      <input type="number" name="account_id" placeholder="Account ID">
+    </form>
+  </section>
+  <form class="" action="index.html" method="post">
+    <input type="button" name="add_button" value="Add">
+    <input type="button" name="delete_button" value="Delete">
+  </form>
+</body>
+<script type="text/javascript" src="js/script.js"></script>
+
+</html>
