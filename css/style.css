@@ -1,0 +1,20 @@
+.provider
+{
+  display: none;
+}
+.bill
+{
+  display: none;
+}
+.bank
+{
+  display: none;
+}
+.storage
+{
+  display: none;
+}
+.display_block
+{
+  display: block !important;
+}
