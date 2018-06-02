@@ -11,17 +11,14 @@
 
 <body>
   <form class="" action="index.html" method="post">
-    <select class="" id="type_of_info" name="type_of_info">
+    <select class="" onchange="validate(this);" id="type_of_info" name="type_of_info">
       <option value="providers" >providers</option>
       <option value="bill" >bill</option>
       <option value="bank" >bank</option>
       <option value="storage" >storage</option>
     </select>
-    <input type="button"  onclick="validate()" value="Check">
-  </form>
   <!-- SECTION FOR PROVIDERS -->
   <section class="provider" id="op1">
-    <form class="" action="index.html" method="post">
       <input type="number" name="provider_id" placeholder="provider ID">
       <input type="text" name="name_of_prov" placeholder="Name of provider">
       <input type="text" name="city" placeholder="City">
@@ -29,11 +26,10 @@
       <input type="number" name="built" placeholder="Built">
       <input type="number" name="flat" placeholder="Flat">
       <input type="button" name="" value="Find information">
-    </form>
+      <div id="providersTable"></div>
   </section>
   <!-- SECTION FOR BILL -->
   <section class="bill" id="op2">
-    <form class="" action="index.html" method="post">
       <input type="number" name="bill_id" placeholder="Bill ID">
       <input type="date" name="date_of_bill" placeholder="Date of bill">
       <input type="number" name="number_from_prov" placeholder="Number from provider">
@@ -41,20 +37,16 @@
       <input type="number" name="provider_id" placeholder="Provider ID">
       <input type="number" name="account_id" placeholder="Account ID">
       <input type="button" name="" value="Find information">
-    </form>
   </section>
   <!-- SECTION FOR BANK -->
   <section class="bank" id="op3">
-    <form class="" action="index.html" method="post">
       <input type="number" name="MFI_nank" placeholder="MFI bank">
       <input type="text" name="name_of_bank" placeholder="Name of bank">
       <input type="number" name="account_id" placeholder="Account ID">
       <input type="button" name="" value="Find information">
-    </form>
   </section>
   <!-- SECTION FOR STORAGE -->
   <section class="storage" id="op4">
-    <form class="" action="index.html" method="post">
       <input type="number" name="goods_on_storages_id" placeholder="Goods on storages ID">
       <input type="text" name="name_of_goods" placeholder="Name of goods">
       <input type="number" name="amount" placeholder="Amount">
@@ -62,9 +54,7 @@
       <input type="number" name="bill_id" placeholder="Bill ID">
       <input type="number" name="id_of_storage" placeholder="ID of storage">
       <input type="button" name="" value="Find information">
-    </form>
   </section>
-  <form class="" action="index.html" method="post">
     <input type="button" name="add_button" value="Add">
     <input type="button" name="delete_button" value="Delete">
   </form>

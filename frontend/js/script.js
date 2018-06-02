@@ -6,6 +6,7 @@ function validate() {
       $("#op2").css( "display", "none" );
       $("#op3").css( "display", "none" );
       $("#op4").css( "display", "none" );
+      showAllProviders();
   } else if (selectedValue == "bill") {
     $("#op1").css( "display", "none" );
     $("#op2").css( "display", "block" );
@@ -26,3 +27,21 @@ function validate() {
     alert("You cant check this info please make your choise one more time")
   }
 }
+
+function showAllProviders()
+{
+  fetch( "./api/providers" ).then( (response) => {
+    if ( response.status == 200 )
+    {
+      response.json().then( (data) => {
+          let htmlResult = "";
+          data.forEach( element => {
+            htmlResult += "<div>" + element.name_of_provider + "</div>";
+          });
+          $( "#providersTable" ).html( htmlResult );
+      } )
+    }
+  } )
+}
+
+validate();
