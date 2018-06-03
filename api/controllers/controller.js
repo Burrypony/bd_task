@@ -242,6 +242,19 @@ exports.listAllGoodsOnStorID = function( req, res )
 
 exports.addProvider = function( req, res )
 {
+  const query = "INSERT INTO Providers (provider_id, name_of_provider, city, street, built, flat) VALUES ('" 
+  + req.body.id + "','" + req.body.name + "','" + req.body.city + "','"
+  + req.body.street + "','" + req.body.building + "','" + req.body.flat + "')"; 
+
+  db.all( query , [] , ( err, rows ) => {
+    if ( err )
+    {
+      res.send( err );
+    }
+    else
+    {
+      res.send( "OK" );
+    }
+  } )
   console.log( req.body );
-  res.send( "OK" );
 }
