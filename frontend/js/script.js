@@ -274,7 +274,7 @@ function validateProvider( provider )
 
   return true;
 }
-/*
+
 $( "#btnAddProvider" ).click( function() {
 
   var provider = {
@@ -288,22 +288,22 @@ $( "#btnAddProvider" ).click( function() {
 
   if ( validateProvider( provider ) )
   {
-    var data = new FormData();
-    data.append( "json", JSON.stringify( provider ) );
-    fetch( "./api/provider", {
-      method: "post",
-      header: { "Content-Type": "application/json; charset=UTF-8" },
-      body: data
-    } )
-    // .then( json )
-    // .then( function( data ) { console.log( "Provider added" ) } )
-    // .catch( function( error ) { console.log( "Error while adding provider" ) } );
+
+    $.ajax({
+      type: "POST",
+      url: "./api/provider",
+      dataType: "json",
+      success: function (msg) {
+          validate()
+      },
+
+      data: provider
+    });
   }
   else
   {
     //TODO: add validation error message
   }
-
 
 
 } );
