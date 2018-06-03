@@ -1,6 +1,7 @@
 .provider
 {
   display: none;
+  z-index: 1;
 }
 .bill
 {
@@ -17,4 +18,47 @@
 .display_block
 {
   display: block !important;
+}
+table, td {
+  border: 1px solid black;
+}
+td{
+  width: 200px;
+}
+.addProvider, .addBill
+{
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;
+  margin: 0 auto;
+  border: 1px solid black;
+  background: darkorange;
+  position: absolute;
+  z-index: 3;
+  left: 0;
+  right: 0;
+}
+
+.addProvider input {
+  width: 50%;
+  margin: 10px auto;
+}
+
+.addBill input {
+  width: 50%;
+  margin: 10px auto;
+}
+
+.displayFlex{
+  display: flex !important;
+}
+
+.inputButton{
+  margin: 0 auto;
+  display: flex;
+}
+.inputButton input,select{
+  margin: 5px;
+  width: auto;
 }
