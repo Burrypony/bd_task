@@ -8,11 +8,9 @@ const bodyParser = require("body-parser");
 app.use( "/", express.static( "frontend") );
 app.use( "/css", express.static( "frontend/css") );
 app.use( "/js", express.static( "frontend/js") );
-app.use( bodyParser());
-// app.use(bodyParser.urlencoded({
-//  extended: false
-// }));
-// app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: false }));
+app.use(bodyParser.json());
 
 routes( app );
 app.listen( port );
