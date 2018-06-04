@@ -176,6 +176,15 @@ function renderProviders( rows )
   $( "#providersTable" ).html( htmlResult );
 }
 
+function renderBill( rows )
+{
+  let htmlResult = "";
+  rows.forEach( element => {
+    htmlResult +="<table>" + "<td>" + element.bill_id + "</td>"  +  "<td>" + element.date_of_bill + "</td>" + "<td>" + element.number_from_provider + "</td>" + "<td>" + element.sum_of_bill + "</td>" + "<td>" + element.provider_id + "</td>" + "<td>" + element.account_id + "</td>" + "</table>";
+  });
+  $( "#billTable" ).html( htmlResult );
+}
+
 function showAllProviders()
 {
   fetch( "./api/providers" ).then( (response) => {
@@ -258,11 +267,7 @@ function showAllBills()
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
-          let htmlResult4 = "";
-          data.forEach( element => {
-            htmlResult4 +="<table>" + "<td>" + element.bill_id + "</td>"  +  "<td>" + element.date_of_bill + "</td>" + "<td>" + element.number_from_provider + "</td>" + "<td>" + element.sum_of_bill + "</td>" + "<td>" + element.provider_id + "</td>" + "<td>" + element.account_id + "</td>" + "</table>";
-          });
-          $( "#billTable" ).html( htmlResult4 );
+        renderBill( data )
       } )
     }
   } )
@@ -421,7 +426,7 @@ function showAllBankInAccount()
       response.json().then( (data) => {
           let htmlResult9 = "";
           data.forEach( element => {
-            htmlResult9 +="<option>" + element.MFI_bank +  "(" + element.name_of_bank + ")" +"</option>";
+            htmlResult9 +="<option value=\"" +  element.MFI_bank +"\">" + element.MFI_bank +  "(" + element.name_of_bank + ")" +"</option>";
           });
           $( "#accountMFIBank" ).html( htmlResult9 );
       } )
@@ -663,7 +668,7 @@ $( "#btnAddContract" ).click( function() {
 
     $.ajax({
       type: "POST",
-      url: "./api/contracts",
+      url: "./api/addContract",
       dataType: "json",
       success: function (msg) {
           validate();
@@ -880,6 +885,44 @@ var providersFilterOnChange = function() {
   function runFilter()
   {
     filterProviders();
+  }
+
+  return function()
+  {
+    if ( tOut )
+    {
+      window.clearTimeout( tOut );
+    }
+    tOut = window.setTimeout( runFilter, 500 );
+  }
+}();
+
+
+function filterBill()
+{
+  var filterBill = {
+      providerId : $("input[name=bill_provider_id]").val(),
+      accountId: $( "input[name=account_id]" ).val()
+  }
+
+  $.ajax({
+    type: "POST",
+    url: "./api/filterBill",
+    dataType: "json",
+    success: function ( data ) {
+      renderBill( data );
+    },
+    data: filterBill
+  });
+}
+
+var billFilterOnChange = function() {
+
+  var tOut;
+
+  function runFilter()
+  {
+    filterBill();
   }
 
   return function()

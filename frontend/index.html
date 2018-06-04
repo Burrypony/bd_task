@@ -6,11 +6,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="css/style.css">
-  <title>pizdec</title>
+  <title>bd_task</title>
 </head>
 
 <body>
-  <form class="" action="index.html" method="post">
+    <div>
+        <h1>Department of Sports Management</h1>
+      </div>
+
+
+  <form class="selectOption" action="index.html" method="post">
     <select class="" onchange="validate(this);" id="type_of_info" name="type_of_info">
       <option value="providers" >providers</option>
       <option value="bill" >bill</option>
@@ -24,14 +29,7 @@
     </select>
   <!-- SECTION FOR PROVIDERS -->
   <section class="provider" id="op1">
-      <input type="number" name="provider_id" placeholder="provider ID" onchange="providersFilterOnChange()" onkeyup="providersFilterOnChange()">
       <input type="text" name="name_of_prov" placeholder="Name of provider" onchange="providersFilterOnChange()" onkeyup="providersFilterOnChange()">
-      <input type="text" name="city" placeholder="City" onchange="providersFilterOnChange()" onkeyup="providersFilterOnChange()">
-      <input type="text" name="street" placeholder="Street" onchange="providersFilterOnChange()" onkeyup="providersFilterOnChange()">
-      <input type="text" name="built" placeholder="Built" onchange="providersFilterOnChange()" onkeyup="providersFilterOnChange()">
-      <input type="number" name="flat" placeholder="Flat" onchange="providersFilterOnChange()" onkeyup="providersFilterOnChange()">
-      <input type="number" name="mobNumber" placeholder="Mobile number" onchange="providersFilterOnChange()" onkeyup="providersFilterOnChange()">
-      <input type="button" name="" value="Find information" onchange="providersFilterOnChange()" onkeyup="providersFilterOnChange()">
       <div id="providersTable"></div>
       <div class="addProvider" id="addProvider">
             <input type="number" placeholder="Provider ID" id="addProviderId">
@@ -49,13 +47,7 @@
   </section>
   <!-- SECTION FOR BILL -->
   <section class="bill" id="op2">
-      <input type="number" name="bill_id" placeholder="Bill ID">
-      <input type="date" name="date_of_bill" placeholder="Date of bill" >
-      <input type="number" name="number_from_prov" placeholder="Number from provider" >
-      <input type="number" name="sum_of_bill" placeholder="Sum of bill">
-      <input type="number" name="provider_id" placeholder="Provider ID">
-      <input type="number" name="account_id" placeholder="Account ID">
-      <input type="button" name="" value="Find information">
+      <input type="number" name="bill_provider_id" placeholder="Provider ID" onchange="billFilterOnChange()" onkeyup="billFilterOnChange()">
       <div id="billTable"></div>
       <div class="addBill" id="addBill">
         <input type="date" placeholder="Date of bill" id="billAddDateOfBill">
@@ -94,9 +86,6 @@
 
   <!-- SECTION FOR BANK -->
   <section class="bank" id="op3">
-      <input type="number" name="MFI_nank" placeholder="MFI bank">
-      <input type="text" name="name_of_bank" placeholder="Name of bank">
-      <input type="button" name="" value="Find information">
       <div id="bankTable"></div>
   </section>
 
@@ -104,7 +93,7 @@
  <section class="account" id="op9">
   <input type="number" name="MFI_nank" placeholder="MFI bank">
   <input type="number" placeholder="Account ID">
-  <input type="button" name="" value="Find information">
+  <input type="button" class="btn" value="Find information">
   <div id="accountTable"></div>
 </section>
 
@@ -116,7 +105,7 @@
       <input type="number" name="sum" placeholder="Sum">
       <input type="number" name="bill_id" placeholder="Bill ID">
       <input type="number" name="id_of_storage" placeholder="ID of storage">
-      <input type="button" name="" value="Find information">
+      <input type="button" class="btn"value="Find information">
       <div id="storageTable"></div>
       <div class="addGoodsOnStor" id="addGoodsOnStor">
         <input type="text" placeholder="Name of goods" id="addGoodsOnStorNameOfGoods">
@@ -125,8 +114,8 @@
         <select name="" id="goodsOnStorBillID"></select>
         <select name="" id="goodsOnStorIDOfStor"></select>
         <div class="inputButton">
-        <input type="button" value="add" id="btnAddGoodsOnStor">
-        <input type="reset" value="back" class="buttonBack">
+        <input type="button" class="btn" value="add" id="btnAddGoodsOnStor">
+        <input type="reset" class="btn" value="back" class="buttonBack">
       </div>
       </div>
   </section>
@@ -140,7 +129,7 @@
         <input type="text" name="name_of_goods" placeholder="Name of goods">
         <input type="date" name="from" placeholder="From">
         <input type="date" name="to" placeholder="To">
-        <input type="button" name="" value="Find information">
+        <input type="button" class="btn" value="Find information">
         <div id="contractsTable"></div>
         <div class="addContract" id="addContract">
             <select name="" id="contractProviderId"></select>
@@ -148,9 +137,9 @@
             <input type="date" placeholder="From" id="addContractFrom">
             <input type="date" placeholder="To" id="addContractTo">
             <div class="inputButton">
-              <input type="button" value="add" id="btnAddContract">
-              <input type="reset" value="back" class="buttonBack">
-              <input type="button" value="add goods" id="btnAddGoods">
+              <input type="button" class="btn" value="add" id="btnAddContract">
+              <input type="reset"  class="btn" value="back" class="buttonBack">
+              <input type="button" class="btn" value="add goods" id="btnAddGoods">
             </div>
         </div>
         <div class="addNomenOfDel" id="addNomenOfDel">
@@ -159,8 +148,8 @@
           <input type="number" placeholder="Order number" id="addNomenOfDelOrderNumber">
           <input type="text" placeholder="Unit" id="addNomenOfDelUnit">
           <div class="inputButton">
-            <input type="button" value="add" id="btnAddNomenOfDel">
-            <input type="reset" value="back" class="buttonBack">
+            <input type="button" class="btn" value="add" id="btnAddNomenOfDel">
+            <input type="reset" class="btn" value="back" class="buttonBack">
           </div>
         </div>
     </section>
@@ -170,7 +159,7 @@
         <input type="number" name="accountancy_account" placeholder="Accountancy Account">
         <input type="number" name="order_number" placeholder="Order number">
         <input type="text" name="unit" placeholder="Unit">
-        <input type="button" name="" value="Find information">
+        <input type="button" class="btn" value="Find information">
         <div id="goodsTable"></div>
     </section>
     <!-- SECTION FOR BILL_DET-->
@@ -183,7 +172,7 @@
       <input type="number" name="vat" placeholder="VAT">
       <input type="number" name="sumVat" placeholder="Sum with VAT">
       <input type="number" name="bill_id" placeholder="Bill ID">
-      <input type="button" name="" value="Find information">
+      <input type="button" class="btn" value="Find information">
       <div id="billDetTable"></div>
       <div class="addBillDet" id="addBillDet">
         <select name="" id="billDetAllGoods"></select>
@@ -194,8 +183,8 @@
         <input type="number" name="sumVat" placeholder="Sum with VAT" id="addBillDetSumWithVat">
         <select name="" id="billDetBillID"></select>
         <div class="inputButton">
-          <input type="button" value="add" id="btnAddBillDet">
-          <input type="reset" value="back" class="buttonBack">
+          <input type="button" class="btn" value="add" id="btnAddBillDet">
+          <input type="reset" class="btn" value="back" class="buttonBack">
         </div>
       </div>
   </section>
@@ -204,14 +193,14 @@
     <input type="number" name="id_of_storage" placeholder="ID of storage">
     <input type="text" name="responsible_person" placeholder="Responsible person">
     <input type="text" name="address" placeholder="Adress">
-    <input type="button" name="" value="Find information">
+    <input type="button" class="btn" value="Find information">
     <div id="regOfStorTable"></div>
     <div id="addRegOfStor" class="addRegOfStor">
       <input type="text" id="addRegOfStorResponsiblePerson" placeholder="Responsible person">
       <input type="text" id="addRegOfStorAddress" placeholder="Adress">
       <div class="inputButton">
-        <input type="button" value="add" id="btnAddRegOfStor">
-        <input type="reset" value="back" class="buttonBack">
+        <input type="button" class="btn" value="add" id="btnAddRegOfStor">
+        <input type="reset" class="btn" value="back" class="buttonBack">
       </div>
     </div>
 </section>

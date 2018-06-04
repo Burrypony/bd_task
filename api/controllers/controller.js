@@ -342,9 +342,9 @@ exports.addBillBank = function( req, res )
   console.log( req.body );
 }
 
-exports.addContract = function( req, res )
+exports.addContracts = function( req, res )
 {
-  const query = "INSERT INTO Contracts (provider_id, name_of_goods, form, to) VALUES ('" 
+  const query = "INSERT INTO Contracts (provider_id, name_of_goods, from, to) VALUES ('" 
   + req.body.contractProviderId + "','" + req.body.ContractNameOfGoods + "','" + req.body.contractFrom +"','" + req.body.contractTo + "')"; 
 
   db.all( query , [] , ( err, rows ) => {
@@ -413,7 +413,7 @@ exports.addGoodsOnStor = function( req, res )
   } )
 }  
 
-exports.filterProviders = function( req, res )
+exports.filterProvidersName = function( req, res )
 {
   const query = "SELECT * FROM Providers WHERE name_of_provider LIKE '%" + req.body.name + "%'";
   db.all( query , [] , ( err, rows ) => {
@@ -444,4 +444,19 @@ exports.addRegOfStor = function( req, res )
     }
   } )
   console.log( req.body );
+}
+
+exports.filterBillProviderId = function( req, res )
+{
+  const query = "SELECT * FROM Bill WHERE provider_id LIKE '%" + req.body.providerId + "%'";
+  db.all( query , [] , ( err, rows ) => {
+    if ( err )
+    {
+      res.send( err );
+    }
+    else
+    {
+      res.send( rows );
+    }
+  } );
 }

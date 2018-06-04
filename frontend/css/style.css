@@ -1,3 +1,36 @@
+@import url('https://fonts.googleapis.com/css?family=Chelsea+Market');
+@import url(https://fonts.googleapis.com/css?family=Bangers);
+
+body {
+  background: linear-gradient(45deg, transparent 49%, rgba(18, 193, 199, 0.5) 49%, rgba(18, 193, 199, 0.5) 51%, transparent 51%), linear-gradient(-45deg, transparent 49%, rgba(255, 192, 203, 0.5) 49%, rgba(255, 192, 203, 0.5) 51%, transparent 51%), linear-gradient(45deg, #12c1c7, pink);
+  background-size: 10px 10px, 10px 10px, auto auto;
+  background-color: #0e9498;
+  border-radius: 100%;
+  font-family: 'Chelsea Market',sans-serif;
+}
+
+h1 {
+  text-align: center;
+  font-weight: normal;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 0.9em;
+  white-space: nowrap;
+  font-size: 4.5vw;
+  z-index: 1000;
+  font-family: 'Bangers', cursive;
+  text-shadow: 5px 5px 0 rgba(0, 0, 0, 0.7);
+}
+ input {
+  font-family: 'Bangers', cursive;
+  font-size: 1.15em;
+ }
+
+select {
+  font-family: 'Bangers', cursive;
+  font-size: 1.15em;
+}
+
 .provider
 {
   display: none;
@@ -31,13 +64,22 @@ td{
   flex-direction: column;
   justify-content: center;
   width: 50%;
+  height: auto;
   margin: 0 auto;
   border: 1px solid black;
-  background: darkorange;
   position: absolute;
-  z-index: 3;
-  left: 0;
-  right: 0;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  margin: -95px 0 0 -95px;
+  border: 2px dotted red;
+  background: linear-gradient(45deg, transparent 48%, #0a6669 48%, #50eaef 50%, #0a6669 52%, transparent 52%), linear-gradient(to bottom, #11b8be, transparent);
+  background-size: 5px 15px, auto auto;
+  background-color: #12c1c7;
+  box-shadow: 0 0 0 5px #12c1c7, 0 0 0 6px #0a6669, 8px 0 0 0 rgba(0, 0, 0, 0.2), inset 1px 0 0 0 rgba(255, 255, 255, 0.8), 8px 0 10px 0 rgba(0, 0, 0, 0.5);
+  text-shadow: 0 1px 0 black;
+  font-family: 'Chelsea Market',sans-serif;
+  text-align: center;
 } 
 
 .addRegOfStor input {
@@ -96,4 +138,26 @@ td{
 .inputButton input{
   margin: 5px;
   width: auto;
+}
+
+.inputButton input:hover {
+  color: rgba(255, 255, 255, 0.85);
+  box-shadow: rgba(30, 22, 54, 0.7) 0 0px 0px 40px inset;
+}
+
+.btn
+{
+  margin: 5px;
+  width: auto;  
+  height: auto;
+  color: rgba(30, 22, 54, 0.6);
+  box-shadow: rgba(30, 22, 54, 0.4) 0 0px 0px 2px inset;
+  border-radius: 7px;
+  font-family: 'Bangers', cursive;
+  font-size: 1.35em;
+}
+
+.btn:hover{
+  color: rgba(255, 255, 255, 0.85);
+  box-shadow: rgba(30, 22, 54, 0.7) 0 0px 0px 40px inset;
 }

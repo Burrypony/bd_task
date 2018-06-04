@@ -87,8 +87,8 @@ module.exports = function( app )
     app.route( "/api/bank" )
     .post( controller.addBillBank );
 
-    app.route( "/api/contracts" )
-    .post( controller.addContract );
+    app.route( "/api/addContract" )
+    .post( controller.addContracts );
 
     app.route( "/api/nomenOfDels" )
     .post( controller.addNomenOfDels );
@@ -103,7 +103,10 @@ module.exports = function( app )
     .post( controller.addRegOfStor );
 
     app.route( "/api/filterProviders" )
-    .post( controller.filterProviders );    
+    .post( controller.filterProvidersName );    
+
+    app.route( "/api/filterBill" )
+    .post( controller.filterBillProviderId );  
 }
 
 
