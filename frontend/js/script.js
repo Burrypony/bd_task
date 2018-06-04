@@ -130,7 +130,9 @@ function validate() {
       $("#addBillDet").addClass("displayFlex");
     }else if(selectedValue == "goods_on_storage"){
       $("#addGoodsOnStor").addClass("displayFlex");
-    }
+    }else if(selectedValue == "storage"){
+      $("#addRegOfStor").addClass("displayFlex");
+    }  
   });
 
   $(".buttonBack").click(function(){
@@ -144,6 +146,8 @@ function validate() {
       $("#addContract").removeClass("displayFlex");
     }else if(selectedValue == "billDet"){
       $("#addBillDet").removeClass("displayFlex");
+    }else if(selectedValue == "storage"){
+      $("#addRegOfStor").removeClass("displayFlex");
     }
   });
 }
@@ -483,6 +487,10 @@ function nomenOfDelRemoveFlexClass (){
   $("#addNomenOfDel").removeClass("displayFlex");
 }
 
+function goodsOnStorRemoveFlexClass (){
+  $("#addGoodsOnStor").removeClass("displayFlex");
+}
+
 $( "#btnAddProvider" ).click( function() {
 
   var provider = {
@@ -745,6 +753,82 @@ $( "#btnAddBillDet" ).click( function() {
   nomenOfDelRemoveFlexClass();
 
 } );
+
+function validateGoodsOnStor( GoodsOnStor )
+{
+ //TODO: add billDet validation.
+
+  return true;
+}
+
+$( "#btnAddGoodsOnStor" ).click( function() {
+
+  var GoodsOnStor = {
+    goodsOnStorName : $( "#addGoodsOnStorNameOfGoods" ).val(),
+    goodsOnStorAmount : $( "#addGoodsOnStorAmount" ).val(),
+    goodsOnStorSum : $( "#addGoodsOnStorSum" ).val(),
+    goodsOnStorBillId : $( "#goodsOnStorBillID" ).val(),
+    goodsOnStorIdStorage : $( "#goodsOnStorIDOfStor" ).val()
+  }
+
+  if (  validateContract( GoodsOnStor ) )
+  {
+
+    $.ajax({
+      type: "POST",
+      url: "./api/goodsOnStor",
+      dataType: "json",
+      success: function (msg) {
+          validate();
+      },
+      data: GoodsOnStor
+    });
+  }
+  else
+  {
+    //TODO: add validation error message
+  }
+
+  goodsOnStorRemoveFlexClass();
+
+} );
+
+function validateRegOfStor( RegOfStor )
+{
+ //TODO: add RegOfStor validation.
+
+  return true;
+}
+
+$( "#btnAddRegOfStor" ).click( function() {
+
+  var RegOfStor = {
+    RegOfStorResposiblePer : $( "#addRegOfStorResponsiblePerson" ).val(),
+    RegOfStorAdress : $( "#addRegOfStorAddress" ).val()
+  }
+
+  if (  validateRegOfStor( RegOfStor ) )
+  {
+
+    $.ajax({
+      type: "POST",
+      url: "./api/addRegOfStor",
+      dataType: "json",
+      success: function (msg) {
+          validate();
+      },
+      data: RegOfStor
+    });
+  }
+  else
+  {
+    //TODO: add validation error message
+  }
+
+  goodsOnStorRemoveFlexClass();
+
+} );
+
 /*
 var app = function() {
 

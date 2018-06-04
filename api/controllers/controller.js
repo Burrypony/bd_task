@@ -395,3 +395,39 @@ exports.addBillDet = function( req, res )
   } )
   console.log( req.body );
 }
+
+exports.addGoodsOnStor = function( req, res )
+{
+  const query = "INSERT INTO GoodsOnStor (name_of_goods, amount, sum, bill_id, id_of_storage) VALUES ('" 
+  + req.body.goodsOnStorName + "','" + req.body.goodsOnStorAmount + "','" + req.body.goodsOnStorSum +"','" + req.body.goodsOnStorBillId +  "','" + req.body.goodsOnStorIdStorage +"')"; 
+
+  db.all( query , [] , ( err, rows ) => {
+    if ( err )
+    {
+      res.send( err );
+    }
+    else
+    {
+      res.send( "OK" );
+    }
+  } )
+  console.log( req.body );
+}
+
+exports.addRegOfStor = function( req, res )
+{
+  const query = "INSERT INTO RegOfStor (responsible_person, address) VALUES ('" 
+  + req.body.RegOfStorResposiblePer + "','" + req.body.RegOfStorAdress + "')"; 
+
+  db.all( query , [] , ( err, rows ) => {
+    if ( err )
+    {
+      res.send( err );
+    }
+    else
+    {
+      res.send( "OK" );
+    }
+  } )
+  console.log( req.body );
+}

@@ -95,6 +95,12 @@ module.exports = function( app )
 
     app.route( "/api/billDets" )
     .post( controller.addBillDet );
+
+    app.route( "/api/goodsOnStor" )
+    .post( controller.addGoodsOnStor );
+
+    app.route( "/api/addregOfStor" )
+    .post( controller.addRegOfStor );
 }
 
 
