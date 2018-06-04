@@ -25,7 +25,7 @@ table, td {
 td{
   width: 200px;
 }
-.addProvider, .addBill
+.addProvider, .addBill , .addAccount, .addBank, .addContract, .addNomenOfDel, .addBillDet
 {
   display: none;
   flex-direction: column;
@@ -38,14 +38,38 @@ td{
   z-index: 3;
   left: 0;
   right: 0;
-}
-
-.addProvider input {
+} 
+.addBillDet input ,select{
   width: 50%;
   margin: 10px auto;
 }
 
-.addBill input {
+.addProvider input ,select{
+  width: 50%;
+  margin: 10px auto;
+}
+
+.addBill input, select{
+  width: 50%;
+  margin: 10px auto;
+}
+
+.addAccount input, select {
+  width: 50%;
+  margin: 10px auto;
+}
+
+.addBank input, select {
+  width: 50%;
+  margin: 10px auto;
+}
+
+.addContract input, select {
+  width: 50%;
+  margin: 10px auto;
+}
+
+.addNomenOfDel input{
   width: 50%;
   margin: 10px auto;
 }
@@ -58,7 +82,7 @@ td{
   margin: 0 auto;
   display: flex;
 }
-.inputButton input,select{
+.inputButton input{
   margin: 5px;
   width: auto;
 }

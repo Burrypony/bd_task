@@ -11,7 +11,7 @@ const db = new sqlite3.Database('data.sqlite', (err) => {
 
 exports.listAllProviders = function( req, res )
 {
-  db.all( "SELECT * FROM Providers JOIN PhoneNum ON Providers.provider_id = PhoneNum.provider_id", [], (err, rows) => {
+  db.all( "SELECT * FROM Providers", [], (err, rows) => {
     if ( err )
     {
       res.send( err );
@@ -97,7 +97,7 @@ exports.listAllRegOfStor = function( req, res )
 
 exports.listAllBanks = function( req, res )
 {
-  db.all( "SELECT * FROM Bank JOIN Accounts ON Bank.MFI_bank = Accounts.MFI_bank", [], (err, rows) => {
+  db.all( "SELECT * FROM Bank", [], (err, rows) => {
     if ( err )
     {
       res.send( err );
@@ -137,9 +137,9 @@ exports.listAllProviderID = function( req, res )
   } )  
 }
 
-exports.listAllAccountID = function( req, res )
+exports.listAllAccount = function( req, res )
 {
-  db.all( "SELECT account_id FROM Accounts", [], (err, rows) => {
+  db.all( "SELECT * FROM Accounts", [], (err, rows) => {
     if ( err )
     {
       res.send( err );
@@ -224,6 +224,20 @@ exports.listAllContractsID = function( req, res )
   } )  
 }
 
+exports.listAllAccountID = function( req, res )
+{
+  db.all( "SELECT account_id FROM Accounts", [], (err, rows) => {
+    if ( err )
+    {
+      res.send( err );
+    }
+    else
+    {
+      res.json( rows );
+    }
+  } )  
+}
+
 exports.listAllGoodsOnStorID = function( req, res )
 {
   db.all( "SELECT goods_on_storages_id FROM GoodsOnStor", [], (err, rows) => {
@@ -238,13 +252,136 @@ exports.listAllGoodsOnStorID = function( req, res )
   } )  
 }
 
-// Nastia END
+// Nastia ENDэ
+
+exports.listAllNameOfGoods = function( req, res )
+{
+  db.all( "SELECT name_of_goods FROM NomenOfDel", [], (err, rows) => {
+    if ( err )
+    {
+      res.send( err );
+    }
+    else
+    {
+      res.json( rows );
+    }
+  } )  
+}
 
 exports.addProvider = function( req, res )
 {
   const query = "INSERT INTO Providers (provider_id, name_of_provider, city, street, built, flat) VALUES ('" 
   + req.body.id + "','" + req.body.name + "','" + req.body.city + "','"
   + req.body.street + "','" + req.body.building + "','" + req.body.flat + "')"; 
+
+  db.all( query , [] , ( err, rows ) => {
+    if ( err )
+    {
+      res.send( err );
+    }
+    else
+    {
+      res.send( "OK" );
+    }
+  } )
+  console.log( req.body );
+}
+
+exports.addBill = function( req, res )
+{
+  const query = "INSERT INTO Bill (date_of_bill, number_from_provider, sum_of_bill, provider_id, account_id) VALUES ('" 
+  + req.body.billDate + "','" + req.body.billNumber + "','" + req.body.billSum + "','"
+  + req.body.billProviderId + "','" + req.body.billAccountId + "')"; 
+
+  db.all( query , [] , ( err, rows ) => {
+    if ( err )
+    {
+      res.send( err );
+    }
+    else
+    {
+      res.send( "OK" );
+    }
+  } )
+  console.log( req.body );
+}
+
+exports.addBillAccount = function( req, res )
+{
+  const query = "INSERT INTO Accounts (account_id, MFI_bank) VALUES ('" 
+  + req.body.billAccountID + "','" + req.body.billMFIAccount +  "')"; 
+
+  db.all( query , [] , ( err, rows ) => {
+    if ( err )
+    {
+      res.send( err );
+    }
+    else
+    {
+      res.send( "OK" );
+    }
+  } )
+  console.log( req.body );
+}
+
+exports.addBillBank = function( req, res )
+{
+  const query = "INSERT INTO Bank (MFI_bank, name_of_bank) VALUES ('" 
+  + req.body.billMFIBank + "','" + req.body.billNameOfBank +  "')"; 
+
+  db.all( query , [] , ( err, rows ) => {
+    if ( err )
+    {
+      res.send( err );
+    }
+    else
+    {
+      res.send( "OK" );
+    }
+  } )
+  console.log( req.body );
+}
+
+exports.addContract = function( req, res )
+{
+  const query = "INSERT INTO Contracts (provider_id, name_of_goods, form, to) VALUES ('" 
+  + req.body.contractProviderId + "','" + req.body.ContractNameOfGoods + "','" + req.body.contractFrom +"','" + req.body.contractTo + "')"; 
+
+  db.all( query , [] , ( err, rows ) => {
+    if ( err )
+    {
+      res.send( err );
+    }
+    else
+    {
+      res.send( "OK" );
+    }
+  } )
+  console.log( req.body );
+}
+
+exports.addNomenOfDels = function( req, res )
+{
+  const query = "INSERT INTO NomenOfDel (name_of_goods, accountancy_account, order_number, Unit) VALUES ('" 
+  + req.body.nomenOfDelNameOfGoods + "','" + req.body.nomenOfDelAcc + "','" + req.body.nomenOfDelOrderNumber +"','" + req.body.nomenOfDelUnit + "')"; 
+
+  db.all( query , [] , ( err, rows ) => {
+    if ( err )
+    {
+      res.send( err );
+    }
+    else
+    {
+      res.send( "OK" );
+    }
+  } )
+  console.log( req.body );
+}
+
+exports.addBillDet = function( req, res )
+{
+  const query = "INSERT INTO BillDet (name_of_goods, price_per_unit, amount, sum, VAT, sum_VAT, bill_id) VALUES ('" 
+  + req.body.billDetNameOfGoods + "','" + req.body.billDetPricePerUnit + "','" + req.body.billDetAmount +"','" + req.body.billDetSum +  "','" + req.body.billDetVAT + "','" + req.body.billDetSumVAT + "','" + req.body.billDetBillId +"')"; 
 
   db.all( query , [] , ( err, rows ) => {
     if ( err )

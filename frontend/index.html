@@ -15,6 +15,7 @@
       <option value="providers" >providers</option>
       <option value="bill" >bill</option>
       <option value="bank" >bank</option>
+      <option value="account" >account</option>
       <option value="goods_on_storage" >goods on storage</option>
       <option value="contract" >contract</option>
       <option value="goods" >goods</option>
@@ -39,7 +40,7 @@
             <input type="text" placeholder="Street" id="addStreet">
             <input type="text" placeholder="Built" id="addBuilt">
             <input type="number" placeholder="Flat" id="addFlat">
-            <input type="number" placeholder="Phone number" id="addProviderPhoneNumber">
+            <!--  <input type="number" placeholder="Phone number" id="addProviderPhoneNumber">-->
             <div class="inputButton">
               <input type="button" value="add" id="btnAddProvider">
               <input type="reset" value="back" class="buttonBack">
@@ -49,17 +50,17 @@
   <!-- SECTION FOR BILL -->
   <section class="bill" id="op2">
       <input type="number" name="bill_id" placeholder="Bill ID">
-      <input type="date" name="date_of_bill" placeholder="Date of bill">
-      <input type="number" name="number_from_prov" placeholder="Number from provider">
+      <input type="date" name="date_of_bill" placeholder="Date of bill" >
+      <input type="number" name="number_from_prov" placeholder="Number from provider" >
       <input type="number" name="sum_of_bill" placeholder="Sum of bill">
       <input type="number" name="provider_id" placeholder="Provider ID">
       <input type="number" name="account_id" placeholder="Account ID">
       <input type="button" name="" value="Find information">
       <div id="billTable"></div>
       <div class="addBill" id="addBill">
-        <input type="date" placeholder="Date of bill">
-        <input type="number" placeholder="Number from provider">
-        <input type="number" placeholder="Sum of bill">
+        <input type="date" placeholder="Date of bill" id="billAddDateOfBill">
+        <input type="number" placeholder="Number from provider" id="billAddNumberFromProvider">
+        <input type="number" placeholder="Sum of bill" id="billAddSumOfBill">
         <select name="" id="billProviderId">]
 
         </select>
@@ -67,10 +68,27 @@
             <option value="another">Another</option>
         </select>
         <div class="inputButton">
-            <input type="button" value="add">
+            <input type="button" value="add" id="btnAddBill">
             <input type="reset" value="back" class="buttonBack">
-          </div>
-        </div> 
+            <input type="button" value="add account" id="btnOpenRegAccount">
+        </div>
+      </div> 
+      <div class="addAccount" id="addAccount"> 
+        <input type="number" placeholder="account ID " id="addBillAccountId">
+        <select name="" id="accountMFIBank"></select>
+        <div class="inputButton">
+          <input type="button" value="add" id="btnAddAccount">
+          <input type="reset" value="back" class="buttonBack">
+          <input type="button" value="add bank" id="btnOpenRegBank">
+        </div>
+        </div>
+      <div class="addBank" id="addBank">
+        <input type="number" placeholder="MFI bank" id="addBillMFIbank">
+        <input type="text" placeholder="Name of bank" id="addBillNameOfBank">
+        <div class="inputButton">
+          <input type="button" value="add" id="btnAddBank">
+          <input type="reset" value="back" class="buttonBack">
+        </div>
       </div>
   </section>
 
@@ -78,10 +96,18 @@
   <section class="bank" id="op3">
       <input type="number" name="MFI_nank" placeholder="MFI bank">
       <input type="text" name="name_of_bank" placeholder="Name of bank">
-      <input type="number" name="account_id" placeholder="Account ID">
       <input type="button" name="" value="Find information">
       <div id="bankTable"></div>
   </section>
+
+ <!-- SECTION FOR ACCOUNT -->
+ <section class="account" id="op9">
+  <input type="number" name="MFI_nank" placeholder="MFI bank">
+  <input type="number" placeholder="Account ID">
+  <input type="button" name="" value="Find information">
+  <div id="accountTable"></div>
+</section>
+
   <!-- SECTION FOR STORAGE -->
   <section class="storage" id="op4">
       <input type="number" name="goods_on_storages_id" placeholder="Goods on storages ID">
@@ -105,6 +131,27 @@
         <input type="date" name="to" placeholder="To">
         <input type="button" name="" value="Find information">
         <div id="contractsTable"></div>
+        <div class="addContract" id="addContract">
+            <select name="" id="contractProviderId"></select>
+            <select name="" id="ContractsNameOfGoods"></select>
+            <input type="date" placeholder="From" id="addContractFrom">
+            <input type="date" placeholder="To" id="addContractTo">
+            <div class="inputButton">
+              <input type="button" value="add" id="btnAddContract">
+              <input type="reset" value="back" class="buttonBack">
+              <input type="button" value="add goods" id="btnAddGoods">
+            </div>
+        </div>
+        <div class="addNomenOfDel" id="addNomenOfDel">
+          <input type="text" placeholder="Name of goods" id="addNomenOfDelNameOfGoods">
+          <input type="number" placeholder="Accountancy account" id="addNomenOfDelAccountancyAccount">
+          <input type="number" placeholder="Order number" id="addNomenOfDelOrderNumber">
+          <input type="text" placeholder="Unit" id="addNomenOfDelUnit">
+          <div class="inputButton">
+            <input type="button" value="add" id="btnAddNomenOfDel">
+            <input type="reset" value="back" class="buttonBack">
+          </div>
+        </div>
     </section>
     <!-- SECTION FOR GOODS -->
     <section class="goods" id="op6">
@@ -127,6 +174,19 @@
       <input type="number" name="bill_id" placeholder="Bill ID">
       <input type="button" name="" value="Find information">
       <div id="billDetTable"></div>
+      <div class="addBillDet" id="addBillDet">
+        <select name="" id="billDetAllGoods"></select>
+        <input type="number" name="price_per_unit" placeholder="Price per unit" id="addBillDetProcePerUnit">
+        <input type="number" name="amount" placeholder="Amount" id="addBillDetAmount">
+        <input type="number" name="sum" placeholder="Sum" id="addBillDetSum">
+        <input type="number" name="vat" placeholder="VAT" id="addBillDetVat">
+        <input type="number" name="sumVat" placeholder="Sum with VAT" id="addBillDetSumWithVat">
+        <select name="" id="billDetBillID"></select>
+        <div class="inputButton">
+          <input type="button" value="add" id="btnAddBillDet">
+          <input type="reset" value="back" class="buttonBack">
+        </div>
+      </div>
   </section>
 <!-- SECTION FOR REG_OF_STOR-->
   <section class="reg_of_stor" id="op8">
@@ -143,5 +203,8 @@
 </body>
 <script type="text/javascript" src="js/JQuery.js"></script>
 <script type="text/javascript" src="js/script.js"></script>
+<script>
+
+</script>
 
 </html>

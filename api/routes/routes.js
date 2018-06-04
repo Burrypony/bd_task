@@ -34,11 +34,20 @@ module.exports = function( app )
     app.route( "/api/providers" )
     .get( controller.listAllProviderID );  
 
+    app.route( "/api/provider" )
+    .get( controller.listAllProviderID );  
+
     app.route( "/api/accounts" )
     .get( controller.listAllAccountID );  
 
+    app.route( "/api/account" )
+    .get( controller.listAllAccount ); 
+
     // Nastia BEGIN
     app.route( "/api/bills" )
+    .get( controller.listAllBillID );  
+
+    app.route( "/api/bill" )
     .get( controller.listAllBillID );  
 
     app.route( "/api/billdet" )
@@ -56,9 +65,33 @@ module.exports = function( app )
     app.route( "/api/storages" )
     .get( controller.listAllGoodsOnStorID );  
 
+    app.route( "/api/nomenOfDel" )
+    .get( controller.listAllNameOfGoods );  
+
+    app.route( "/api/nomenOfDel2" )
+    .get( controller.listAllNameOfGoods );  
     // Nastia END
 
     app.route( "/api/provider" )
     .post( controller.addProvider );
+
+    app.route( "/api/bill" )
+    .post( controller.addBill );
+
+    app.route( "/api/account" )
+    .post( controller.addBillAccount );
+
+    app.route( "/api/bank" )
+    .post( controller.addBillBank );
+
+    app.route( "/api/contracts" )
+    .post( controller.addContract );
+
+    app.route( "/api/nomenOfDels" )
+    .post( controller.addNomenOfDels );
+
+    app.route( "/api/billDets" )
+    .post( controller.addBillDet );
 }
+
 

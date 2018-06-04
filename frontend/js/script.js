@@ -10,6 +10,7 @@ function validate() {
       $("#op6").css( "display", "none" );
       $("#op7").css( "display", "none" );
       $("#op8").css( "display", "none" );
+      $("#op9").css( "display", "none" );
       showAllProviders();
   } else if (selectedValue == "bill") {
     $("#op1").css( "display", "none" );
@@ -20,9 +21,11 @@ function validate() {
     $("#op6").css( "display", "none" );
     $("#op7").css( "display", "none" );
     $("#op8").css( "display", "none" );
+    $("#op9").css( "display", "none" );
     showAllBills();
     showAllProvidersID();
     showAllAccountID();
+    showAllBankInAccount();
   }else if (selectedValue == "bank") {
     $("#op1").css( "display", "none" );
     $("#op2").css( "display", "none" );
@@ -32,6 +35,7 @@ function validate() {
     $("#op6").css( "display", "none" );
     $("#op7").css( "display", "none" );
     $("#op8").css( "display", "none" );
+    $("#op9").css( "display", "none" );
     showAllBanks();
   }else if (selectedValue == "goods_on_storage") {
     $("#op1").css( "display", "none" );
@@ -42,6 +46,7 @@ function validate() {
     $("#op6").css( "display", "none" );
     $("#op7").css( "display", "none" );
     $("#op8").css( "display", "none" );
+    $("#op9").css( "display", "none" );
     showAllGoodsONStorages();
 // Nastia BEGIN
   }else if (selectedValue == "contract") {
@@ -53,7 +58,10 @@ function validate() {
     $("#op6").css( "display", "none" );
     $("#op7").css( "display", "none" );
     $("#op8").css( "display", "none" );
+    $("#op9").css( "display", "none" );
     showAllContracts();
+    showAllProvidersIDToContracts();
+    showAllNameOfGood()
   }else if (selectedValue == "goods") {
     $("#op1").css( "display", "none" );
     $("#op2").css( "display", "none" );
@@ -63,6 +71,7 @@ function validate() {
     $("#op6").css( "display", "block" );
     $("#op7").css( "display", "none" );
     $("#op8").css( "display", "none" );
+    $("#op9").css( "display", "none" );
     showAllGoods();
   }else if (selectedValue == "billDet") {
   $("#op1").css( "display", "none" );
@@ -73,7 +82,10 @@ function validate() {
   $("#op6").css( "display", "none" );
   $("#op7").css( "display", "block" );
   $("#op8").css( "display", "none" );
+  $("#op9").css( "display", "none" );
   showAllBillDet();
+  showAllNameOfGoodBillDet();
+  showAllBillsBillDet();
 }else if (selectedValue == "storage") {
   $("#op1").css( "display", "none" );
   $("#op2").css( "display", "none" );
@@ -83,27 +95,69 @@ function validate() {
   $("#op6").css( "display", "none" );
   $("#op7").css( "display", "none" );
   $("#op8").css( "display", "block" );
+  $("#op9").css( "display", "none" );
   showAllStorage();
+}else if (selectedValue == "account") {
+  $("#op1").css( "display", "none" );
+  $("#op2").css( "display", "none" );
+  $("#op3").css( "display", "none" );
+  $("#op4").css( "display", "none" );
+  $("#op5").css( "display", "none" );
+  $("#op6").css( "display", "none" );
+  $("#op7").css( "display", "none" );
+  $("#op8").css( "display", "none" );
+  $("#op9").css( "display", "block" );
+  showAllAccount();
+  showAllProvidersID();
 }
+
+
   else {
     alert("You cant check this info please make your choise one more time")
   }
+
+
   $("#addButton").click(function(){
     if (selectedValue == "providers"){
       $("#addProvider").addClass("displayFlex");
     }else if(selectedValue == "bill"){
       $("#addBill").addClass("displayFlex");
+    }else if(selectedValue == "contract"){
+      $("#addContract").addClass("displayFlex");
+    }else if(selectedValue == "billDet"){
+      $("#addBillDet").addClass("displayFlex");
     }
   });
+
   $(".buttonBack").click(function(){
     if (selectedValue == "providers"){
       $("#addProvider").removeClass("displayFlex");
     }else if(selectedValue == "bill"){
       $("#addBill").removeClass("displayFlex");
+      $("#addAccount").removeClass("displayFlex");
+      $("#addBank").removeClass("displayFlex");
+    }else if(selectedValue == "contract"){
+      $("#addContract").removeClass("displayFlex");
+    }else if(selectedValue == "billDet"){
+      $("#addBillDet").removeClass("displayFlex");
     }
   });
 }
 
+$("#btnOpenRegAccount").click(function(){
+  $("#addAccount").addClass("displayFlex");
+  $("#addBill").removeClass("displayFlex");
+});
+
+$("#btnOpenRegBank").click(function(){
+  $("#addBank").addClass("displayFlex");
+  $("#addAccount").removeClass("displayFlex");
+});
+
+$("#btnAddGoods").click(function(){
+  $("#addNomenOfDel").addClass("displayFlex");
+  $("#addContract").removeClass("displayFlex");
+});
 
 function showAllProviders()
 {
@@ -113,7 +167,7 @@ function showAllProviders()
       response.json().then( (data) => {
           let htmlResult = "";
           data.forEach( element => {
-            htmlResult +="<table>" + "<td>"  + element.provider_id +"</td>"  +  "<td>" + element.name_of_provider + "</td>" + "<td>" + element.city + "</td>" + "<td>" + element.street + "</td>" + "<td>" + element.built + "</td>" + "<td>" + element.flat + "</td>" + "<td>" + element.phone_number + "</td>" +"</table>";
+            htmlResult +="<table>" + "<td>"  + element.provider_id +"</td>"  +  "<td>" + element.name_of_provider + "</td>" + "<td>" + element.city + "</td>" + "<td>" + element.street + "</td>" + "<td>" + element.built + "</td>" + "<td>" + element.flat + "</td>" +"</table>";
           });
           $( "#providersTable" ).html( htmlResult );
       } )
@@ -137,6 +191,22 @@ function showAllProvidersID()
   } )
 }
 
+function showAllProvidersIDToContracts()
+{
+  fetch( "./api/provider" ).then( (response) => {
+    if ( response.status == 200 )
+    {
+      response.json().then( (data) => {
+          let htmlResult2 = "";
+          data.forEach( element => {
+            htmlResult2 += "<option>" + element.provider_id + "</option>" ;
+          });
+          $( "#contractProviderId" ).html( htmlResult2 );
+      } )
+    }
+  } )
+}
+
 function showAllAccountID()
 {
   fetch( "./api/accounts" ).then( (response) => {
@@ -145,7 +215,7 @@ function showAllAccountID()
       response.json().then( (data) => {
           let htmlResult3 = "";
           data.forEach( element => {
-            htmlResult3 += "<option>" + element.account_id + "</option>" ;
+            htmlResult3 += "<option>" + element.account_id + "</option>"  ;
           });
           $( "#billAccountId" ).html( htmlResult3 );
       } )
@@ -169,6 +239,22 @@ function showAllBills()
   } )
 }
 
+function showAllBillsBillDet()
+{
+  fetch( "./api/bill" ).then( (response) => {
+    if ( response.status == 200 )
+    {
+      response.json().then( (data) => {
+          let htmlResult4 = "";
+          data.forEach( element => {
+            htmlResult4 +="<option>" + element.bill_id + "</option>" ;
+          });
+          $( "#billDetBillID" ).html( htmlResult4 );
+      } )
+    }
+  } )
+}
+
 function showAllBanks()
 {
   fetch( "./api/banks" ).then( (response) => {
@@ -177,7 +263,7 @@ function showAllBanks()
       response.json().then( (data) => {
           let htmlResult5 = "";
           data.forEach( element => {
-            htmlResult5 +="<table>" + "<td>" + element.MFI_bank + "</td>"  +  "<td>" + element.name_of_bank + "</td>" + "<td>" + element.account_id + "</td>" + "</table>";
+            htmlResult5 +="<table>" + "<td>" + element.MFI_bank + "</td>"  +  "<td>" + element.name_of_bank + "</td>" + "</table>";
           });
           $( "#bankTable" ).html( htmlResult5 );
       } )
@@ -266,13 +352,99 @@ function showAllStorage()
   } )
 }
 
-validate();
+function showAllAccount()
+{
+  fetch( "./api/account" ).then( (response) => {
+    if ( response.status == 200 )
+    {
+      response.json().then( (data) => {
+          let htmlResult9 = "";
+          data.forEach( element => {
+            htmlResult9 +="<table>" + "<td>" + element.account_id + "</td>"  +  "<td>" + element.MFI_bank + "</td>" + "</table>";
+          });
+          $( "#accountTable" ).html( htmlResult9 );
+      } )
+    }
+  } )
+}
+
+function showAllBankInAccount()
+{
+  fetch( "./api/banks" ).then( (response) => {
+    if ( response.status == 200 )
+    {
+      response.json().then( (data) => {
+          let htmlResult9 = "";
+          data.forEach( element => {
+            htmlResult9 +="<option>" + element.MFI_bank +  "(" + element.name_of_bank + ")" +"</option>";
+          });
+          $( "#accountMFIBank" ).html( htmlResult9 );
+      } )
+    }
+  } )
+}
+
+function showAllNameOfGood()
+{
+  fetch( "./api/nomenOfDel" ).then( (response) => {
+    if ( response.status == 200 )
+    {
+      response.json().then( (data) => {
+          let htmlResult9 = "";
+          data.forEach( element => {
+            htmlResult9 +="<option>" + element.name_of_goods +"</option>";
+          });
+          $( "#ContractsNameOfGoods" ).html( htmlResult9 );
+      } )
+    }
+  } )
+}
+
+function showAllNameOfGoodBillDet()
+{
+  fetch( "./api/nomenOfDel2" ).then( (response) => {
+    if ( response.status == 200 )
+    {
+      response.json().then( (data) => {
+          let htmlResult9 = "";
+          data.forEach( element => {
+            htmlResult9 +="<option>" + element.name_of_goods +"</option>";
+          });
+          $( "#billDetAllGoods" ).html( htmlResult9 );
+      } )
+    }
+  } )
+}
 
 function validateProvider( provider )
 {
  //TODO: add provider validation.
 
   return true;
+}
+
+function providerRemoveFlexClass (){
+  $("#addProvider").removeClass("displayFlex");
+}
+
+function billRemoveFlexClass (){
+  $("#addBill").removeClass("displayFlex");
+}
+
+function billAccountRemoveFlexClass (){
+  $("#addAccount").removeClass("displayFlex");
+}
+
+function billBankRemoveFlexClass (){
+  $("#addBank").removeClass("displayFlex");
+}
+
+function contractRemoveFlexClass (){
+  $("#addContract").removeClass("displayFlex");
+}
+
+function nomenOfDelRemoveFlexClass (){
+  $("#addNomenOfDel").removeClass("displayFlex");
 }
 
 $( "#btnAddProvider" ).click( function() {
@@ -294,9 +466,8 @@ $( "#btnAddProvider" ).click( function() {
       url: "./api/provider",
       dataType: "json",
       success: function (msg) {
-          validate()
+          validate();
       },
-
       data: provider
     });
   }
@@ -304,10 +475,240 @@ $( "#btnAddProvider" ).click( function() {
   {
     //TODO: add validation error message
   }
-
+  providerRemoveFlexClass();
 
 } );
 
+function validateBill( bill )
+{
+ //TODO: add bill validation.
+
+  return true;
+}
+
+
+
+$( "#btnAddBill" ).click( function() {
+
+  var bill = {
+    billDate : $( "#billAddDateOfBill" ).val(),
+    billNumber: $( "#billAddNumberFromProvider" ).val(),
+    billSum: $( "#billAddSumOfBill" ).val(),
+    billProviderId: $( "#billProviderId" ).val(),
+    billAccountId : $( "#billAccountId" ).val()
+  }
+
+  if ( validateBill( bill ) )
+  {
+
+    $.ajax({
+      type: "POST",
+      url: "./api/bill",
+      dataType: "json",
+      success: function (msg) {
+          validate();
+      },
+      data: bill
+    });
+  }
+  else
+  {
+    //TODO: add validation error message
+  }
+
+  billRemoveFlexClass();
+
+} );
+
+
+function validateBillAccount( account )
+{
+ //TODO: add account validation.
+
+  return true;
+}
+
+$( "#btnAddAccount" ).click( function() {
+
+  var account = {
+    billAccountID : $( "#addBillAccountId" ).val(),
+    billMFIAccount : $( "#accountMFIBank" ).val()   
+  }
+
+  if ( validateBillAccount( account ) )
+  {
+
+    $.ajax({
+      type: "POST",
+      url: "./api/account",
+      dataType: "json",
+      success: function (msg) {
+          validate();
+      },
+      data: account
+    });
+  }
+  else
+  {
+    //TODO: add validation error message
+  }
+
+  billAccountRemoveFlexClass();
+
+} );
+
+function validateBillBank( account )
+{
+ //TODO: add bank validation.
+
+  return true;
+}
+
+$( "#btnAddBank" ).click( function() {
+
+  var bank = {
+    billMFIBank : $( "#addBillMFIbank" ).val(),
+    billNameOfBank : $( "#addBillNameOfBank" ).val()   
+  }
+
+  if ( validateBillBank( bank ) )
+  {
+
+    $.ajax({
+      type: "POST",
+      url: "./api/bank",
+      dataType: "json",
+      success: function (msg) {
+          validate();
+      },
+      data: bank
+    });
+  }
+  else
+  {
+    //TODO: add validation error message
+  }
+
+  billBankRemoveFlexClass();
+
+} );
+
+function validateContract( contract )
+{
+ //TODO: add contract validation.
+
+  return true;
+}
+
+$( "#btnAddContract" ).click( function() {
+
+  var contract = {
+    contractProviderId : $( "#contractProviderId" ).val(),
+    ContractNameOfGoods : $( "#ContractsNameOfGoods" ).val(),
+    contractFrom : $( "#addContractFrom" ).val(),
+    contractTo : $( "#addContractTo" ).val()    
+  }
+
+  if (  validateContract( contract ) )
+  {
+
+    $.ajax({
+      type: "POST",
+      url: "./api/contracts",
+      dataType: "json",
+      success: function (msg) {
+          validate();
+      },
+      data: contract
+    });
+  }
+  else
+  {
+    //TODO: add validation error message
+  }
+
+  contractRemoveFlexClass();
+
+} );
+
+function validateNomenOfDel( nomenOfDel )
+{
+ //TODO: add NomenOfDel validation.
+
+  return true;
+}
+
+$( "#btnAddNomenOfDel" ).click( function() {
+
+  var nomenOfDel = {
+    nomenOfDelNameOfGoods : $( "#addNomenOfDelNameOfGoods" ).val(),
+    nomenOfDelAcc : $( "#addNomenOfDelAccountancyAccount" ).val(),
+    nomenOfDelOrderNumber : $( "#addNomenOfDelOrderNumber" ).val(),
+    nomenOfDelUnit : $( "#addNomenOfDelUnit" ).val()    
+  }
+
+  if (  validateContract( nomenOfDel ) )
+  {
+
+    $.ajax({
+      type: "POST",
+      url: "./api/nomenOfDels",
+      dataType: "json",
+      success: function (msg) {
+          validate();
+      },
+      data: nomenOfDel
+    });
+  }
+  else
+  {
+    //TODO: add validation error message
+  }
+
+  nomenOfDelRemoveFlexClass();
+
+} );
+
+function validateBillDel( billDet )
+{
+ //TODO: add billDet validation.
+
+  return true;
+}
+
+$( "#btnAddBillDet" ).click( function() {
+
+  var billDet = {
+    billDetNameOfGoods : $( "#billDetAllGoods" ).val(),
+    billDetPricePerUnit : $( "#addBillDetProcePerUnit" ).val(),
+    billDetAmount : $( "#addBillDetAmount" ).val(),
+    billDetSum : $( "#addBillDetSum" ).val(),
+    billDetVAT : $( "#addBillDetVat" ).val(),
+    billDetSumVAT : $( "#addBillDetSumWithVat" ).val(),
+    billDetBillId : $( "#billDetBillID" ).val()       
+  }
+
+  if (  validateContract( billDet ) )
+  {
+
+    $.ajax({
+      type: "POST",
+      url: "./api/billDets",
+      dataType: "json",
+      success: function (msg) {
+          validate();
+      },
+      data: billDet
+    });
+  }
+  else
+  {
+    //TODO: add validation error message
+  }
+
+  nomenOfDelRemoveFlexClass();
+
+} );
 /*
 var app = function() {
 
@@ -319,3 +720,7 @@ var app = function() {
   }
 }();
 */
+
+
+
+validate();
