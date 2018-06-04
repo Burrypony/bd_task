@@ -408,10 +408,24 @@ exports.addGoodsOnStor = function( req, res )
     }
     else
     {
-      res.send( "OK" );
+      res.send( rows );
     }
   } )
-  console.log( req.body );
+}  
+
+exports.filterProviders = function( req, res )
+{
+  const query = "SELECT * FROM Providers WHERE name_of_provider LIKE '%" + req.body.name + "%'";
+  db.all( query , [] , ( err, rows ) => {
+    if ( err )
+    {
+      res.send( err );
+    }
+    else
+    {
+      res.send( rows );
+    }
+  } );
 }
 
 exports.addRegOfStor = function( req, res )

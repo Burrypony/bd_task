@@ -101,6 +101,9 @@ module.exports = function( app )
 
     app.route( "/api/addregOfStor" )
     .post( controller.addRegOfStor );
+
+    app.route( "/api/filterProviders" )
+    .post( controller.filterProviders );    
 }
 
 

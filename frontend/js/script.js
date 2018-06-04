@@ -167,17 +167,22 @@ $("#btnAddGoods").click(function(){
   $("#addContract").removeClass("displayFlex");
 });
 
+function renderProviders( rows )
+{
+  let htmlResult = "";
+  rows.forEach( element => {
+    htmlResult +="<table>" + "<td>"  + element.provider_id +"</td>"  +  "<td>" + element.name_of_provider + "</td>" + "<td>" + element.city + "</td>" + "<td>" + element.street + "</td>" + "<td>" + element.built + "</td>" + "<td>" + element.flat + "</td>" +"</table>";
+  });
+  $( "#providersTable" ).html( htmlResult );
+}
+
 function showAllProviders()
 {
   fetch( "./api/providers" ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
-          let htmlResult = "";
-          data.forEach( element => {
-            htmlResult +="<table>" + "<td>"  + element.provider_id +"</td>"  +  "<td>" + element.name_of_provider + "</td>" + "<td>" + element.city + "</td>" + "<td>" + element.street + "</td>" + "<td>" + element.built + "</td>" + "<td>" + element.flat + "</td>" +"</table>";
-          });
-          $( "#providersTable" ).html( htmlResult );
+        renderProviders( data )
       } )
     }
   } )
@@ -844,3 +849,46 @@ var app = function() {
 
 
 validate();
+
+
+function filterProviders()
+{
+  var filterData = {
+      id : $("input[name=provider_id]").val(),
+      name: $( "input[name=name_of_prov]" ).val(),
+      city: $( "input[name=city]" ).val(),
+      street: $( "input[name=street]" ).val(),
+      building : $( "input[name=built]" ).val(),
+      flat: $( "input[name=flat]" ).val()
+  }
+
+  $.ajax({
+    type: "POST",
+    url: "./api/filterProviders",
+    dataType: "json",
+    success: function ( data ) {
+      renderProviders( data );
+    },
+    data: filterData
+  });
+}
+
+var providersFilterOnChange = function() {
+
+  var tOut;
+
+  function runFilter()
+  {
+    filterProviders();
+  }
+
+  return function()
+  {
+    if ( tOut )
+    {
+      window.clearTimeout( tOut );
+    }
+    tOut = window.setTimeout( runFilter, 500 );
+  }
+}();
+
