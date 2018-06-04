@@ -28,7 +28,7 @@ module.exports = function( app )
     app.route( "/api/banks" )
     .get( controller.listAllBanks );  
 
-    app.route( "/api/storages" )
+    app.route( "/api/storage" )
     .get( controller.listAllStorages );  
 
     app.route( "/api/providers" )
@@ -107,6 +107,12 @@ module.exports = function( app )
 
     app.route( "/api/filterBill" )
     .post( controller.filterBillProviderId );  
+
+    app.route( "/api/filterBillDet" )
+    .post( controller.filterBillDetBillId ); 
+
+    app.route( "/api/filterGoodsOnStor" )
+    .post( controller.filterGoodsOnStorIdStor ); 
 }
 
 

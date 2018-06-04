@@ -99,13 +99,7 @@
 
   <!-- SECTION FOR STORAGE -->
   <section class="storage" id="op4">
-      <input type="number" name="goods_on_storages_id" placeholder="Goods on storages ID">
-      <input type="text" name="name_of_goods" placeholder="Name of goods">
-      <input type="number" name="amount" placeholder="Amount">
-      <input type="number" name="sum" placeholder="Sum">
-      <input type="number" name="bill_id" placeholder="Bill ID">
-      <input type="number" name="id_of_storage" placeholder="ID of storage">
-      <input type="button" class="btn"value="Find information">
+      <input type="number" name="GoodsOnStorIdOfStorage" placeholder="ID of storage" onchange="GoodsOnStorFilterOnChange()" onkeyup="GoodsOnStorFilterOnChange()">
       <div id="storageTable"></div>
       <div class="addGoodsOnStor" id="addGoodsOnStor">
         <input type="text" placeholder="Name of goods" id="addGoodsOnStorNameOfGoods">
@@ -164,15 +158,7 @@
     </section>
     <!-- SECTION FOR BILL_DET-->
     <section class="billDet" id="op7">
-      <input type="number" name="bill_det_id" placeholder="Bill detalitation ID">
-      <input type="text" name="name_of_goods" placeholder="Name of goods">
-      <input type="number" name="price_per_unit" placeholder="Price per unit">
-      <input type="number" name="amount" placeholder="Amount">
-      <input type="number" name="sum" placeholder="Sum">
-      <input type="number" name="vat" placeholder="VAT">
-      <input type="number" name="sumVat" placeholder="Sum with VAT">
-      <input type="number" name="bill_id" placeholder="Bill ID">
-      <input type="button" class="btn" value="Find information">
+      <input type="number" name="bill_det_bill_id" placeholder="Bill ID" onchange="billDetFilterOnChange()" onkeyup="billDetFilterOnChange()">
       <div id="billDetTable"></div>
       <div class="addBillDet" id="addBillDet">
         <select name="" id="billDetAllGoods"></select>

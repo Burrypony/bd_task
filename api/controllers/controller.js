@@ -460,3 +460,33 @@ exports.filterBillProviderId = function( req, res )
     }
   } );
 }
+
+exports.filterBillDetBillId = function( req, res )
+{
+  const query = "SELECT * FROM BillDet WHERE bill_id LIKE '%" + req.body.billId + "%'";
+  db.all( query , [] , ( err, rows ) => {
+    if ( err )
+    {
+      res.send( err );
+    }
+    else
+    {
+      res.send( rows );
+    }
+  } );
+}
+
+exports.filterGoodsOnStorIdStor = function( req, res )
+{
+  const query = "SELECT * FROM GoodsOnStor WHERE id_of_storage LIKE '%" + req.body.idStor + "%'";
+  db.all( query , [] , ( err, rows ) => {
+    if ( err )
+    {
+      res.send( err );
+    }
+    else
+    {
+      res.send( rows );
+    }
+  } );
+}

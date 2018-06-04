@@ -185,6 +185,24 @@ function renderBill( rows )
   $( "#billTable" ).html( htmlResult );
 }
 
+function renderBillDet( rows )
+{
+  let htmlResult = "";
+  rows.forEach( element => {
+    htmlResult +="<table>" + "<td>" + element.bill_det_id + "</td>"  +  "<td>" + element.name_of_goods + "</td>" + "<td>" + element.price_per_unit + "</td>" + "<td>" + element.amount + "</td>" + "<td>" + element.sum + "</td>"  +  "<td>" + element.VAT + "</td>"  + "<td>" + element.sum_VAT + "</td>"  + "<td>" + element.bill_id + "</td>"  + "</table>";
+  });
+  $( "#billDetTable" ).html( htmlResult );
+}
+
+function renderGoodsOnStor( rows )
+{
+  let htmlResult = "";
+  rows.forEach( element => {
+    htmlResult +="<table>" + "<td>" + element.goods_on_storages_id + "</td>"  +  "<td>" + element.name_of_goods + "</td>" + "<td>" + element.amount + "</td>" + "<td>" + element.sum + "</td>" + "<td>" + element.bill_id + "</td>" + "<td>" + element.id_of_storage + "</td>" + "</table>";
+  });
+  $( "#storageTable" ).html( htmlResult );
+}
+
 function showAllProviders()
 {
   fetch( "./api/providers" ).then( (response) => {
@@ -323,15 +341,11 @@ function showAllBanks()
 
 function showAllGoodsONStorages()
 {
-  fetch( "./api/storages" ).then( (response) => {
+  fetch( "./api/storage" ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
-          let htmlResult6 = "";
-          data.forEach( element => {
-            htmlResult6 +="<table>" + "<td>" + element.goods_on_storages_id + "</td>"  +  "<td>" + element.name_of_goods + "</td>" + "<td>" + element.amount + "</td>" + "<td>" + element.sum + "</td>" + "<td>" + element.bill_id + "</td>" + "<td>" + element.id_of_storage + "</td>" + "</table>";
-          });
-          $( "#storageTable" ).html( htmlResult6 );
+        renderGoodsOnStor( data )
       } )
     }
   } )
@@ -376,11 +390,7 @@ function showAllBillDet()
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
-          let htmlResult8 = "";
-          data.forEach( element => {
-            htmlResult8 +="<table>" + "<td>" + element.bill_det_id + "</td>"  +  "<td>" + element.name_of_goods + "</td>" + "<td>" + element.price_per_unit + "</td>" + "<td>" + element.amount + "</td>" + "<td>" + element.sum + "</td>"  +  "<td>" + element.VAT + "</td>"  + "<td>" + element.sum_VAT + "</td>"  + "<td>" + element.bill_id + "</td>"  + "</table>";
-          });
-          $( "#billDetTable" ).html( htmlResult8 );
+        renderBillDet( data )
       } )
     }
   } )
@@ -530,7 +540,7 @@ $( "#btnAddProvider" ).click( function() {
     //TODO: add validation error message
   }
   providerRemoveFlexClass();
-
+  validate();
 } );
 
 function validateBill( bill )
@@ -571,7 +581,7 @@ $( "#btnAddBill" ).click( function() {
   }
 
   billRemoveFlexClass();
-
+  validate();
 } );
 
 
@@ -608,7 +618,7 @@ $( "#btnAddAccount" ).click( function() {
   }
 
   billAccountRemoveFlexClass();
-
+  validate();
 } );
 
 function validateBillBank( account )
@@ -644,7 +654,7 @@ $( "#btnAddBank" ).click( function() {
   }
 
   billBankRemoveFlexClass();
-
+  validate();
 } );
 
 function validateContract( contract )
@@ -682,7 +692,7 @@ $( "#btnAddContract" ).click( function() {
   }
 
   contractRemoveFlexClass();
-
+  validate();
 } );
 
 function validateNomenOfDel( nomenOfDel )
@@ -720,7 +730,7 @@ $( "#btnAddNomenOfDel" ).click( function() {
   }
 
   nomenOfDelRemoveFlexClass();
-
+  validate();
 } );
 
 function validateBillDel( billDet )
@@ -761,7 +771,7 @@ $( "#btnAddBillDet" ).click( function() {
   }
 
   nomenOfDelRemoveFlexClass();
-
+  validate();
 } );
 
 function validateGoodsOnStor( GoodsOnStor )
@@ -800,7 +810,7 @@ $( "#btnAddGoodsOnStor" ).click( function() {
   }
 
   goodsOnStorRemoveFlexClass();
-
+  validate();
 } );
 
 function validateRegOfStor( RegOfStor )
@@ -836,7 +846,7 @@ $( "#btnAddRegOfStor" ).click( function() {
   }
 
   goodsOnStorRemoveFlexClass();
-
+  validate();
 } );
 
 /*
@@ -935,3 +945,75 @@ var billFilterOnChange = function() {
   }
 }();
 
+function filterBillDet()
+{
+  var filterBillDet = {
+      billId : $("input[name=bill_det_bill_id]").val()
+  }
+
+  $.ajax({
+    type: "POST",
+    url: "./api/filterBillDet",
+    dataType: "json",
+    success: function ( data ) {
+      renderBillDet( data );
+    },
+    data: filterBillDet
+  });
+}
+
+var billDetFilterOnChange = function() {
+
+  var tOut;
+
+  function runFilter()
+  {
+    filterBillDet();
+  }
+
+  return function()
+  {
+    if ( tOut )
+    {
+      window.clearTimeout( tOut );
+    }
+    tOut = window.setTimeout( runFilter, 500 );
+  }
+}();
+
+
+function filterGoodsOnStor()
+{
+  var filterGoodsOnStor = {
+      idStor : $("input[name=GoodsOnStorIdOfStorage]").val()
+  }
+
+  $.ajax({
+    type: "POST",
+    url: "./api/filterGoodsOnStor",
+    dataType: "json",
+    success: function ( data ) {
+      renderGoodsOnStor( data );
+    },
+    data: filterGoodsOnStor
+  });
+}
+
+var GoodsOnStorFilterOnChange = function() {
+
+  var tOut;
+
+  function runFilter()
+  {
+    filterGoodsOnStor();
+  }
+
+  return function()
+  {
+    if ( tOut )
+    {
+      window.clearTimeout( tOut );
+    }
+    tOut = window.setTimeout( runFilter, 500 );
+  }
+}();
