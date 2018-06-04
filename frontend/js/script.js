@@ -48,6 +48,8 @@ function validate() {
     $("#op8").css( "display", "none" );
     $("#op9").css( "display", "none" );
     showAllGoodsONStorages();
+    showAllIdOfStor();
+    showAllBillsGoodsOnStor();
 // Nastia BEGIN
   }else if (selectedValue == "contract") {
     $("#op1").css( "display", "none" );
@@ -126,6 +128,8 @@ function validate() {
       $("#addContract").addClass("displayFlex");
     }else if(selectedValue == "billDet"){
       $("#addBillDet").addClass("displayFlex");
+    }else if(selectedValue == "goods_on_storage"){
+      $("#addGoodsOnStor").addClass("displayFlex");
     }
   });
 
@@ -191,6 +195,22 @@ function showAllProvidersID()
   } )
 }
 
+function showAllIdOfStor()
+{
+  fetch( "./api/regofstor" ).then( (response) => {
+    if ( response.status == 200 )
+    {
+      response.json().then( (data) => {
+          let htmlResult2 = "";
+          data.forEach( element => {
+            htmlResult2 += "<option>" + element.id_of_storage + "</option>" ;
+          });
+          $( "#goodsOnStorIDOfStor" ).html( htmlResult2 );
+      } )
+    }
+  } )
+}
+
 function showAllProvidersIDToContracts()
 {
   fetch( "./api/provider" ).then( (response) => {
@@ -250,6 +270,22 @@ function showAllBillsBillDet()
             htmlResult4 +="<option>" + element.bill_id + "</option>" ;
           });
           $( "#billDetBillID" ).html( htmlResult4 );
+      } )
+    }
+  } )
+}
+
+function showAllBillsGoodsOnStor()
+{
+  fetch( "./api/billGoodsOnStor" ).then( (response) => {
+    if ( response.status == 200 )
+    {
+      response.json().then( (data) => {
+          let htmlResult4 = "";
+          data.forEach( element => {
+            htmlResult4 +="<option>" + element.bill_id + "</option>" ;
+          });
+          $( "#goodsOnStorBillID" ).html( htmlResult4 );
       } )
     }
   } )

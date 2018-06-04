@@ -50,6 +50,9 @@ module.exports = function( app )
     app.route( "/api/bill" )
     .get( controller.listAllBillID );  
 
+    app.route( "/api/billGoodsOnStor" )
+    .get( controller.listAllBillID );  
+
     app.route( "/api/billdet" )
     .get( controller.listAllBillDetID );  
 
