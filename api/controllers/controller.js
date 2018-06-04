@@ -395,3 +395,19 @@ exports.addBillDet = function( req, res )
   } )
   console.log( req.body );
 }
+
+exports.filterProviders = function( req, res )
+{
+  const query = "SELECT * FROM Providers WHERE name_of_provider LIKE '%" + req.body.name + "%'";
+
+  db.all( query , [] , ( err, rows ) => {
+    if ( err )
+    {
+      res.send( err );
+    }
+    else
+    {
+      res.send( rows );
+    }
+  } )  
+}

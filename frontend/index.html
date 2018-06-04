@@ -24,14 +24,14 @@
     </select>
   <!-- SECTION FOR PROVIDERS -->
   <section class="provider" id="op1">
-      <input type="number" name="provider_id" placeholder="provider ID">
-      <input type="text" name="name_of_prov" placeholder="Name of provider">
-      <input type="text" name="city" placeholder="City">
-      <input type="text" name="street" placeholder="Street">
-      <input type="text" name="built" placeholder="Built">
-      <input type="number" name="flat" placeholder="Flat">
-      <input type="number" name="mobNumber" placeholder="Mobile number">
-      <input type="button" name="" value="Find information">
+      <input type="number" name="provider_id" placeholder="provider ID" onchange="providersFilterOnChange()" onkeyup="providersFilterOnChange()">
+      <input type="text" name="name_of_prov" placeholder="Name of provider" onchange="providersFilterOnChange()" onkeyup="providersFilterOnChange()">
+      <input type="text" name="city" placeholder="City" onchange="providersFilterOnChange()" onkeyup="providersFilterOnChange()">
+      <input type="text" name="street" placeholder="Street" onchange="providersFilterOnChange()" onkeyup="providersFilterOnChange()">
+      <input type="text" name="built" placeholder="Built" onchange="providersFilterOnChange()" onkeyup="providersFilterOnChange()">
+      <input type="number" name="flat" placeholder="Flat" onchange="providersFilterOnChange()" onkeyup="providersFilterOnChange()">
+      <input type="number" name="mobNumber" placeholder="Mobile number" onchange="providersFilterOnChange()" onkeyup="providersFilterOnChange()">
+      <input type="button" name="" value="Find information" onchange="providersFilterOnChange()" onkeyup="providersFilterOnChange()">
       <div id="providersTable"></div>
       <div class="addProvider" id="addProvider">
             <input type="number" placeholder="Provider ID" id="addProviderId">
