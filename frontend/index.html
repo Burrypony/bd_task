@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="css/style.css">
-  <title>Document</title>
+  <title>pizdec</title>
 </head>
 
 <body>
@@ -119,14 +119,13 @@
       <input type="button" name="" value="Find information">
       <div id="storageTable"></div>
       <div class="addGoodsOnStor" id="addGoodsOnStor">
-        <input type="number" placeholder="Goods on storage ID" >
-        <input type="text" placeholder="Name of goods" >
-        <input type="number" placeholder="Amount" >
-        <input type="number" placeholder="Sum">
+        <input type="text" placeholder="Name of goods" id="addGoodsOnStorNameOfGoods">
+        <input type="number" placeholder="Amount" id="addGoodsOnStorAmount">
+        <input type="number" placeholder="Sum" id="addGoodsOnStorSum">
         <select name="" id="goodsOnStorBillID"></select>
         <select name="" id="goodsOnStorIDOfStor"></select>
         <div class="inputButton">
-        <input type="button" value="add" id="btnAddProvider">
+        <input type="button" value="add" id="btnAddGoodsOnStor">
         <input type="reset" value="back" class="buttonBack">
       </div>
       </div>
@@ -207,6 +206,14 @@
     <input type="text" name="address" placeholder="Adress">
     <input type="button" name="" value="Find information">
     <div id="regOfStorTable"></div>
+    <div id="addRegOfStor" class="addRegOfStor">
+      <input type="text" id="addRegOfStorResponsiblePerson" placeholder="Responsible person">
+      <input type="text" id="addRegOfStorAddress" placeholder="Adress">
+      <div class="inputButton">
+        <input type="button" value="add" id="btnAddRegOfStor">
+        <input type="reset" value="back" class="buttonBack">
+      </div>
+    </div>
 </section>
 
     <input type="button" name="add_button" id="addButton" value="Add">

@@ -396,9 +396,10 @@ exports.addBillDet = function( req, res )
   console.log( req.body );
 }
 
-exports.filterProviders = function( req, res )
+exports.addGoodsOnStor = function( req, res )
 {
-  const query = "SELECT * FROM Providers WHERE name_of_provider LIKE '%" + req.body.name + "%'";
+  const query = "INSERT INTO GoodsOnStor (name_of_goods, amount, sum, bill_id, id_of_storage) VALUES ('" 
+  + req.body.goodsOnStorName + "','" + req.body.goodsOnStorAmount + "','" + req.body.goodsOnStorSum +"','" + req.body.goodsOnStorBillId +  "','" + req.body.goodsOnStorIdStorage +"')"; 
 
   db.all( query , [] , ( err, rows ) => {
     if ( err )
@@ -409,5 +410,38 @@ exports.filterProviders = function( req, res )
     {
       res.send( rows );
     }
-  } )  
+  } )
+}  
+
+exports.filterProviders = function( req, res )
+{
+  const query = "SELECT * FROM Providers WHERE name_of_provider LIKE '%" + req.body.name + "%'";
+  db.all( query , [] , ( err, rows ) => {
+    if ( err )
+    {
+      res.send( err );
+    }
+    else
+    {
+      res.send( rows );
+    }
+  } );
+}
+
+exports.addRegOfStor = function( req, res )
+{
+  const query = "INSERT INTO RegOfStor (responsible_person, address) VALUES ('" 
+  + req.body.RegOfStorResposiblePer + "','" + req.body.RegOfStorAdress + "')"; 
+
+  db.all( query , [] , ( err, rows ) => {
+    if ( err )
+    {
+      res.send( err );
+    }
+    else
+    {
+      res.send( "OK" );
+    }
+  } )
+  console.log( req.body );
 }
