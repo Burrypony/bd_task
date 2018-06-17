@@ -121,6 +121,7 @@ function validate() {
 
   $("#addButton").click(function(){
     if (selectedValue == "providers"){
+      $("#btnAddProvider").val( "add" );
       $("#addProvider").addClass("displayFlex");
     }else if(selectedValue == "bill"){
       $("#addBill").addClass("displayFlex");
@@ -175,12 +176,36 @@ $("#btnAddGoods").click(function(){
   $("#addContract").removeClass("displayFlex");
 });
 
+function editProvider( id )
+{
+  fetch( "./api/provider/" + id ).then( (response) => {
+    if ( response.status == 200 )
+    {
+      response.json().then( (data) => {
+        if ( data.length > 0 )
+        {
+          $( "#addProviderId" ).val( data[0].provider_id );
+          $( "#addProviderName" ).val( data[0].name_of_provider );
+          $( "#addCity" ).val( data[0].city);
+          $( "#addStreet" ).val( data[0].street );
+          $( "#addBuilt" ).val( data[0].built );
+          $( "#addFlat" ).val( data[0].flat );
+
+          $("#btnAddProvider").val( "save" );
+          $("#addProvider").addClass("displayFlex");
+        }
+      } );
+    }
+  } );
+}
+
 function renderProviders( rows )
 {
-  let htmlResult = "";
+  let htmlResult = "<table>";
   rows.forEach( element => {
-    htmlResult +="<table>" + "<td>"  + element.provider_id +"</td>"  +  "<td>" + element.name_of_provider + "</td>" + "<td>" + element.city + "</td>" + "<td>" + element.street + "</td>" + "<td>" + element.built + "</td>" + "<td>" + element.flat + "</td>" +"</table>";
+    htmlResult +="<tr><td>"  + element.provider_id +"</td>"  +  "<td>" + element.name_of_provider + "</td>" + "<td>" + element.city + "</td>" + "<td>" + element.street + "</td>" + "<td>" + element.built + "</td>" + "<td>" + element.flat + "</td><td class=\"edit_button\" onclick=\"editProvider(" + element.provider_id +")\">Edit</td></tr>";
   });
+  htmlResult += "</table>";
   $( "#providersTable" ).html( htmlResult );
 }
 
@@ -539,6 +564,8 @@ function goodsOnStorRemoveFlexClass (){
 }
 
 $( "#btnAddProvider" ).click( function() {
+
+//
 
   var provider = {
     id : $( "#addProviderId" ).val(),

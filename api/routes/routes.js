@@ -78,6 +78,9 @@ module.exports = function( app )
     .get( controller.listAllNameOfGoods );  
     // Nastia END
 
+    app.route( "/api/provider/:providerId")
+    .get( controller.loadProvider);
+    
     app.route( "/api/provider" )
     .post( controller.addProvider );
 
