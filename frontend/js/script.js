@@ -154,9 +154,11 @@ function validate() {
     }
   });
 }
+//REPORT1
 $("#btnReport1").click(function(){
   $("#mainForm").addClass("display_none"),
-  $("#report1").addClass("display_flex");
+  $("#report1").addClass("display_flex"),
+  $("#btnPrint1").addClass("display_block");
   showProvidersAdnGoods2Years();
 })
 
@@ -1044,3 +1046,18 @@ var GoodsOnStorFilterOnChange = function() {
     tOut = window.setTimeout( runFilter, 500 );
   }
 }();
+
+//PRINT TABEL
+
+function printReport1()
+{
+  var report1Print = document.getElementById("report1");
+  newWin= window.open("");
+  newWin.document.write(report1.outerHTML);
+  newWin.print();
+  newWin.close();
+}
+
+$("#btnPrint1").click(function(){
+  printReport1();
+});

@@ -309,3 +309,6 @@ input:focus ~ .highlight {
   width: 25%;
 }
 
+#btnPrint1{
+  display: none;
+}
