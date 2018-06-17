@@ -122,6 +122,7 @@ function validate() {
   $("#addButton").click(function(){
     if (selectedValue == "providers"){
       $("#btnAddProvider").val( "add" );
+      $( "#addProviderId").prop( "disabled", false );
       $("#addProvider").addClass("displayFlex");
     }else if(selectedValue == "bill"){
       $("#addBill").addClass("displayFlex");
@@ -191,6 +192,7 @@ function editProvider( id )
           $( "#addBuilt" ).val( data[0].built );
           $( "#addFlat" ).val( data[0].flat );
 
+          $( "#addProviderId").prop( "disabled", true );
           $("#btnAddProvider").val( "save" );
           $("#addProvider").addClass("displayFlex");
         }
