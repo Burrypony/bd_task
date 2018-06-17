@@ -181,6 +181,20 @@ exports.listAllBillDetID = function( req, res )
   } )  
 }
 
+exports.listProvidersAndGoods2Years = function( req, res )
+{
+  db.all( "SELECT Providers.provider_id, Providers.name_of_provider, BillDet.name_of_goods FROM Providers JOIN (Bill  JOIN BillDet ON BillDet.bill_id = Bill.bill_id) ON Bill.provider_id = Providers.provider_id WHERE Bill.date_of_bill >\"2016-01-01\"", [], (err, rows) => {
+    if ( err )
+    {
+      res.send( err );
+    }
+    else
+    {
+      res.json( rows );
+    }
+  } )  
+}
+
 exports.listAllRegOfStorID = function( req, res )
 {
   db.all( "SELECT id_of_storage FROM RegOfStor", [], (err, rows) => {
@@ -345,7 +359,7 @@ exports.addBillBank = function( req, res )
 exports.addContracts = function( req, res )
 {
   const query = "INSERT INTO Contracts (provider_id, name_of_goods, from, to) VALUES ('" 
-  + req.body.contractProviderId + "','" + req.body.ContractNameOfGoods + "','" + req.body.contractFrom +"','" + req.body.contractTo + "')"; 
+  + req.body.contractProviderId + "','" + req.body.contractNameOfGoods + "','" + req.body.contractFrom +"','" + req.body.contractTo + "')"; 
 
   db.all( query , [] , ( err, rows ) => {
     if ( err )

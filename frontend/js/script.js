@@ -139,18 +139,26 @@ function validate() {
     if (selectedValue == "providers"){
       $("#addProvider").removeClass("displayFlex");
     }else if(selectedValue == "bill"){
-      $("#addBill").removeClass("displayFlex");
-      $("#addAccount").removeClass("displayFlex");
+      $("#addBill").removeClass("displayFlex"),
+      $("#addAccount").removeClass("displayFlex"),
       $("#addBank").removeClass("displayFlex");
     }else if(selectedValue == "contract"){
-      $("#addContract").removeClass("displayFlex");
+      $("#addContract").removeClass("displayFlex"),
+      $("#addNomenOfDel").removeClass("displayFlex");
     }else if(selectedValue == "billDet"){
       $("#addBillDet").removeClass("displayFlex");
     }else if(selectedValue == "storage"){
       $("#addRegOfStor").removeClass("displayFlex");
+    }else if(selectedValue == "goods_on_storage"){
+      $("#addGoodsOnStor").removeClass("displayFlex");
     }
   });
 }
+$("#btnReport1").click(function(){
+  $("#mainForm").addClass("display_none"),
+  $("#report1").addClass("display_flex");
+  showProvidersAdnGoods2Years();
+})
 
 $("#btnOpenRegAccount").click(function(){
   $("#addAccount").addClass("displayFlex");
@@ -350,6 +358,25 @@ function showAllGoodsONStorages()
     }
   } )
 }
+
+
+function showProvidersAdnGoods2Years()
+{
+  fetch( "./api/providerss" ).then( (response) => {
+    if ( response.status == 200 )
+    {
+      response.json().then( (data) => {
+          let htmlResult10 = "";
+          data.forEach( element => {
+            htmlResult10 +="<table>" + "<td>" + element["Providers.provider_id"] + "</td>"  +  "<td>" + element["Providers.name_of_provider"] + "</td>"  +  "<td>" + element["BillDet.name_of_goods"] + "</td>" + "</table>";
+          });
+          $( "#reportTabel1" ).html( htmlResult10 );
+      } )
+    }
+  } )
+}
+
+
 // Nastia BEGIN
 function showAllContracts()
 {
@@ -454,7 +481,7 @@ function showAllNameOfGood()
           data.forEach( element => {
             htmlResult9 +="<option>" + element.name_of_goods +"</option>";
           });
-          $( "#ContractsNameOfGoods" ).html( htmlResult9 );
+          $( "#contractsNameOfGoods" ).html( htmlResult9 );
       } )
     }
   } )
@@ -668,7 +695,7 @@ $( "#btnAddContract" ).click( function() {
 
   var contract = {
     contractProviderId : $( "#contractProviderId" ).val(),
-    ContractNameOfGoods : $( "#ContractsNameOfGoods" ).val(),
+    contractNameOfGoods : $( "#contractsNameOfGoods" ).val(),
     contractFrom : $( "#addContractFrom" ).val(),
     contractTo : $( "#addContractTo" ).val()    
   }
@@ -678,7 +705,7 @@ $( "#btnAddContract" ).click( function() {
 
     $.ajax({
       type: "POST",
-      url: "./api/addContract",
+      url: "./api/contract",
       dataType: "json",
       success: function (msg) {
           validate();

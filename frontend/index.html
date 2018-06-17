@@ -10,12 +10,21 @@
 </head>
 
 <body>
-    <div>
+  <header class="header">
+  <div class="header-div">
+    <div id="btnReport1"><p>Доклад 1</p></div>
+    <div id="btnReport2"><p>Доклад 2</p></div>
+    <div id="loginName"></div>
+    <button>Exit</button>
+  </div>
+    
+  </header>
+    <div class="padding-top-75px">
         <h1>Department of Sports Management</h1>
-      </div>
+    </div>
 
 
-  <form class="selectOption" action="index.html" method="post">
+  <form class="selectOption" action="index.html" method="post" id="mainForm">
     <select class="" onchange="validate(this);" id="type_of_info" name="type_of_info">
       <option value="providers" >providers</option>
       <option value="bill" >bill</option>
@@ -27,47 +36,136 @@
       <option value="billDet" >more information about bill</option>
       <option value="storage" >storage</option>
     </select>
-  <!-- SECTION FOR PROVIDERS -->
-  <section class="provider" id="op1">
-      <input type="text" name="name_of_prov" placeholder="Name of provider" onchange="providersFilterOnChange()" onkeyup="providersFilterOnChange()">
+    <!-- SECTION FOR PROVIDERS -->
+    <section class="provider" id="op1">
+      <table>
+        <tr>
+          <td>
+            Provider ID
+          </td>
+          <td>
+            <input type="text" name="name_of_prov" placeholder="Name of provider" onchange="providersFilterOnChange()" onkeyup="providersFilterOnChange()">
+          </td>
+          <td>
+            City
+          </td>
+          <td>
+            Street
+          </td>
+          <td>
+            Built
+          </td>
+          <td>
+            Flat
+          </td>
+        </tr>
+      </table>
       <div id="providersTable"></div>
       <div class="addProvider" id="addProvider">
-            <input type="number" placeholder="Provider ID" id="addProviderId">
-            <input type="text" placeholder="Name of provider" id="addProviderName">
-            <input type="text" placeholder="City" id="addCity">
-            <input type="text" placeholder="Street" id="addStreet">
-            <input type="text" placeholder="Built" id="addBuilt">
-            <input type="number" placeholder="Flat" id="addFlat">
-            <!--  <input type="number" placeholder="Phone number" id="addProviderPhoneNumber">-->
+            <div class="group">      
+                <input type="number" required id="addProviderId">
+                <span class="highlight"></span>
+                <label>Provider ID</label>
+            </div>
+            <div class="group">      
+                <input type="text" required id="addProviderName">
+                <span class="highlight"></span>
+                <label>Name of provider</label>
+            </div> 
+            <div class="group">      
+                <input type="text" required id="addCity">
+                <span class="highlight"></span>
+                <label>City</label>
+            </div>
+            <div class="group">      
+                <input type="text" required id="addStreet">
+                <span class="highlight"></span>
+                <label>Street</label>
+            </div>
+            <div class="group">      
+                <input type="text" required id="addBuilt">
+                <span class="highlight"></span>
+                <label>Built</label>
+            </div>
+            <div class="group">      
+                <input type="text" required id="addFlat">
+                <span class="highlight"></span>
+                <label>Flat</label>
+            </div>
             <div class="inputButton">
-              <input type="button" value="add" id="btnAddProvider">
-              <input type="reset" value="back" class="buttonBack">
+              <input type="button" value="add" id="btnAddProvider" class="btn">
+              <input type="reset" value="back" class="buttonBack btn">
             </div>
       </div>
-  </section>
-  <!-- SECTION FOR BILL -->
-  <section class="bill" id="op2">
-      <input type="number" name="bill_provider_id" placeholder="Provider ID" onchange="billFilterOnChange()" onkeyup="billFilterOnChange()">
+    </section>
+    <!-- SECTION FOR BILL -->
+    <section class="bill" id="op2">
+      <table>
+        <tr>
+          <td>
+              <input type="number" name="bill_provider_id" placeholder="Provider ID" onchange="billFilterOnChange()" onkeyup="billFilterOnChange()">
+          </td>
+          <td>
+            Date of bill
+          </td>
+          <td>
+            Number of provider
+          </td>
+          <td>
+            Sum of bill
+          </td>
+          <td>
+            Provider ID
+          </td>
+          <td>
+            Account ID
+          </td>
+        </tr>
+      </table>
       <div id="billTable"></div>
       <div class="addBill" id="addBill">
-        <input type="date" placeholder="Date of bill" id="billAddDateOfBill">
-        <input type="number" placeholder="Number from provider" id="billAddNumberFromProvider">
-        <input type="number" placeholder="Sum of bill" id="billAddSumOfBill">
-        <select name="" id="billProviderId">]
-
-        </select>
-        <select name="" id="billAccountId">
-            <option value="another">Another</option>
-        </select>
+          <div class="group">      
+              <input type="number" required id="billAddDateOfBill">
+              <span class="highlight"></span>
+              <label>Date of bill</label>
+          </div>
+          <div class="group">      
+              <input type="text" required id="billAddNumberFromProvider">
+              <span class="highlight"></span>
+              <label>Name from provider</label>
+          </div> 
+          <div class="group">      
+              <input type="text" required id="billAddSumOfBill">
+              <span class="highlight"></span>
+              <label>Sum of bill</label>
+          </div>
+          <div class="customGroup">
+            <select name="" id="billProviderId"></select>
+            <label class="customLabel">Provider ID</label>
+          </div>
+        
+          <div class="customGroup">
+            <select name="" id="billAccountId"></select>
+            <label class="customLabel">Account ID</label>
+          </div>
+        
         <div class="inputButton">
             <input type="button" value="add" id="btnAddBill">
             <input type="reset" value="back" class="buttonBack">
             <input type="button" value="add account" id="btnOpenRegAccount">
         </div>
       </div> 
-      <div class="addAccount" id="addAccount"> 
-        <input type="number" placeholder="account ID " id="addBillAccountId">
-        <select name="" id="accountMFIBank"></select>
+      <div class="addAccount" id="addAccount">
+          <div class="group">      
+              <input type="number" required id="addBillAccountId">
+              <span class="highlight"></span>
+              <label>Account ID</label>
+          </div>
+          <div class="customGroup">
+            <select name="" id="accountMFIBank"></select>
+            <label class="customLabel">MFI bank</label>
+          </div>
+        
         <div class="inputButton">
           <input type="button" value="add" id="btnAddAccount">
           <input type="reset" value="back" class="buttonBack">
@@ -75,125 +173,265 @@
         </div>
         </div>
       <div class="addBank" id="addBank">
-        <input type="number" placeholder="MFI bank" id="addBillMFIbank">
-        <input type="text" placeholder="Name of bank" id="addBillNameOfBank">
+          <div class="group">      
+              <input type="number" required id="addBillMFIbank">
+              <span class="highlight"></span>
+              <label>MFI bank</label>
+          </div>
+          <div class="group">      
+              <input type="text" required id="addBillNameOfBank">
+              <span class="highlight"></span>
+              <label>Name of bank</label>
+          </div>
         <div class="inputButton">
           <input type="button" value="add" id="btnAddBank">
           <input type="reset" value="back" class="buttonBack">
         </div>
       </div>
-  </section>
+    </section>
 
-  <!-- SECTION FOR BANK -->
-  <section class="bank" id="op3">
+    <!-- SECTION FOR BANK -->
+    <section class="bank" id="op3">
+      <table>
+        <tr>
+          <td>MFI bank</td>
+          <td>Name of bank</td>
+        </tr>
+      </table>
       <div id="bankTable"></div>
-  </section>
+    </section>
 
- <!-- SECTION FOR ACCOUNT -->
- <section class="account" id="op9">
-  <input type="number" name="MFI_nank" placeholder="MFI bank">
-  <input type="number" placeholder="Account ID">
-  <input type="button" class="btn" value="Find information">
+    <!-- SECTION FOR ACCOUNT -->
+    <section class="account" id="op9">
+   <table>
+     <tr>
+       <td>MFI bank</td>
+       <td>Account ID</td>
+     </tr>
+   </table>
   <div id="accountTable"></div>
-</section>
+    </section>
 
-  <!-- SECTION FOR STORAGE -->
-  <section class="storage" id="op4">
-      <input type="number" name="GoodsOnStorIdOfStorage" placeholder="ID of storage" onchange="GoodsOnStorFilterOnChange()" onkeyup="GoodsOnStorFilterOnChange()">
+    <!-- SECTION FOR STORAGE -->
+    <section class="storage" id="op4">
+      <table>
+        <tr>
+          <td>Goods on storage ID</td>
+          <td>Name of goods</td>
+          <td>Amount</td>
+          <td>Sum</td>
+          <td>bill ID</td>
+          <td><input type="number" name="GoodsOnStorIdOfStorage" placeholder="ID of storage" onchange="GoodsOnStorFilterOnChange()" onkeyup="GoodsOnStorFilterOnChange()"></td>
+        </tr>
+      </table>
       <div id="storageTable"></div>
       <div class="addGoodsOnStor" id="addGoodsOnStor">
-        <input type="text" placeholder="Name of goods" id="addGoodsOnStorNameOfGoods">
-        <input type="number" placeholder="Amount" id="addGoodsOnStorAmount">
-        <input type="number" placeholder="Sum" id="addGoodsOnStorSum">
-        <select name="" id="goodsOnStorBillID"></select>
-        <select name="" id="goodsOnStorIDOfStor"></select>
+          <div class="group">      
+              <input type="number" required id="addGoodsOnStorNameOfGoods">
+              <span class="highlight"></span>
+              <label>Name of goods</label>
+          </div>
+          <div class="group">      
+              <input type="text" required id="addGoodsOnStorAmount">
+              <span class="highlight"></span>
+              <label>Amount</label>
+          </div> 
+          <div class="group">      
+              <input type="text" required id="addGoodsOnStorSum">
+              <span class="highlight"></span>
+              <label>Sum</label>
+          </div>
+          <div class="customGroup">
+            <select name="" id="goodsOnStorBillID"></select>
+            <label class="customLabel">Bill ID</label>
+          </div>
+          <div class="customGroup">
+            <select name="" id="goodsOnStorIDOfStor"></select>
+            <label class="customLabel">ID of storage</label>
+          </div>
+        
+        
         <div class="inputButton">
         <input type="button" class="btn" value="add" id="btnAddGoodsOnStor">
-        <input type="reset" class="btn" value="back" class="buttonBack">
+        <input type="reset" class="btn buttonBack" value="back" >
       </div>
       </div>
-  </section>
+    </section>
 
-  <!-- Nastia BEGIN -->
-
+    <!-- Nastia BEGIN -->
     <!-- SECTION FOR CONTRACTS -->
     <section class="contract" id="op5">
-        <input type="number" name="contracts_id" placeholder="Contracts ID">
-        <input type="number" name="provider_id" placeholder="Provider ID">
-        <input type="text" name="name_of_goods" placeholder="Name of goods">
-        <input type="date" name="from" placeholder="From">
-        <input type="date" name="to" placeholder="To">
-        <input type="button" class="btn" value="Find information">
+      <table>
+        <tr>
+          <td>Contract ID</td>
+          <td>Provider ID</td>
+          <td>Name of goods</td>
+          <td>From</td>
+          <td>To</td>
+        </tr>
+      </table>
         <div id="contractsTable"></div>
         <div class="addContract" id="addContract">
-            <select name="" id="contractProviderId"></select>
-            <select name="" id="ContractsNameOfGoods"></select>
-            <input type="date" placeholder="From" id="addContractFrom">
-            <input type="date" placeholder="To" id="addContractTo">
+            <div class="customGroup">
+              <select name="" id="contractProviderId"></select>
+              <label class="customLabel">Provider ID</label>
+            </div>
+            <div class="customGroup">
+              <select name="" id="contractsNameOfGoods"></select>
+              <label class="customLabel">Name of goods</label>
+            </div>
+            <div class="customGroup">
+                <input type="date" placeholder="From" id="addContractFrom">
+                <label class="customLabel">From</label>
+            </div>
+            <div class="customGroup">
+                <input type="date" placeholder="To" id="addContractTo">
+                <label class="customLabel">To</label>
+            </div>
+            
+            
             <div class="inputButton">
               <input type="button" class="btn" value="add" id="btnAddContract">
-              <input type="reset"  class="btn" value="back" class="buttonBack">
+              <input type="reset"  class="btn buttonBack" value="back">
               <input type="button" class="btn" value="add goods" id="btnAddGoods">
             </div>
         </div>
         <div class="addNomenOfDel" id="addNomenOfDel">
-          <input type="text" placeholder="Name of goods" id="addNomenOfDelNameOfGoods">
-          <input type="number" placeholder="Accountancy account" id="addNomenOfDelAccountancyAccount">
-          <input type="number" placeholder="Order number" id="addNomenOfDelOrderNumber">
-          <input type="text" placeholder="Unit" id="addNomenOfDelUnit">
+            <div class="group">      
+                <input type="number" required id="addNomenOfDelNameOfGoods">
+                <span class="highlight"></span>
+                <label>Name of goods</label>
+            </div>
+            <div class="group">      
+                <input type="number" required id="addNomenOfDelAccountancyAccount">
+                <span class="highlight"></span>
+                <label>Accountancy account</label>
+            </div> 
+            <div class="group">      
+                <input type="number" required id="addNomenOfDelOrderNumber">
+                <span class="highlight"></span>
+                <label>Order number</label>
+            </div>
+            <div class="group">      
+                <input type="text" required id="addNomenOfDelUnit">
+                <span class="highlight"></span>
+                <label>Unit</label>
+            </div>
           <div class="inputButton">
             <input type="button" class="btn" value="add" id="btnAddNomenOfDel">
-            <input type="reset" class="btn" value="back" class="buttonBack">
+            <input type="reset" class="btn buttonBack" value="back" >
           </div>
         </div>
     </section>
     <!-- SECTION FOR GOODS -->
     <section class="goods" id="op6">
-        <input type="text" name="name_of_goods" placeholder="Name of goods">
-        <input type="number" name="accountancy_account" placeholder="Accountancy Account">
-        <input type="number" name="order_number" placeholder="Order number">
-        <input type="text" name="unit" placeholder="Unit">
-        <input type="button" class="btn" value="Find information">
+      <table>
+        <tr>
+          <td>
+            Name of goods
+          </td>
+          <td>Accountantcy account</td>
+          <td>Order number</td>
+          <td>Unit</td>
+        </tr>
+      </table>
         <div id="goodsTable"></div>
     </section>
     <!-- SECTION FOR BILL_DET-->
     <section class="billDet" id="op7">
-      <input type="number" name="bill_det_bill_id" placeholder="Bill ID" onchange="billDetFilterOnChange()" onkeyup="billDetFilterOnChange()">
+      <table>
+        <tr>
+          <td>Bill det. ID</td>
+          <td>Name of goods</td>
+          <td>Price per unit</td>
+          <td>Amount</td>
+          <td>Sum</td>
+          <td>VAT</td>
+          <td>Sum with VAT</td>
+          <td><input type="number" name="bill_det_bill_id" placeholder="Bill ID" onchange="billDetFilterOnChange()" onkeyup="billDetFilterOnChange()"></td>
+        </tr>
+      </table>
       <div id="billDetTable"></div>
       <div class="addBillDet" id="addBillDet">
-        <select name="" id="billDetAllGoods"></select>
-        <input type="number" name="price_per_unit" placeholder="Price per unit" id="addBillDetProcePerUnit">
-        <input type="number" name="amount" placeholder="Amount" id="addBillDetAmount">
-        <input type="number" name="sum" placeholder="Sum" id="addBillDetSum">
-        <input type="number" name="vat" placeholder="VAT" id="addBillDetVat">
-        <input type="number" name="sumVat" placeholder="Sum with VAT" id="addBillDetSumWithVat">
-        <select name="" id="billDetBillID"></select>
+          <div class="customGroup">
+              <select name="" id="billDetAllGoods"></select>
+              <label class="customLabel">Goods</label>
+          </div>
+        
+        <div class="group">      
+            <input type="number" required id="addBillDetProcePerUnit">
+            <span class="highlight"></span>
+            <label>Price per unit</label>
+        </div>
+        <div class="group">      
+            <input type="number" required id="addBillDetAmount">
+            <span class="highlight"></span>
+            <label>Amount</label>
+        </div> 
+        <div class="group">      
+            <input type="number" required id="addBillDetSum">
+            <span class="highlight"></span>
+            <label>Sum</label>
+        </div>
+        <div class="group">      
+            <input type="number" required id="addBillDetVat">
+            <span class="highlight"></span>
+            <label>VAT</label>
+        </div>
+        <div class="group">      
+            <input type="number" required id="addBillDetSumWithVat">
+            <span class="highlight"></span>
+            <label>Sum with VAT</label>
+        </div>
+        <div class="customGroup">
+            <select name="" id="billDetBillID"></select>
+            <label class="customLabel">Bill ID</label>
+        </div>
+        
         <div class="inputButton">
           <input type="button" class="btn" value="add" id="btnAddBillDet">
-          <input type="reset" class="btn" value="back" class="buttonBack">
+          <input type="reset" class="btn buttonBack" value="back">
         </div>
       </div>
-  </section>
-<!-- SECTION FOR REG_OF_STOR-->
-  <section class="reg_of_stor" id="op8">
-    <input type="number" name="id_of_storage" placeholder="ID of storage">
-    <input type="text" name="responsible_person" placeholder="Responsible person">
-    <input type="text" name="address" placeholder="Adress">
-    <input type="button" class="btn" value="Find information">
+    </section>
+    <!-- SECTION FOR REG_OF_STOR-->
+    <section class="reg_of_stor" id="op8">
+    <table>
+      <tr>
+        <td>ID of storage</td>
+        <td>Responsible person</td>
+        <td>Address</td>
+      </tr>
+    </table>
     <div id="regOfStorTable"></div>
     <div id="addRegOfStor" class="addRegOfStor">
-      <input type="text" id="addRegOfStorResponsiblePerson" placeholder="Responsible person">
-      <input type="text" id="addRegOfStorAddress" placeholder="Adress">
+        <div class="group">      
+            <input type="text" required id="addRegOfStorResponsiblePerson">
+            <span class="highlight"></span>
+            <label>Responsible person</label>
+        </div>
+        <div class="group">      
+            <input type="text" required id="addRegOfStorAddress">
+            <span class="highlight"></span>
+            <label>Address</label>
+        </div>
       <div class="inputButton">
         <input type="button" class="btn" value="add" id="btnAddRegOfStor">
-        <input type="reset" class="btn" value="back" class="buttonBack">
+        <input type="reset" class="btn buttonBack" value="back">
       </div>
     </div>
-</section>
+    </section>
 
     <input type="button" name="add_button" id="addButton" value="Add">
     <input type="button" name="delete_button" value="Delete">
   </form>
+<!-- REPORT 1-->
+<section id="report1" class="report1">
+  <div id="reportTabel1">
+
+  </div>
+  <button>Print</button>
+</section>
 </body>
 <script type="text/javascript" src="js/JQuery.js"></script>
 <script type="text/javascript" src="js/script.js"></script>
