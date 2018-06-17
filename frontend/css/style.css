@@ -309,3 +309,9 @@ input:focus ~ .highlight {
   width: 25%;
 }
 
+.edit_button
+{
+  cursor: pointer;
+  background-color: #999;
+  text-align: center;
+}

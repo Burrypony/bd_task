@@ -284,21 +284,39 @@ exports.listAllNameOfGoods = function( req, res )
 
 exports.addProvider = function( req, res )
 {
-  const query = "INSERT INTO Providers (provider_id, name_of_provider, city, street, built, flat) VALUES ('" 
-  + req.body.id + "','" + req.body.name + "','" + req.body.city + "','"
-  + req.body.street + "','" + req.body.building + "','" + req.body.flat + "')"; 
+  let query;
+  
+  query = "SELECT * FROM Providers WHERE provider_id=\"" + req.body.id + "\"";
 
-  db.all( query , [] , ( err, rows ) => {
+  db.all( query, [], ( err, rows ) => {
     if ( err )
     {
       res.send( err );
     }
     else
     {
-      res.send( "OK" );
+      if ( rows.length == 0 )
+      {
+        query = "INSERT INTO Providers (provider_id, name_of_provider, city, street, built, flat) VALUES ('" 
+        + req.body.id + "','" + req.body.name + "','" + req.body.city + "','"
+        + req.body.street + "','" + req.body.building + "','" + req.body.flat + "')"; 
+      }
+      else
+      {
+        query = `UPDATE Providers SET name_of_provider="${req.body.name}", city="${req.body.city}", street="${req.body.street}", built="${req.body.building}", flat="${req.body.flat}" WHERE provider_id="${req.body.id}"`;
+      }
+      db.all( query , [] , ( err, rows ) => {
+        if ( err )
+        {
+          res.send( err );
+        }
+        else
+        {
+          res.send( "OK" );
+        }
+      } );      
     }
-  } )
-  console.log( req.body );
+  } );
 }
 
 exports.addBill = function( req, res )
@@ -504,3 +522,18 @@ exports.filterGoodsOnStorIdStor = function( req, res )
     }
   } );
 }
+
+exports.loadProvider = function( req, res )
+{
+  const query = "SELECT * FROM Providers WHERE provider_id=\"" + req.params.providerId + "\"";
+  db.all( query , [] , ( err, rows ) => {
+    if ( err )
+    {
+      res.send( err );
+    }
+    else
+    {
+      res.send( rows );
+    }
+  } );
+} 
