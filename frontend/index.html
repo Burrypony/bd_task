@@ -12,10 +12,11 @@
 <body>
   <header class="header">
   <div class="header-div">
-    <div id="btnReport1"><p>Доклад 1</p></div>
-    <div id="btnReport2"><p>Доклад 2</p></div>
+    <div id="mainTabel">Головні таблиці</div>
+    <div id="btnReport1"><p>Звіт 1</p></div>
+    <div id="btnReport2"><p>Звіт 2</p></div>
     <div id="loginName"></div>
-    <button>Exit</button>
+    <button class="btn">Exit</button>
   </div>
     
   </header>
@@ -123,9 +124,11 @@
         </tr>
       </table>
       <div id="billTable"></div>
-      <div class="addBill" id="addBill">
+      <div id="billAndBillDet" class="billAndBillDet">
+        <div class="addBill" id="addBill">
+          <input type="hidden" id="billAddBillId">
           <div class="group">      
-              <input type="number" required id="billAddDateOfBill">
+              <input type="date" required id="billAddDateOfBill">
               <span class="highlight"></span>
               <label>Date of bill</label>
           </div>
@@ -148,7 +151,44 @@
             <select name="" id="billAccountId"></select>
             <label class="customLabel">Account ID</label>
           </div>
-        
+        </div>
+        <div class="addBillDet" id="addBillDet">
+            <div class="customGroup">
+                <select name="" id="billDetAllGoods"></select>
+                <label class="customLabel">Goods</label>
+            </div>
+          
+          <div class="group">      
+              <input type="number" required id="addBillDetProcePerUnit">
+              <span class="highlight"></span>
+              <label>Price per unit</label>
+          </div>
+          <div class="group">      
+              <input type="number" required id="addBillDetAmount">
+              <span class="highlight"></span>
+              <label>Amount</label>
+          </div> 
+          <div class="group">      
+              <input type="number" required id="addBillDetSum">
+              <span class="highlight"></span>
+              <label>Sum</label>
+          </div>
+          <div class="group">      
+              <input type="number" required id="addBillDetVat">
+              <span class="highlight"></span>
+              <label>VAT</label>
+          </div>
+          <div class="group">      
+              <input type="number" required id="addBillDetSumWithVat">
+              <span class="highlight"></span>
+              <label>Sum with VAT</label>
+          </div>
+          <div class="customGroup">
+              <select name="" id="billDetBillID"></select>
+              <label class="customLabel">Bill ID</label>
+          </div>
+
+        </div>
         <div class="inputButton">
             <input type="button" value="add" id="btnAddBill">
             <input type="reset" value="back" class="buttonBack">
@@ -156,22 +196,21 @@
         </div>
       </div> 
       <div class="addAccount" id="addAccount">
-          <div class="group">      
-              <input type="number" required id="addBillAccountId">
-              <span class="highlight"></span>
-              <label>Account ID</label>
-          </div>
-          <div class="customGroup">
-            <select name="" id="accountMFIBank"></select>
-            <label class="customLabel">MFI bank</label>
-          </div>
-        
+        <div class="group">      
+          <input type="number" required id="addBillAccountId">
+           <span class="highlight"></span>
+            <label>Account ID</label>
+        </div>
+        <div class="customGroup">
+          <select name="" id="accountMFIBank"></select>
+          <label class="customLabel">MFI bank</label>
+        </div>
         <div class="inputButton">
           <input type="button" value="add" id="btnAddAccount">
           <input type="reset" value="back" class="buttonBack">
           <input type="button" value="add bank" id="btnOpenRegBank">
         </div>
-        </div>
+      </div>
       <div class="addBank" id="addBank">
           <div class="group">      
               <input type="number" required id="addBillMFIbank">
@@ -351,41 +390,41 @@
           <td><input type="number" name="bill_det_bill_id" placeholder="Bill ID" onchange="billDetFilterOnChange()" onkeyup="billDetFilterOnChange()"></td>
         </tr>
       </table>
-      <div id="billDetTable"></div>
-      <div class="addBillDet" id="addBillDet">
+      <div id="billDetTable2"></div>
+      <div class="addBillDet" id="addBillDet2">
           <div class="customGroup">
-              <select name="" id="billDetAllGoods"></select>
+              <select name="" id="billDetAllGoods2"></select>
               <label class="customLabel">Goods</label>
           </div>
         
         <div class="group">      
-            <input type="number" required id="addBillDetProcePerUnit">
+            <input type="number" required id="addBillDetProcePerUnit2">
             <span class="highlight"></span>
             <label>Price per unit</label>
         </div>
         <div class="group">      
-            <input type="number" required id="addBillDetAmount">
+            <input type="number" required id="addBillDetAmount2">
             <span class="highlight"></span>
             <label>Amount</label>
         </div> 
         <div class="group">      
-            <input type="number" required id="addBillDetSum">
+            <input type="number" required id="addBillDetSum2">
             <span class="highlight"></span>
             <label>Sum</label>
         </div>
         <div class="group">      
-            <input type="number" required id="addBillDetVat">
+            <input type="number" required id="addBillDetVat2">
             <span class="highlight"></span>
             <label>VAT</label>
         </div>
         <div class="group">      
-            <input type="number" required id="addBillDetSumWithVat">
+            <input type="number" required id="addBillDetSumWithVat2">
             <span class="highlight"></span>
             <label>Sum with VAT</label>
         </div>
         <div class="customGroup">
-            <select name="" id="billDetBillID"></select>
-            <label class="customLabel">Bill ID</label>
+            <select name="" id="billDetBillID2"></select>
+            <label class="customLabel" id="specialLabel">Bill ID</label>
         </div>
         
         <div class="inputButton">
@@ -423,7 +462,6 @@
     </section>
 
     <input type="button" name="add_button" id="addButton" value="Add">
-    <input type="button" name="delete_button" value="Delete">
   </form>
 <!-- REPORT 1-->
 <section id="report1" class="report1">

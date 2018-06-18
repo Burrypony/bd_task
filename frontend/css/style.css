@@ -67,13 +67,20 @@ select {
 {
   display: none !important;
 }
+.display_flex{
+  display: flex !important;
+}
 table, td {
   border: 1px solid black;
 }
 td{
-  width: 200px;
+  padding: 0 !important;
+  width: 150px;
 }
-.addProvider, .addBill , .addAccount, .addBank, .addContract, .addNomenOfDel, .addBillDet, .addGoodsOnStor, .addRegOfStor
+td input{
+  width: 150px;
+}
+.addProvider, .addBill , .addAccount, .addBank, .addContract, .addNomenOfDel, .addBillDet, .addGoodsOnStor, .addRegOfStor, .billAndBillDet
 {
   display: none;
   flex-direction: column;
@@ -83,7 +90,7 @@ td{
   margin: 0 auto;
   border: 1px solid black;
   position: absolute;
-  top: 35%;
+  top: 10%;
   left: 0;
   right: 0;
   z-index: 2;
@@ -104,49 +111,49 @@ td{
 
 .addBillDet input ,select{
   width: auto;
-  min-width: 200px;
+  min-width: 150px;
   margin: 10px auto;
 }
 
 .addProvider input ,select{
   width: auto;
-  min-width: 200px;
+  min-width: 150px;
   margin: 10px auto;
 }
 
 .addBill input, select{
   width: auto;
-  min-width: 200px;
+  min-width: 150px;
   margin: 10px auto;
 }
 
 .addGoodsOnStor input, select{
   width: auto;
-  min-width: 200px;
+  min-width: 150px;
   margin: 10px auto;
 }
 
 .addAccount input, select {
   width: auto;
-  min-width: 200px;
+  min-width: 150px;
   margin: 10px auto;
 }
 
 .addBank input, select {
   width: auto;
-  min-width: 200px;
+  min-width: 150px;
   margin: 10px auto;
 }
 
 .addContract input, select {
   width: auto;
-  min-width: 200px;
+  min-width: 150px;
   margin: 10px auto;
 }
 
 .addNomenOfDel input{
   width: auto;
-  min-width: 200px;
+  min-width: 150px;
   margin: 10px auto;
 }
 
@@ -312,3 +319,42 @@ input:focus ~ .highlight {
 #btnPrint1{
   display: none;
 }
+
+.edit_button
+{
+  cursor: pointer;
+  background-color: #999;
+  text-align: center;
+}
+
+.billAndBillDet .addBill
+{
+  position: relative !important;
+  width: 100%;
+  border: 0;
+  box-shadow: none;
+}
+
+.billAndBillDet  .addBillDet{
+  position: relative !important;
+  width: 100%;
+  border: 0;
+  box-shadow: none;
+}
+
+.report1 {
+  display: none;
+  flex-direction: column;
+  align-items: center
+}
+
+
+#btnReport1, #btnReport2, #mainTabel{
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 1.15em;
+  cursor: pointer;
+}
+#btnReport1:hover, #btnReport2:hover, #mainTabel:hover{
+  color: rgba(91, 176, 233, 0.85);
+}
+ 
