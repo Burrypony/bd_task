@@ -26,6 +26,9 @@ function validate() {
     showAllProvidersID();
     showAllAccountID();
     showAllBankInAccount();
+    showAllBillsBillDet();
+    // showAllNameOfGoodBillDet();
+    updateContractGoods( $( "#billProviderId" ).val() );
   }else if (selectedValue == "bank") {
     $("#op1").css( "display", "none" );
     $("#op2").css( "display", "none" );
@@ -122,10 +125,13 @@ function validate() {
   $("#addButton").click(function(){
     if (selectedValue == "providers"){
       $("#btnAddProvider").val( "add" );
-      $( "#addProviderId").prop( "disabled", false );
       $("#addProvider").addClass("displayFlex");
     }else if(selectedValue == "bill"){
-      $("#addBill").addClass("displayFlex");
+      $("#btnAddBill").val( "add" );
+      $( "#addBillId").prop( "disabled", false );
+      $( "#addBill").addClass("displayFlex");
+      $( "#addBillDet").addClass("displayFlex");
+      $("#billAndBillDet").addClass("displayFlex");
     }else if(selectedValue == "contract"){
       $("#addContract").addClass("displayFlex");
     }else if(selectedValue == "billDet"){
@@ -144,6 +150,8 @@ function validate() {
       $("#addBill").removeClass("displayFlex"),
       $("#addAccount").removeClass("displayFlex"),
       $("#addBank").removeClass("displayFlex");
+      $( "#addBillDet").removeClass("displayFlex");
+      $("#billAndBillDet").removeClass("displayFlex");
     }else if(selectedValue == "contract"){
       $("#addContract").removeClass("displayFlex"),
       $("#addNomenOfDel").removeClass("displayFlex");
@@ -156,11 +164,20 @@ function validate() {
     }
   });
 }
+//REPORT1
 $("#btnReport1").click(function(){
   $("#mainForm").addClass("display_none"),
-  $("#report1").addClass("display_flex");
+  $("#report1").addClass("display_flex"),
+  $("#btnPrint1").addClass("display_block");
   showProvidersAdnGoods2Years();
 })
+
+$("#mainTabel").click(function(){
+  $("#mainForm").removeClass("display_none"),
+  $("#report1").removeClass("display_flex"),
+  $("#report2").removeClass("display_flex"),
+  $("#btnPrint1").removeClass("display_block");
+});
 
 $("#btnOpenRegAccount").click(function(){
   $("#addAccount").addClass("displayFlex");
@@ -176,6 +193,8 @@ $("#btnAddGoods").click(function(){
   $("#addNomenOfDel").addClass("displayFlex");
   $("#addContract").removeClass("displayFlex");
 });
+
+
 
 function editProvider( id )
 {
@@ -201,6 +220,64 @@ function editProvider( id )
   } );
 }
 
+function editBill ( id )
+{
+  fetch( "./api/bills/" + id ).then( (response) => {
+    if ( response.status == 200 )
+    {
+      response.json().then( (data) => {
+        if ( data.length > 0 )
+        {
+          $( "#billAddBillId" ).val( data[0].bill_id );
+          $( "#billAddDateOfBill" ).val( data[0].date_of_bill );
+          $( "#billAddNumberFromProvider" ).val( data[0].number_from_provider);
+          $( "#billAddSumOfBill" ).val( data[0].sum_of_bill );
+          $( "#billProviderId" ).val( data[0].provider_id );
+          $( "#billAccountId" ).val( data[0].account_id );
+
+          $( "#addBillId").prop( "disabled", true );
+          $("#btnAddBill").val( "save" );
+          $("#btnOpenRegAccount").prop( "type", "hidden");
+          $("#addBill").addClass("displayFlex");
+          $("#billAndBillDet").addClass("displayFlex");
+          $("#addBillDet").addClass("display_none")
+        }
+      } );
+    }
+  } );
+}
+
+function editBillDet ( id )
+{
+  fetch( "./api/billdet/" + id ).then( (response) => {
+    if ( response.status == 200 )
+    {
+      response.json().then( (data) => {
+        if ( data.length > 0 )
+        {
+          $( "#billDetAllGoods2" ).val( data[0].name_of_goods );
+          $( "#addBillDetProcePerUnit2" ).val( data[0].price_per_unit );
+          $( "#addBillDetAmount2" ).val( data[0].amount);
+          $( "#addBillDetSum2" ).val( data[0].sum );
+          $( "#addBillDetVat2" ).val( data[0].VAT );
+          $( "#addBillDetSumWithVat2" ).val( data[0].sum_VAT );
+
+          $( "#addProviderId").prop( "disabled", true );
+          $("#btnAddBillDet").val( "save" );
+          //$("#btnOpenRegAccount").prop( "type", "hidden");
+          $("#addBillDet2").addClass("displayFlex");
+          //$("#billAndBillDet").addClass("displayFlex");
+          //$("#addBill").addClass("display_none")
+        }
+      } );
+    }
+  } );
+}
+
+
+
+
+
 function renderProviders( rows )
 {
   let htmlResult = "<table>";
@@ -213,20 +290,22 @@ function renderProviders( rows )
 
 function renderBill( rows )
 {
-  let htmlResult = "";
+  let htmlResult = "<table>";
   rows.forEach( element => {
-    htmlResult +="<table>" + "<td>" + element.bill_id + "</td>"  +  "<td>" + element.date_of_bill + "</td>" + "<td>" + element.number_from_provider + "</td>" + "<td>" + element.sum_of_bill + "</td>" + "<td>" + element.provider_id + "</td>" + "<td>" + element.account_id + "</td>" + "</table>";
+    htmlResult +="<td>" + element.bill_id + "</td>"  +  "<td>" + element.date_of_bill + "</td>" + "<td>" + element.number_from_provider + "</td>" + "<td>" + element.sum_of_bill + "</td>" + "<td>" + element.provider_id + "</td>" + "<td>" + element.account_id + "</td>" + "<td class=\"edit_button\" onclick=\"editBill(" + element.bill_id +")\">Edit</td></tr>";
   });
+  htmlResult +="</table>"
   $( "#billTable" ).html( htmlResult );
 }
 
 function renderBillDet( rows )
 {
-  let htmlResult = "";
+  let htmlResult = "<table>";
   rows.forEach( element => {
-    htmlResult +="<table>" + "<td>" + element.bill_det_id + "</td>"  +  "<td>" + element.name_of_goods + "</td>" + "<td>" + element.price_per_unit + "</td>" + "<td>" + element.amount + "</td>" + "<td>" + element.sum + "</td>"  +  "<td>" + element.VAT + "</td>"  + "<td>" + element.sum_VAT + "</td>"  + "<td>" + element.bill_id + "</td>"  + "</table>";
+    htmlResult +="<td>" + element.bill_det_id + "</td>"  +  "<td>" + element.name_of_goods + "</td>" + "<td>" + element.price_per_unit + "</td>" + "<td>" + element.amount + "</td>" + "<td>" + element.sum + "</td>"  +  "<td>" + element.VAT + "</td>"  + "<td>" + element.sum_VAT + "</td>"  + "<td>" + element.bill_id + "</td>"  + "<td class=\"edit_button\" onclick=\"editBillDet(" + element.bill_det_id +")\">Edit</td></tr>";
   });
-  $( "#billDetTable" ).html( htmlResult );
+  htmlResult += "</table>"
+  $( "#billDetTable2" ).html( htmlResult );
 }
 
 function renderGoodsOnStor( rows )
@@ -334,7 +413,7 @@ function showAllBillsBillDet()
       response.json().then( (data) => {
           let htmlResult4 = "";
           data.forEach( element => {
-            htmlResult4 +="<option>" + element.bill_id + "</option>" ;
+            htmlResult4 += "<option>" + element.bill_id +  "</option>" ;
           });
           $( "#billDetBillID" ).html( htmlResult4 );
       } )
@@ -413,7 +492,7 @@ function showAllContracts()
       response.json().then( (data) => {
           let htmlResult7 = "";
           data.forEach( element => {
-            htmlResult7 +="<table>" + "<td>" + element.contracts_id + "</td>"  +  "<td>" + element.provider_id + "</td>"  +  "<td>" + element.name_of_goods + "</td>" +  "<td>" + element.from + "</td>" +  "<td>" + element.to + "</td>" + "</table>";
+            htmlResult7 +="<table>" + "<td>" + element.contracts_id + "</td>"  +  "<td>" + element.provider_id + "</td>"  +  "<td>" + element.name_of_goods + "</td>" +  "<td>" + element.fromDate + "</td>" +  "<td>" + element.toDate + "</td>" + "</table>";
           });
           $( "#contractsTable" ).html( htmlResult7 );
       } )
@@ -636,7 +715,36 @@ $( "#btnAddBill" ).click( function() {
     //TODO: add validation error message
   }
 
+  var billDet = {
+    billDetNameOfGoods : $( "#billDetAllGoods" ).val(),
+    billDetPricePerUnit : $( "#addBillDetProcePerUnit" ).val(),
+    billDetAmount : $( "#addBillDetAmount" ).val(),
+    billDetSum : $( "#addBillDetSum" ).val(),
+    billDetVAT : $( "#addBillDetVat" ).val(),
+    billDetSumVAT : $( "#addBillDetSumWithVat" ).val(),
+    billDetBillId : $( "#billDetBillID" ).val()       
+  }
+
+  if (  validateContract( billDet ) )
+  {
+
+    $.ajax({
+      type: "POST",
+      url: "./api/billDets",
+      dataType: "json",
+      success: function (msg) {
+          validate();
+      },
+      data: billDet
+    });
+  }
+  else
+  {
+    //TODO: add validation error message
+  }
+  $("#billAndBillDet").removeClass(displayFlex);
   billRemoveFlexClass();
+  nomenOfDelRemoveFlexClass();
   validate();
 } );
 
@@ -734,7 +842,7 @@ $( "#btnAddContract" ).click( function() {
 
     $.ajax({
       type: "POST",
-      url: "/api/contract",
+      url: "/api/contracts",
       dataType: "json",
       success: function (msg) {
           validate();
@@ -826,7 +934,6 @@ $( "#btnAddBillDet" ).click( function() {
     //TODO: add validation error message
   }
 
-  nomenOfDelRemoveFlexClass();
   validate();
 } );
 
@@ -904,6 +1011,26 @@ $( "#btnAddRegOfStor" ).click( function() {
   goodsOnStorRemoveFlexClass();
   validate();
 } );
+
+
+$( "#billProviderId" ).change( function() {
+  updateContractGoods( $( this ).val() );
+} );
+
+function updateContractGoods( providerId )
+{
+  fetch( "./api/contractgoods/" + providerId ).then( (response) => {
+    if ( response.status == 200 )
+    {
+      response.json().then( (data) => {
+        let options = "";
+
+        options = data.map( function( item ){ return "<option>" + item.name_of_goods + "</option>" } );
+        $( "#billDetAllGoods" ).html( options.join( "" ) );
+      } )
+    }
+  } );
+}
 
 /*
 var app = function() {
@@ -1073,3 +1200,49 @@ var GoodsOnStorFilterOnChange = function() {
     tOut = window.setTimeout( runFilter, 500 );
   }
 }();
+
+//PRINT TABEL
+
+function printReport1()
+{
+  var report1Print = document.getElementById("report1");
+  newWin= window.open("");
+  newWin.document.write(report1.outerHTML);
+  newWin.print();
+  newWin.close();
+}
+
+$("#btnPrint1").click(function(){
+  printReport1();
+});
+
+
+// SUM
+/*
+$("#addBillDetSum").click(function(){
+  sumPriceForUnitAndAmount();
+});
+
+function sumPriceForUnitAndAmount()
+{
+  var pfu, am;
+  pfu = document.getElementById("addBillDetProcePerUnit").value;
+  am = document.getElementById("addBillDetAmount").avlue;
+  result = (pfu * am);
+  document.getElementById("addBillDetSum").innerHTML=result;
+}*/
+
+$("#addBillDetProcePerUnit , #addBillDetAmount").bind("change", function(){
+  $("#addBillDetSum").val($("#addBillDetProcePerUnit").val() * $("#addBillDetAmount").val());
+});
+
+$("#addBillDetSum , #addBillDetVat").bind("change", function(){
+  sum();
+  //$("#addBillDetSumWithVat").val($("#addBillDetSum".val() + $("#addBillDetVat").val()));
+});
+function sum(){
+  var addBillDetSum = $("#addBillDetSum").val();
+  var addBillDetVat = $("#addBillDetVat").val();
+  var sumThis = parseInt(addBillDetSum) + parseInt(addBillDetVat);
+  $("#addBillDetSumWithVat").val(sumThis);
+};

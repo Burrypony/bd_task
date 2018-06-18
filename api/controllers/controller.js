@@ -282,6 +282,24 @@ exports.listAllNameOfGoods = function( req, res )
   } )  
 }
 
+exports.findGoodsForProvider = function( req, res )
+{
+  let query
+
+  query = "SELECT name_of_goods FROM Contracts WHERE provider_id =\"" + req.params.providerId + "\"";
+
+  db.all( query , [], (err, rows) => {
+    if ( err )
+    {
+      res.send( err );
+    }
+    else
+    {
+     res.send( rows );
+    }
+  } )  
+}
+
 exports.addProvider = function( req, res )
 {
   let query;
@@ -319,11 +337,80 @@ exports.addProvider = function( req, res )
   } );
 }
 
+
 exports.addBill = function( req, res )
 {
-  const query = "INSERT INTO Bill (date_of_bill, number_from_provider, sum_of_bill, provider_id, account_id) VALUES ('" 
-  + req.body.billDate + "','" + req.body.billNumber + "','" + req.body.billSum + "','"
-  + req.body.billProviderId + "','" + req.body.billAccountId + "')"; 
+  let query;
+  
+  query = "SELECT * FROM Bill WHERE bill_id=\"" + req.body.id + "\"";
+
+  db.all( query, [], ( err, rows ) => {
+    if ( err )
+    {
+      res.send( err );
+    }
+    else
+    {
+      if ( rows.length == 0 )
+      {
+        query = "INSERT INTO Bill (date_of_bill, number_from_provider, sum_of_bill, provider_id, account_id) VALUES ('" 
+        + req.body.billDate + "','" + req.body.billNumber + "','" + req.body.billSum + "','"
+        + req.body.billProviderId + "','" + req.body.billAccountId + "')"; 
+      }
+      else
+      {
+        query = `UPDATE Bill SET date_of_bill="${req.body.billDate}", number_from_provider="${req.body.billNumber}", sum_of_bill="${req.body.billSum}", provider_id="${req.body.billProviderId}", account_id="${req.body.billAccountId}" WHERE bill_id="${req.body.id}"`;
+      }
+      db.all( query , [] , ( err, rows ) => {
+        if ( err )
+        {
+          res.send( err );
+        }
+        else
+        {
+          res.send( "OK" );
+        }
+      } );      
+    }
+  } );
+}
+
+exports.addBillDet = function( req, res )
+{
+  let query;
+  
+  query = "SELECT * FROM Bill WHERE bill_det_id=\"" + req.body.id + "\"";
+
+  db.all( query, [], ( err, rows ) => {
+    if ( err )
+    {
+      res.send( err );
+    }
+    else
+    {
+      if ( rows.length == 0 )
+      {
+        query = "INSERT INTO BillDet (name_of_goods, price_per_unit, amount, sum, VAT, sum_VAT) VALUES ('" + req.body.billDetNameOfGoods + "','" + req.body.billDetPricePerUnit + "','" + req.body.billDetAmount +"','" + req.body.billDetSum +  "','" + req.body.billDetVAT + "','" + req.body.billDetSumVAT + "','" +"')"; 
+      }
+      else
+      {
+        query = `UPDATE BillDet SET name_of_goods="${req.body.billDetNameOfGoods}", price_per_unit="${req.body.billDetPricePerUnit}", amount="${req.body.billDetAmount}", sum="${req.body.billDetSum}", VAT="${req.body.billDetVAT}" WHERE sum_VAT="${req.body.id}"`;
+      }
+      db.all( query , [] , ( err, rows ) => {
+        if ( err )
+        {
+          res.send( err );
+        }
+        else
+        {
+          res.send( "OK" );
+        }
+      } );      
+    }
+  } );
+  exports.addBillDet = function( req, res )
+{
+  const query = 
 
   db.all( query , [] , ( err, rows ) => {
     if ( err )
@@ -336,6 +423,8 @@ exports.addBill = function( req, res )
     }
   } )
   console.log( req.body );
+}
+
 }
 
 exports.addBillAccount = function( req, res )
@@ -376,7 +465,7 @@ exports.addBillBank = function( req, res )
 
 exports.addContracts = function( req, res )
 {
-  const query = "INSERT INTO Contracts (provider_id, name_of_goods, from, to) VALUES ('" 
+  const query = "INSERT INTO Contracts (provider_id, name_of_goods, fromDate, toDate) VALUES ('" 
   + req.body.contractProviderId + "','" + req.body.contractNameOfGoods + "','" + req.body.contractFrom +"','" + req.body.contractTo + "')"; 
 
   db.all( query , [] , ( err, rows ) => {
@@ -410,23 +499,6 @@ exports.addNomenOfDels = function( req, res )
   console.log( req.body );
 }
 
-exports.addBillDet = function( req, res )
-{
-  const query = "INSERT INTO BillDet (name_of_goods, price_per_unit, amount, sum, VAT, sum_VAT, bill_id) VALUES ('" 
-  + req.body.billDetNameOfGoods + "','" + req.body.billDetPricePerUnit + "','" + req.body.billDetAmount +"','" + req.body.billDetSum +  "','" + req.body.billDetVAT + "','" + req.body.billDetSumVAT + "','" + req.body.billDetBillId +"')"; 
-
-  db.all( query , [] , ( err, rows ) => {
-    if ( err )
-    {
-      res.send( err );
-    }
-    else
-    {
-      res.send( "OK" );
-    }
-  } )
-  console.log( req.body );
-}
 
 exports.addGoodsOnStor = function( req, res )
 {
@@ -526,6 +598,36 @@ exports.filterGoodsOnStorIdStor = function( req, res )
 exports.loadProvider = function( req, res )
 {
   const query = "SELECT * FROM Providers WHERE provider_id=\"" + req.params.providerId + "\"";
+  db.all( query , [] , ( err, rows ) => {
+    if ( err )
+    {
+      res.send( err );
+    }
+    else
+    {
+      res.send( rows );
+    }
+  } );
+} 
+
+exports.loadBill = function( req, res )
+{
+  const query = "SELECT * FROM Bill WHERE bill_id=\"" + req.params.billId + "\"";
+  db.all( query , [] , ( err, rows ) => {
+    if ( err )
+    {
+      res.send( err );
+    }
+    else
+    {
+      res.send( rows );
+    }
+  } );
+} 
+
+exports.loadBillDet = function( req, res )
+{
+  const query = "SELECT * FROM BillDet WHERE bill_det_id=\"" + req.params.billDetId + "\"";
   db.all( query , [] , ( err, rows ) => {
     if ( err )
     {
