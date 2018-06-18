@@ -198,7 +198,7 @@ $("#btnAddGoods").click(function(){
 
 function editProvider( id )
 {
-  fetch( "./api/provider/" + id ).then( (response) => {
+  fetch( "/api/provider/" + id ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
@@ -319,7 +319,7 @@ function renderGoodsOnStor( rows )
 
 function showAllProviders()
 {
-  fetch( "./api/providers" ).then( (response) => {
+  fetch( "/api/providers" ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
@@ -331,7 +331,7 @@ function showAllProviders()
 
 function showAllProvidersID()
 {
-  fetch( "./api/providers" ).then( (response) => {
+  fetch( "/api/providers" ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
@@ -347,7 +347,7 @@ function showAllProvidersID()
 
 function showAllIdOfStor()
 {
-  fetch( "./api/regofstor" ).then( (response) => {
+  fetch( "/api/regofstor" ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
@@ -363,7 +363,7 @@ function showAllIdOfStor()
 
 function showAllProvidersIDToContracts()
 {
-  fetch( "./api/provider" ).then( (response) => {
+  fetch( "/api/provider" ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
@@ -379,7 +379,7 @@ function showAllProvidersIDToContracts()
 
 function showAllAccountID()
 {
-  fetch( "./api/accounts" ).then( (response) => {
+  fetch( "/api/accounts" ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
@@ -395,7 +395,7 @@ function showAllAccountID()
 
 function showAllBills()
 {
-  fetch( "./api/bills" ).then( (response) => {
+  fetch( "/api/bills" ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
@@ -407,7 +407,7 @@ function showAllBills()
 
 function showAllBillsBillDet()
 {
-  fetch( "./api/bill" ).then( (response) => {
+  fetch( "/api/bill" ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
@@ -423,7 +423,7 @@ function showAllBillsBillDet()
 
 function showAllBillsGoodsOnStor()
 {
-  fetch( "./api/billGoodsOnStor" ).then( (response) => {
+  fetch( "/api/billGoodsOnStor" ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
@@ -439,7 +439,7 @@ function showAllBillsGoodsOnStor()
 
 function showAllBanks()
 {
-  fetch( "./api/banks" ).then( (response) => {
+  fetch( "/api/banks" ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
@@ -455,7 +455,7 @@ function showAllBanks()
 
 function showAllGoodsONStorages()
 {
-  fetch( "./api/storage" ).then( (response) => {
+  fetch( "/api/storage" ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
@@ -468,7 +468,7 @@ function showAllGoodsONStorages()
 
 function showProvidersAdnGoods2Years()
 {
-  fetch( "./api/providerss" ).then( (response) => {
+  fetch( "/api/providerss" ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
@@ -486,7 +486,7 @@ function showProvidersAdnGoods2Years()
 // Nastia BEGIN
 function showAllContracts()
 {
-  fetch( "./api/contracts" ).then( (response) => {
+  fetch( "/api/contracts" ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
@@ -502,7 +502,7 @@ function showAllContracts()
 
 function showAllGoods()
 {
-  fetch( "./api/goods" ).then( (response) => {
+  fetch( "/api/goods" ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
@@ -519,7 +519,7 @@ function showAllGoods()
 
 function showAllBillDet()
 {
-  fetch( "./api/billdet" ).then( (response) => {
+  fetch( "/api/billdet" ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
@@ -531,7 +531,7 @@ function showAllBillDet()
 
 function showAllStorage()
 {
-  fetch( "./api/regofstor" ).then( (response) => {
+  fetch( "/api/regofstor" ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
@@ -547,7 +547,7 @@ function showAllStorage()
 
 function showAllAccount()
 {
-  fetch( "./api/account" ).then( (response) => {
+  fetch( "/api/account" ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
@@ -563,7 +563,7 @@ function showAllAccount()
 
 function showAllBankInAccount()
 {
-  fetch( "./api/banks" ).then( (response) => {
+  fetch( "/api/banks" ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
@@ -579,7 +579,7 @@ function showAllBankInAccount()
 
 function showAllNameOfGood()
 {
-  fetch( "./api/nomenOfDel" ).then( (response) => {
+  fetch( "/api/nomenOfDel" ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
@@ -595,7 +595,7 @@ function showAllNameOfGood()
 
 function showAllNameOfGoodBillDet()
 {
-  fetch( "./api/nomenOfDel2" ).then( (response) => {
+  fetch( "/api/nomenOfDel2" ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
@@ -662,7 +662,7 @@ $( "#btnAddProvider" ).click( function() {
 
     $.ajax({
       type: "POST",
-      url: "./api/provider",
+      url: "/api/provider",
       dataType: "json",
       success: function (msg) {
           validate();
@@ -702,7 +702,7 @@ $( "#btnAddBill" ).click( function() {
 
     $.ajax({
       type: "POST",
-      url: "./api/bill",
+      url: "/api/bill",
       dataType: "json",
       success: function (msg) {
           validate();
@@ -768,7 +768,7 @@ $( "#btnAddAccount" ).click( function() {
 
     $.ajax({
       type: "POST",
-      url: "./api/account",
+      url: "/api/account",
       dataType: "json",
       success: function (msg) {
           validate();
@@ -804,7 +804,7 @@ $( "#btnAddBank" ).click( function() {
 
     $.ajax({
       type: "POST",
-      url: "./api/bank",
+      url: "/api/bank",
       dataType: "json",
       success: function (msg) {
           validate();
@@ -842,7 +842,7 @@ $( "#btnAddContract" ).click( function() {
 
     $.ajax({
       type: "POST",
-      url: "./api/contracts",
+      url: "/api/contracts",
       dataType: "json",
       success: function (msg) {
           validate();
@@ -880,7 +880,7 @@ $( "#btnAddNomenOfDel" ).click( function() {
 
     $.ajax({
       type: "POST",
-      url: "./api/nomenOfDels",
+      url: "/api/nomenOfDels",
       dataType: "json",
       success: function (msg) {
           validate();
@@ -921,7 +921,7 @@ $( "#btnAddBillDet" ).click( function() {
 
     $.ajax({
       type: "POST",
-      url: "./api/billDets",
+      url: "/api/billDets",
       dataType: "json",
       success: function (msg) {
           validate();
@@ -959,7 +959,7 @@ $( "#btnAddGoodsOnStor" ).click( function() {
 
     $.ajax({
       type: "POST",
-      url: "./api/goodsOnStor",
+      url: "/api/goodsOnStor",
       dataType: "json",
       success: function (msg) {
           validate();
@@ -995,7 +995,7 @@ $( "#btnAddRegOfStor" ).click( function() {
 
     $.ajax({
       type: "POST",
-      url: "./api/addRegOfStor",
+      url: "/api/addRegOfStor",
       dataType: "json",
       success: function (msg) {
           validate();
@@ -1062,7 +1062,7 @@ function filterProviders()
 
   $.ajax({
     type: "POST",
-    url: "./api/filterProviders",
+    url: "/api/filterProviders",
     dataType: "json",
     success: function ( data ) {
       renderProviders( data );
@@ -1100,7 +1100,7 @@ function filterBill()
 
   $.ajax({
     type: "POST",
-    url: "./api/filterBill",
+    url: "/api/filterBill",
     dataType: "json",
     success: function ( data ) {
       renderBill( data );
@@ -1136,7 +1136,7 @@ function filterBillDet()
 
   $.ajax({
     type: "POST",
-    url: "./api/filterBillDet",
+    url: "/api/filterBillDet",
     dataType: "json",
     success: function ( data ) {
       renderBillDet( data );
@@ -1173,7 +1173,7 @@ function filterGoodsOnStor()
 
   $.ajax({
     type: "POST",
-    url: "./api/filterGoodsOnStor",
+    url: "/api/filterGoodsOnStor",
     dataType: "json",
     success: function ( data ) {
       renderGoodsOnStor( data );
