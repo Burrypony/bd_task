@@ -244,8 +244,8 @@ function editBill ( id )
           $( "#billAddDateOfBill" ).val( data[0].date_of_bill );
           $( "#billAddNumberFromProvider" ).val( data[0].number_from_provider);
           $( "#billAddSumOfBill" ).val( data[0].sum_of_bill );
-          $( "#billProviderId" ).val( data[0].provider_id );
-          $( "#billAccountId" ).val( data[0].account_id );
+          $( "#billProviderId select" ).val( data[0].provider_id );
+          $( "#billAccountId select" ).val( data[0].account_id );
 
           $( "#addBillId").prop( "disabled", true );
           $("#btnAddBill").val( "save" );
@@ -732,6 +732,7 @@ function validateBill( bill )
 $( "#btnAddBill" ).click( function() {
 
   var bill = {
+    billId : $( "#billAddBillId").val(),
     billDate : $( "#billAddDateOfBill" ).val(),
     numFromProv: $( "#billAddNumberFromProvider" ).val(),
     sumOfBill: $( "#billAddSumOfBill" ).val(),

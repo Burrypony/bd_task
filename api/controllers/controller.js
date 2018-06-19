@@ -355,7 +355,7 @@ exports.addBills = function( req, res )
 {
   let query;
   
-  query = "SELECT * FROM Bill WHERE bill_id=\"" + req.body.id + "\"";
+  query = "SELECT * FROM Bill WHERE bill_id=\"" + req.body.billId + "\"";
 
   db.all( query, [], ( err, rows ) => {
     if ( err )
@@ -372,7 +372,7 @@ exports.addBills = function( req, res )
       }
       else
       {
-        query = `UPDATE Bill SET date_of_bill="${req.body.billDate}", number_from_provider="${req.body.numFromProv}", sum_of_bill="${req.body.sumOfBill}", provider_id="${req.body.providerId}", account_id="${req.body.accountId}" WHERE bill_id="${req.body.id}"`;
+        query = `UPDATE Bill SET date_of_bill="${req.body.billDate}", number_from_provider="${req.body.numFromProv}", sum_of_bill="${req.body.sumOfBill}", provider_id="${req.body.billProviderId}", account_id="${req.body.billAccountId}" WHERE bill_id="${req.body.billId}"`;
       }
       db.all( query , [] , ( err, rows ) => {
         if ( err )
