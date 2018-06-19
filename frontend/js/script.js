@@ -316,7 +316,7 @@ function renderBill( rows )
     {
       htmlResult += "<td class=\"edit_button\" onclick=\"editBill(" + element.bill_id +")\">Edit</td></tr>";;
     }
-    htmlResult += "</tr>";
+      htmlResult += "</tr>";
   });
   htmlResult +="</table>"
   $( "#billTable" ).html( htmlResult );
@@ -733,8 +733,8 @@ $( "#btnAddBill" ).click( function() {
 
   var bill = {
     billDate : $( "#billAddDateOfBill" ).val(),
-    billNumber: $( "#billAddNumberFromProvider" ).val(),
-    billSum: $( "#billAddSumOfBill" ).val(),
+    numFromProv: $( "#billAddNumberFromProvider" ).val(),
+    sumOfBill: $( "#billAddSumOfBill" ).val(),
     billProviderId: $( "#billProviderId" ).val(),
     billAccountId : $( "#billAccountId" ).val()
   }

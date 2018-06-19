@@ -96,7 +96,7 @@ module.exports = function( app )
     .post( controller.addProvider );
 
     app.route( "/api/bill" )
-    .post( controller.addBill );
+    .post( controller.addBills );
 
     app.route( "/api/billDets" )
     .post( controller.addBillDet );
