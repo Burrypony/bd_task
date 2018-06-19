@@ -16,7 +16,7 @@
     <div id="btnReport1"><p>Звіт 1</p></div>
     <div id="btnReport2"><p>Звіт 2</p></div>
     <div id="loginName"></div>
-    <button class="btn">Exit</button>
+    <button class="btn"onclick="location.href='/login'">Exit</button>
   </div>
     
   </header>
@@ -266,17 +266,17 @@
       <div id="storageTable"></div>
       <div class="addGoodsOnStor" id="addGoodsOnStor">
           <div class="group">      
-              <input type="number" required id="addGoodsOnStorNameOfGoods">
+              <input type="text" required id="addGoodsOnStorNameOfGoods">
               <span class="highlight"></span>
               <label>Name of goods</label>
           </div>
           <div class="group">      
-              <input type="text" required id="addGoodsOnStorAmount">
+              <input type="number" required id="addGoodsOnStorAmount">
               <span class="highlight"></span>
               <label>Amount</label>
           </div> 
           <div class="group">      
-              <input type="text" required id="addGoodsOnStorSum">
+              <input type="number" required id="addGoodsOnStorSum">
               <span class="highlight"></span>
               <label>Sum</label>
           </div>
@@ -337,7 +337,7 @@
         </div>
         <div class="addNomenOfDel" id="addNomenOfDel">
             <div class="group">      
-                <input type="number" required id="addNomenOfDelNameOfGoods">
+                <input type="text" required id="addNomenOfDelNameOfGoods">
                 <span class="highlight"></span>
                 <label>Name of goods</label>
             </div>
@@ -392,7 +392,7 @@
       </table>
       <div id="billDetTable2"></div>
       <div class="addBillDet" id="addBillDet2">
-          <div class="customGroup">
+          <div class="customGroup" id="cg1">
               <select name="" id="billDetAllGoods2"></select>
               <label class="customLabel">Goods</label>
           </div>
@@ -422,7 +422,7 @@
             <span class="highlight"></span>
             <label>Sum with VAT</label>
         </div>
-        <div class="customGroup">
+        <div class="customGroup" id="cg2"> 
             <select name="" id="billDetBillID2"></select>
             <label class="customLabel" id="specialLabel">Bill ID</label>
         </div>
@@ -465,21 +465,28 @@
   </form>
 <!-- REPORT 1-->
 <section id="report1" class="report1">
-  <div id="reportTabel1">
+  <div id="printZone1">
+    <p>Постачальники та їх товари за останні 2 роки </p>
+      <div id="reportTabel1">
 
+        </div>
   </div>
+
   <button id="btnPrint1">Print</button>
 </section>
 
 <!-- REPORT 2-->
 <section id="report2" class="report2">
-<div id="reportTabel2">
-  
-
-</div>
+    <div id="printZone2">
+        <p> банки та суми грошей за весь час,які через них пройшли </p>
+        <div id="reportTabel2">
+        </div>
+    </div>
+      <button id="btnPrint2">Print</button>
 </section>
 </body>
 <script type="text/javascript" src="js/JQuery.js"></script>
+<script type="text/javascript" src="/config.js"></script>
 <script type="text/javascript" src="js/script.js"></script>
 <script>
 

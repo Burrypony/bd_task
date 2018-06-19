@@ -156,7 +156,8 @@ function validate() {
       $("#addContract").removeClass("displayFlex"),
       $("#addNomenOfDel").removeClass("displayFlex");
     }else if(selectedValue == "billDet"){
-      $("#addBillDet").removeClass("displayFlex");
+      $("#addBillDet2").removeClass("displayFlex");
+
     }else if(selectedValue == "storage"){
       $("#addRegOfStor").removeClass("displayFlex");
     }else if(selectedValue == "goods_on_storage"){
@@ -169,7 +170,17 @@ $("#btnReport1").click(function(){
   $("#mainForm").addClass("display_none"),
   $("#report1").addClass("display_flex"),
   $("#btnPrint1").addClass("display_block");
+  $("#report2").removeClass("display_flex");
   showProvidersAdnGoods2Years();
+})
+
+//REPORT2
+$("#btnReport2").click(function(){
+  $("#mainForm").addClass("display_none"),
+  $("#report2").addClass("display_flex"),
+  $("#btnPrint2").addClass("display_block");
+  $("#report1").removeClass("display_flex");
+  showAllMoneyInBanks();
 })
 
 $("#mainTabel").click(function(){
@@ -198,7 +209,7 @@ $("#btnAddGoods").click(function(){
 
 function editProvider( id )
 {
-  fetch( "./api/provider/" + id ).then( (response) => {
+  fetch( "/api/provider/" + id ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
@@ -214,6 +225,7 @@ function editProvider( id )
           $( "#addProviderId").prop( "disabled", true );
           $("#btnAddProvider").val( "save" );
           $("#addProvider").addClass("displayFlex");
+          validate();
         }
       } );
     }
@@ -266,6 +278,8 @@ function editBillDet ( id )
           $("#btnAddBillDet").val( "save" );
           //$("#btnOpenRegAccount").prop( "type", "hidden");
           $("#addBillDet2").addClass("displayFlex");
+          $("#cg1").addClass("display_none");
+          $("#cg2").addClass("display_none");
           //$("#billAndBillDet").addClass("displayFlex");
           //$("#addBill").addClass("display_none")
         }
@@ -282,7 +296,12 @@ function renderProviders( rows )
 {
   let htmlResult = "<table>";
   rows.forEach( element => {
-    htmlResult +="<tr><td>"  + element.provider_id +"</td>"  +  "<td>" + element.name_of_provider + "</td>" + "<td>" + element.city + "</td>" + "<td>" + element.street + "</td>" + "<td>" + element.built + "</td>" + "<td>" + element.flat + "</td><td class=\"edit_button\" onclick=\"editProvider(" + element.provider_id +")\">Edit</td></tr>";
+    htmlResult +="<tr><td>"  + element.provider_id +"</td>"  +  "<td>" + element.name_of_provider + "</td>" + "<td>" + element.city + "</td>" + "<td>" + element.street + "</td>" + "<td>" + element.built + "</td>" + "<td>" + element.flat + "</td>";
+    if ( UserStatus && UserStatus != "director" )
+    {
+      htmlResult += "<td class=\"edit_button\" onclick=\"editProvider(" + element.provider_id +")\">Edit</td>";
+    }
+    htmlResult += "</tr>";
   });
   htmlResult += "</table>";
   $( "#providersTable" ).html( htmlResult );
@@ -292,7 +311,12 @@ function renderBill( rows )
 {
   let htmlResult = "<table>";
   rows.forEach( element => {
-    htmlResult +="<td>" + element.bill_id + "</td>"  +  "<td>" + element.date_of_bill + "</td>" + "<td>" + element.number_from_provider + "</td>" + "<td>" + element.sum_of_bill + "</td>" + "<td>" + element.provider_id + "</td>" + "<td>" + element.account_id + "</td>" + "<td class=\"edit_button\" onclick=\"editBill(" + element.bill_id +")\">Edit</td></tr>";
+    htmlResult +="<td>" + element.bill_id + "</td>"  +  "<td>" + element.date_of_bill + "</td>" + "<td>" + element.number_from_provider + "</td>" + "<td>" + element.sum_of_bill + "</td>" + "<td>" + element.provider_id + "</td>" + "<td>" + element.account_id + "</td>" ;
+    if ( UserStatus && UserStatus != "director" )
+    {
+      htmlResult += "<td class=\"edit_button\" onclick=\"editBill(" + element.bill_id +")\">Edit</td></tr>";;
+    }
+    htmlResult += "</tr>";
   });
   htmlResult +="</table>"
   $( "#billTable" ).html( htmlResult );
@@ -302,7 +326,7 @@ function renderBillDet( rows )
 {
   let htmlResult = "<table>";
   rows.forEach( element => {
-    htmlResult +="<td>" + element.bill_det_id + "</td>"  +  "<td>" + element.name_of_goods + "</td>" + "<td>" + element.price_per_unit + "</td>" + "<td>" + element.amount + "</td>" + "<td>" + element.sum + "</td>"  +  "<td>" + element.VAT + "</td>"  + "<td>" + element.sum_VAT + "</td>"  + "<td>" + element.bill_id + "</td>"  + "<td class=\"edit_button\" onclick=\"editBillDet(" + element.bill_det_id +")\">Edit</td></tr>";
+    htmlResult +="<td>" + element.bill_det_id + "</td>"  +  "<td>" + element.name_of_goods + "</td>" + "<td>" + element.price_per_unit + "</td>" + "<td>" + element.amount + "</td>" + "<td>" + element.sum + "</td>"  +  "<td>" + element.VAT + "</td>"  + "<td>" + element.sum_VAT + "</td>"  + "<td>" + element.bill_id + "</td>"  + "</tr>";
   });
   htmlResult += "</table>"
   $( "#billDetTable2" ).html( htmlResult );
@@ -319,7 +343,7 @@ function renderGoodsOnStor( rows )
 
 function showAllProviders()
 {
-  fetch( "./api/providers" ).then( (response) => {
+  fetch( "/api/providers" ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
@@ -331,7 +355,7 @@ function showAllProviders()
 
 function showAllProvidersID()
 {
-  fetch( "./api/providers" ).then( (response) => {
+  fetch( "/api/providers" ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
@@ -347,7 +371,7 @@ function showAllProvidersID()
 
 function showAllIdOfStor()
 {
-  fetch( "./api/regofstor" ).then( (response) => {
+  fetch( "/api/regofstor" ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
@@ -363,7 +387,7 @@ function showAllIdOfStor()
 
 function showAllProvidersIDToContracts()
 {
-  fetch( "./api/provider" ).then( (response) => {
+  fetch( "/api/provider" ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
@@ -379,7 +403,7 @@ function showAllProvidersIDToContracts()
 
 function showAllAccountID()
 {
-  fetch( "./api/accounts" ).then( (response) => {
+  fetch( "/api/accounts" ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
@@ -395,7 +419,7 @@ function showAllAccountID()
 
 function showAllBills()
 {
-  fetch( "./api/bills" ).then( (response) => {
+  fetch( "/api/bills" ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
@@ -407,7 +431,7 @@ function showAllBills()
 
 function showAllBillsBillDet()
 {
-  fetch( "./api/bill" ).then( (response) => {
+  fetch( "/api/bill" ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
@@ -423,7 +447,7 @@ function showAllBillsBillDet()
 
 function showAllBillsGoodsOnStor()
 {
-  fetch( "./api/billGoodsOnStor" ).then( (response) => {
+  fetch( "/api/billGoodsOnStor" ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
@@ -439,7 +463,7 @@ function showAllBillsGoodsOnStor()
 
 function showAllBanks()
 {
-  fetch( "./api/banks" ).then( (response) => {
+  fetch( "/api/banks" ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
@@ -455,7 +479,7 @@ function showAllBanks()
 
 function showAllGoodsONStorages()
 {
-  fetch( "./api/storage" ).then( (response) => {
+  fetch( "/api/storage" ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
@@ -468,7 +492,7 @@ function showAllGoodsONStorages()
 
 function showProvidersAdnGoods2Years()
 {
-  fetch( "./api/providerss" ).then( (response) => {
+  fetch( "/api/providerss" ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
@@ -482,11 +506,29 @@ function showProvidersAdnGoods2Years()
   } )
 }
 
+function showAllMoneyInBanks()
+{
+  fetch( "/api/banksbill" ).then( (response) => {
+    if ( response.status == 200 )
+    {
+      response.json().then( (data) => {
+          let htmlResult10 = "<table>" ;
+          data.forEach( element => {
+            htmlResult10 += "<tr>" + "<td>" + element["Bank.name_of_bank"] + "</td>"  +  "<td>" + element["SUM(Bill.sum_of_bill)"] + "</td>" + "</tr>" ;
+          });
+          htmlResult10 += "</table>"
+          $( "#reportTabel2" ).html( htmlResult10 );
+      } )
+    }
+  } )
+}
+
+
 
 // Nastia BEGIN
 function showAllContracts()
 {
-  fetch( "./api/contracts" ).then( (response) => {
+  fetch( "/api/contracts" ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
@@ -502,7 +544,7 @@ function showAllContracts()
 
 function showAllGoods()
 {
-  fetch( "./api/goods" ).then( (response) => {
+  fetch( "/api/goods" ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
@@ -519,7 +561,7 @@ function showAllGoods()
 
 function showAllBillDet()
 {
-  fetch( "./api/billdet" ).then( (response) => {
+  fetch( "/api/billdet" ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
@@ -531,7 +573,7 @@ function showAllBillDet()
 
 function showAllStorage()
 {
-  fetch( "./api/regofstor" ).then( (response) => {
+  fetch( "/api/regofstor" ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
@@ -547,7 +589,7 @@ function showAllStorage()
 
 function showAllAccount()
 {
-  fetch( "./api/account" ).then( (response) => {
+  fetch( "/api/account" ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
@@ -563,7 +605,7 @@ function showAllAccount()
 
 function showAllBankInAccount()
 {
-  fetch( "./api/banks" ).then( (response) => {
+  fetch( "/api/banks" ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
@@ -579,7 +621,7 @@ function showAllBankInAccount()
 
 function showAllNameOfGood()
 {
-  fetch( "./api/nomenOfDel" ).then( (response) => {
+  fetch( "/api/nomenOfDel" ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
@@ -595,7 +637,7 @@ function showAllNameOfGood()
 
 function showAllNameOfGoodBillDet()
 {
-  fetch( "./api/nomenOfDel2" ).then( (response) => {
+  fetch( "/api/nomenOfDel2" ).then( (response) => {
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
@@ -662,7 +704,7 @@ $( "#btnAddProvider" ).click( function() {
 
     $.ajax({
       type: "POST",
-      url: "./api/provider",
+      url: "/api/provider",
       dataType: "json",
       success: function (msg) {
           validate();
@@ -702,7 +744,7 @@ $( "#btnAddBill" ).click( function() {
 
     $.ajax({
       type: "POST",
-      url: "./api/bill",
+      url: "/api/bill",
       dataType: "json",
       success: function (msg) {
           validate();
@@ -742,9 +784,42 @@ $( "#btnAddBill" ).click( function() {
   {
     //TODO: add validation error message
   }
-  $("#billAndBillDet").removeClass(displayFlex);
+  $("#billAndBillDet").removeClass("displayFlex");
   billRemoveFlexClass();
   nomenOfDelRemoveFlexClass();
+  validate();
+} );
+
+$( "#btnAddBillDet" ).click( function() {
+
+  var billDet = {
+    billDetNameOfGoods : $( "#billDetAllGoods" ).val(),
+    billDetPricePerUnit : $( "#addBillDetProcePerUnit" ).val(),
+    billDetAmount : $( "#addBillDetAmount" ).val(),
+    billDetSum : $( "#addBillDetSum" ).val(),
+    billDetVAT : $( "#addBillDetVat" ).val(),
+    billDetSumVAT : $( "#addBillDetSumWithVat" ).val(),
+    billDetBillId : $( "#billDetBillID" ).val()       
+  }
+
+  if (  validateContract( billDet ) )
+  {
+
+    $.ajax({
+      type: "POST",
+      url: "./api/billDets",
+      dataType: "json",
+      success: function (msg) {
+          validate();
+      },
+      data: billDet
+    });
+  }
+  else
+  {
+    //TODO: add validation error message
+  }
+  $("#addBillDet2").removeClass("displayFlex");
   validate();
 } );
 
@@ -768,7 +843,7 @@ $( "#btnAddAccount" ).click( function() {
 
     $.ajax({
       type: "POST",
-      url: "./api/account",
+      url: "/api/account",
       dataType: "json",
       success: function (msg) {
           validate();
@@ -804,7 +879,7 @@ $( "#btnAddBank" ).click( function() {
 
     $.ajax({
       type: "POST",
-      url: "./api/bank",
+      url: "/api/bank",
       dataType: "json",
       success: function (msg) {
           validate();
@@ -842,7 +917,7 @@ $( "#btnAddContract" ).click( function() {
 
     $.ajax({
       type: "POST",
-      url: "./api/contracts",
+      url: "/api/contracts",
       dataType: "json",
       success: function (msg) {
           validate();
@@ -880,7 +955,7 @@ $( "#btnAddNomenOfDel" ).click( function() {
 
     $.ajax({
       type: "POST",
-      url: "./api/nomenOfDels",
+      url: "/api/nomenOfDels",
       dataType: "json",
       success: function (msg) {
           validate();
@@ -921,7 +996,7 @@ $( "#btnAddBillDet" ).click( function() {
 
     $.ajax({
       type: "POST",
-      url: "./api/billDets",
+      url: "/api/billDets",
       dataType: "json",
       success: function (msg) {
           validate();
@@ -959,7 +1034,7 @@ $( "#btnAddGoodsOnStor" ).click( function() {
 
     $.ajax({
       type: "POST",
-      url: "./api/goodsOnStor",
+      url: "/api/goodsOnStor",
       dataType: "json",
       success: function (msg) {
           validate();
@@ -995,7 +1070,7 @@ $( "#btnAddRegOfStor" ).click( function() {
 
     $.ajax({
       type: "POST",
-      url: "./api/addRegOfStor",
+      url: "/api/addRegOfStor",
       dataType: "json",
       success: function (msg) {
           validate();
@@ -1062,7 +1137,7 @@ function filterProviders()
 
   $.ajax({
     type: "POST",
-    url: "./api/filterProviders",
+    url: "/api/filterProviders",
     dataType: "json",
     success: function ( data ) {
       renderProviders( data );
@@ -1100,7 +1175,7 @@ function filterBill()
 
   $.ajax({
     type: "POST",
-    url: "./api/filterBill",
+    url: "/api/filterBill",
     dataType: "json",
     success: function ( data ) {
       renderBill( data );
@@ -1136,7 +1211,7 @@ function filterBillDet()
 
   $.ajax({
     type: "POST",
-    url: "./api/filterBillDet",
+    url: "/api/filterBillDet",
     dataType: "json",
     success: function ( data ) {
       renderBillDet( data );
@@ -1173,7 +1248,7 @@ function filterGoodsOnStor()
 
   $.ajax({
     type: "POST",
-    url: "./api/filterGoodsOnStor",
+    url: "/api/filterGoodsOnStor",
     dataType: "json",
     success: function ( data ) {
       renderGoodsOnStor( data );
@@ -1205,7 +1280,7 @@ var GoodsOnStorFilterOnChange = function() {
 
 function printReport1()
 {
-  var report1Print = document.getElementById("report1");
+  var report1Print = document.getElementById("printZone1");
   newWin= window.open("");
   newWin.document.write(report1.outerHTML);
   newWin.print();
@@ -1214,6 +1289,19 @@ function printReport1()
 
 $("#btnPrint1").click(function(){
   printReport1();
+});
+
+function printReport2()
+{
+  var report2Print = document.getElementById("printZone2");
+  newWin= window.open("");
+  newWin.document.write(report2.outerHTML);
+  newWin.print();
+  newWin.close();
+}
+
+$("#btnPrint2").click(function(){
+  printReport2();
 });
 
 
@@ -1246,3 +1334,8 @@ function sum(){
   var sumThis = parseInt(addBillDetSum) + parseInt(addBillDetVat);
   $("#addBillDetSumWithVat").val(sumThis);
 };
+
+if ( UserStatus && UserStatus == "director" )
+{
+  $( "#addButton" ).prop( "disabled", true );
+}

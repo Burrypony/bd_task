@@ -25,6 +25,9 @@ module.exports = function( app )
 
     app.route( "/api/providerss" )
     .get( controller.listProvidersAndGoods2Years );  
+
+    app.route( "/api/banksbill" )
+    .get( controller.listBanksWithAllMoney );  
     
     //Nastia END
 
@@ -95,6 +98,9 @@ module.exports = function( app )
 
     app.route( "/api/bill" )
     .post( controller.addBill );
+
+    app.route( "/api/billDets" )
+    .post( controller.addBillDet );
 
     app.route( "/api/account" )
     .post( controller.addBillAccount );

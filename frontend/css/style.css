@@ -342,7 +342,7 @@ input:focus ~ .highlight {
   box-shadow: none;
 }
 
-.report1 {
+.report1, .report2 {
   display: none;
   flex-direction: column;
   align-items: center
@@ -358,3 +358,28 @@ input:focus ~ .highlight {
   color: rgba(91, 176, 233, 0.85);
 }
  
+
+
+.login-form{
+  /* display: none;
+  flex-direction: column;
+  justify-content: center;
+    margin: 0 auto;
+  border: 1px solid black;*/
+  margin-left: 35%;
+  margin-right: 35%;
+  padding: 20px;
+  position: absolute;
+  top: 20%;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  border: 2px dotted red;
+  background: linear-gradient(45deg, transparent 48%, #0a6669 48%, #50eaef 50%, #0a6669 52%, transparent 52%), linear-gradient(to bottom, #11b8be, transparent);
+  background-size: 5px 15px, auto auto;
+  background-color: #12c1c7;
+  box-shadow: 0 0 0 5px #12c1c7, 0 0 0 6px #0a6669, 8px 0 0 0 rgba(0, 0, 0, 0.2), inset 1px 0 0 0 rgba(255, 255, 255, 0.8), 8px 0 10px 0 rgba(0, 0, 0, 0.5);
+  text-shadow: 0 1px 0 black;
+  font-family: 'Chelsea Market',sans-serif;
+  text-align: center;
+}
