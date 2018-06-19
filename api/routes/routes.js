@@ -29,7 +29,6 @@ module.exports = function( app )
     app.route( "/api/banksbill" )
     .get( controller.listBanksWithAllMoney );  
     
-    //Nastia END
 
     app.route( "/api/banks" )
     .get( controller.listAllBanks );  
