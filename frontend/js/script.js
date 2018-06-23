@@ -193,6 +193,8 @@ $("#mainTabel").click(function(){
 $("#btnOpenRegAccount").click(function(){
   $("#addAccount").addClass("displayFlex");
   $("#addBill").removeClass("displayFlex");
+  $("#addBillDet").removeClass("displayFlex");
+  $("#billAndBillDet").removeClass("displayFlex");
 });
 
 $("#btnOpenRegBank").click(function(){
@@ -1324,6 +1326,23 @@ function sumPriceForUnitAndAmount()
 $("#addBillDetProcePerUnit , #addBillDetAmount").bind("change", function(){
   $("#addBillDetSum").val($("#addBillDetProcePerUnit").val() * $("#addBillDetAmount").val());
 });
+
+
+var inp1 = document.getElementById("addBillDetSumWithVat").value;
+var inp2 = document.getElementById("billAddSumOfBill").value;
+$("#btnAddBill").click(function(){
+if(inp1 != inp2)
+{
+  alert("Check your mean (Sum of bill not = sum with VAT)")
+}
+})
+
+/*$("#addBillDetSumWithVat").onClick(function(){
+  if ($("#addBillDetSumWithVat").val() != $("#billAddSumOfBill").val()){
+    alert("Check your mean (Sum of bill not = sum with VAT)")
+  }
+
+})*/
 
 $("#addBillDetSum , #addBillDetVat").bind("change", function(){
   sum();
