@@ -15,7 +15,7 @@
     <div id="mainTabel">Головні таблиці</div>
     <div id="btnReport1"><p>Звіт 1</p></div>
     <div id="btnReport2"><p>Звіт 2</p></div>
-    <div id="loginName"></div>
+    <div id="btnReport3"><p>Звіт 3</p></div>
     <button class="btn"onclick="location.href='/login'">Exit</button>
   </div>
     
@@ -104,7 +104,7 @@
       <table>
         <tr>
           <td>
-              <input type="number" name="bill_provider_id" placeholder="Provider ID" onchange="billFilterOnChange()" onkeyup="billFilterOnChange()">
+            Bill Id  
           </td>
           <td>
             Date of bill
@@ -116,7 +116,7 @@
             Sum of bill
           </td>
           <td>
-            Provider ID
+            <input type="number" name="bill_provider_id" placeholder="Provider ID" onchange="billFilterOnChange()" onkeyup="billFilterOnChange()">
           </td>
           <td>
             Account ID
@@ -135,7 +135,7 @@
           <div class="group">      
               <input type="text" required id="billAddNumberFromProvider">
               <span class="highlight"></span>
-              <label>Name from provider</label>
+              <label>Number from provider</label>
           </div> 
           <div class="group">      
               <input type="text" required id="billAddSumOfBill">
@@ -187,10 +187,14 @@
               <select name="" id="billDetBillID"></select>
               <label class="customLabel">Bill ID</label>
           </div>
-
+          <div class="inputButton" id="billDetBtn">
+              <input type="button" value="add more BillDet" id="btnAddBillDet">
+              <input type="reset" value="add this BillDet" class="buttonBack">
+              <input type="button" value="back" class="buttonBack">
+          </div>
         </div>
-        <div class="inputButton">
-            <input type="button" value="add" id="btnAddBill">
+        <div class="inputButton" id="BillBtn">
+            <input type="button" value="add BillDet" id="btnAddBill">
             <input type="reset" value="back" class="buttonBack">
             <input type="button" value="add account" id="btnOpenRegAccount">
         </div>
@@ -483,6 +487,16 @@
         </div>
     </div>
       <button id="btnPrint2">Print</button>
+</section>
+
+<!-- REPORT 3-->
+<section id="report3" class="report3">
+    <div id="printZone3">
+        <p> кількість товарів на складах </p>
+        <div id="reportTabel3">
+        </div>
+    </div>
+      <button id="btnPrint3">Print</button>
 </section>
 </body>
 <script type="text/javascript" src="js/JQuery.js"></script>

@@ -28,6 +28,9 @@ module.exports = function( app )
 
     app.route( "/api/banksbill" )
     .get( controller.listBanksWithAllMoney );  
+
+    app.route( "/api/goodsonstorregofstor" )
+    .get( controller.listAmountGoodsOnStor );  
     
 
     app.route( "/api/banks" )
@@ -82,6 +85,9 @@ module.exports = function( app )
 
     app.route( "/api/contractgoods/:providerId" )
     .get( controller.findGoodsForProvider );  
+
+    app.route( "/api/billaccount/:providerId" )
+    .get( controller.findAccountForProvider );  
 
     app.route( "/api/provider/:providerId")
     .get( controller.loadProvider);

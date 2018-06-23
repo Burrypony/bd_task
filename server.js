@@ -63,7 +63,7 @@ app.route('/login')
         const username = req.body.username,
             password = req.body.password;
 
-        if ( username == "admin" && password == "hello" )
+        if ( username == "buhgalter" && password == "hello" )
         {
           req.session.user = "admin";
           res.redirect( "/dashboard" );

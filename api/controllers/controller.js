@@ -209,6 +209,20 @@ exports.listBanksWithAllMoney = function( req, res )
   } )  
 }
 
+exports.listAmountGoodsOnStor = function( req, res )
+{
+  db.all( "SELECT GoodsOnStor.id_of_storage, RegOfStor.address, SUM(GoodsOnStor.amount) FROM GoodsOnStor JOIN RegOfStor ON GoodsOnStor.id_of_storage = RegOfStor.id_of_storage GROUP BY (GoodsOnStor.id_of_storage) HAVING COUNT (GoodsOnStor.amount)", [], (err, rows) => {
+    if ( err )
+    {
+      res.send( err );
+    }
+    else
+    {
+      res.json( rows );
+    }
+  } )  
+}
+
 exports.listAllRegOfStorID = function( req, res )
 {
   db.all( "SELECT id_of_storage FROM RegOfStor", [], (err, rows) => {
@@ -301,6 +315,24 @@ exports.findGoodsForProvider = function( req, res )
   let query
 
   query = "SELECT name_of_goods FROM Contracts WHERE provider_id =\"" + req.params.providerId + "\"";
+
+  db.all( query , [], (err, rows) => {
+    if ( err )
+    {
+      res.send( err );
+    }
+    else
+    {
+     res.send( rows );
+    }
+  } )  
+}
+
+exports.findAccountForProvider = function( req, res )
+{
+  let query
+
+  query = "SELECT account_id FROM Bill WHERE provider_id =\"" + req.params.providerId + "\"";
 
   db.all( query , [], (err, rows) => {
     if ( err )

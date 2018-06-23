@@ -24,9 +24,10 @@ function validate() {
     $("#op9").css( "display", "none" );
     showAllBills();
     showAllProvidersID();
-    showAllAccountID();
+    //showAllAccountID();
     showAllBankInAccount();
     showAllBillsBillDet();
+    findAccountIdForProviders( $("#billProviderId").val() );
     // showAllNameOfGoodBillDet();
     updateContractGoods( $( "#billProviderId" ).val() );
   }else if (selectedValue == "bank") {
@@ -122,15 +123,16 @@ function validate() {
   }
 
 
+
+
   $("#addButton").click(function(){
     if (selectedValue == "providers"){
       $("#btnAddProvider").val( "add" );
       $("#addProvider").addClass("displayFlex");
     }else if(selectedValue == "bill"){
-      $("#btnAddBill").val( "add" );
+      $("#btnAddBill").val( "add BillDet" );
       $( "#addBillId").prop( "disabled", false );
       $( "#addBill").addClass("displayFlex");
-      $( "#addBillDet").addClass("displayFlex");
       $("#billAndBillDet").addClass("displayFlex");
     }else if(selectedValue == "contract"){
       $("#addContract").addClass("displayFlex");
@@ -171,6 +173,7 @@ $("#btnReport1").click(function(){
   $("#report1").addClass("display_flex"),
   $("#btnPrint1").addClass("display_block");
   $("#report2").removeClass("display_flex");
+  $("#report3").removeClass("display_flex"),
   showProvidersAdnGoods2Years();
 })
 
@@ -179,20 +182,34 @@ $("#btnReport2").click(function(){
   $("#mainForm").addClass("display_none"),
   $("#report2").addClass("display_flex"),
   $("#btnPrint2").addClass("display_block");
+  $("#report3").removeClass("display_flex"),
   $("#report1").removeClass("display_flex");
   showAllMoneyInBanks();
+})
+
+//REPORT3
+$("#btnReport3").click(function(){
+  $("#mainForm").addClass("display_none"),
+  $("#report2").removeClass("display_flex"),
+  $("#report3").addClass("display_flex"),
+  $("#btnPrint2").addClass("display_block");
+  $("#report1").removeClass("display_flex");
+  showAllGoodsAtStorage();
 })
 
 $("#mainTabel").click(function(){
   $("#mainForm").removeClass("display_none"),
   $("#report1").removeClass("display_flex"),
   $("#report2").removeClass("display_flex"),
+  $("#report3").removeClass("display_flex"),
   $("#btnPrint1").removeClass("display_block");
 });
 
 $("#btnOpenRegAccount").click(function(){
   $("#addAccount").addClass("displayFlex");
   $("#addBill").removeClass("displayFlex");
+  $("#addBillDet").removeClass("displayFlex");
+  $("#billAndBillDet").removeClass("displayFlex");
 });
 
 $("#btnOpenRegBank").click(function(){
@@ -524,6 +541,24 @@ function showAllMoneyInBanks()
 }
 
 
+function showAllGoodsAtStorage()
+{
+  fetch( "/api/goodsonstorregofstor" ).then( (response) => {
+    if ( response.status == 200 )
+    {
+      response.json().then( (data) => {
+          let htmlResult10 = "<table>" ;
+          data.forEach( element => {
+            htmlResult10 += "<tr>" + "<td>" + element["GoodsOnStor.id_of_storage"] + "</td>"  +  "<td>" + element["RegOfStor.address"] + "</td>" +  "<td>" + element["SUM(GoodsOnStor.amount)"] + "</td>" + "</tr>" ;
+          });
+          htmlResult10 += "</table>"
+          $( "#reportTabel3" ).html( htmlResult10 );
+      } )
+    }
+  } )
+}
+
+
 
 // Nastia BEGIN
 function showAllContracts()
@@ -731,6 +766,10 @@ function validateBill( bill )
 
 $( "#btnAddBill" ).click( function() {
 
+  $( "#addBillDet").addClass("displayFlex");
+  $( "#BillBtn").addClass("display_none");
+
+
   var bill = {
     billId : $( "#billAddBillId").val(),
     billDate : $( "#billAddDateOfBill" ).val(),
@@ -757,7 +796,7 @@ $( "#btnAddBill" ).click( function() {
   {
     //TODO: add validation error message
   }
-
+/*
   var billDet = {
     billDetNameOfGoods : $( "#billDetAllGoods" ).val(),
     billDetPricePerUnit : $( "#addBillDetProcePerUnit" ).val(),
@@ -785,9 +824,9 @@ $( "#btnAddBill" ).click( function() {
   {
     //TODO: add validation error message
   }
-  $("#billAndBillDet").removeClass("displayFlex");
+  /*$("#billAndBillDet").removeClass("displayFlex");
   billRemoveFlexClass();
-  nomenOfDelRemoveFlexClass();
+  nomenOfDelRemoveFlexClass();*/
   validate();
 } );
 
@@ -1108,6 +1147,26 @@ function updateContractGoods( providerId )
   } );
 }
 
+$( "#billProviderId" ).change( function() {
+  findAccountIdForProviders( $( this ).val() );
+} );
+
+function findAccountIdForProviders( providerId )
+{
+  fetch( "./api/billaccount/" + providerId ).then( (response) => {
+    if ( response.status == 200 )
+    {
+      response.json().then( (data) => {
+        let options = "";
+
+        options = data.map( function( item ){ return "<option>" + item.account_id + "</option>" } );
+        $( "#billAccountId" ).html( options.join( "" ) );
+      } )
+    }
+  } );
+}
+
+
 /*
 var app = function() {
 
@@ -1325,6 +1384,23 @@ $("#addBillDetProcePerUnit , #addBillDetAmount").bind("change", function(){
   $("#addBillDetSum").val($("#addBillDetProcePerUnit").val() * $("#addBillDetAmount").val());
 });
 
+
+var inp1 = document.getElementById("addBillDetSumWithVat").value;
+var inp2 = document.getElementById("billAddSumOfBill").value;
+$("#btnAddBill").click(function(){
+if(inp1 != inp2)
+{
+  alert("Check your mean (Sum of bill not = sum with VAT)")
+}
+})
+
+/*$("#addBillDetSumWithVat").onClick(function(){
+  if ($("#addBillDetSumWithVat").val() != $("#billAddSumOfBill").val()){
+    alert("Check your mean (Sum of bill not = sum with VAT)")
+  }
+
+})*/
+
 $("#addBillDetSum , #addBillDetVat").bind("change", function(){
   sum();
   //$("#addBillDetSumWithVat").val($("#addBillDetSum".val() + $("#addBillDetVat").val()));
@@ -1338,5 +1414,5 @@ function sum(){
 
 if ( UserStatus && UserStatus == "director" )
 {
-  $( "#addButton" ).prop( "disabled", true );
+  $( "#addButton" ).prop( "hidden", true );
 }

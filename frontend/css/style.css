@@ -342,19 +342,19 @@ input:focus ~ .highlight {
   box-shadow: none;
 }
 
-.report1, .report2 {
+.report1, .report2, .report3 {
   display: none;
   flex-direction: column;
   align-items: center
 }
 
 
-#btnReport1, #btnReport2, #mainTabel{
+#btnReport1, #btnReport2, #btnReport3, #mainTabel{
   color: rgba(255, 255, 255, 0.85);
   font-size: 1.15em;
   cursor: pointer;
 }
-#btnReport1:hover, #btnReport2:hover, #mainTabel:hover{
+#btnReport1:hover, #btnReport2:hover,  #btnReport3:hover , #mainTabel:hover{
   color: rgba(91, 176, 233, 0.85);
 }
  
