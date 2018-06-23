@@ -221,7 +221,8 @@ exports.listAmountGoodsOnStor = function( req, res )
       res.json( rows );
     }
   } )  
-}
+} 
+//asdasd
 
 exports.listAllRegOfStorID = function( req, res )
 {
