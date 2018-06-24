@@ -204,6 +204,22 @@ td input{
   flex-direction: column;
 }
 
+.exception{
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  margin: 20px 0;
+}
+
+.textException{
+  display: none;
+  position: absolute;
+  left: 90px;
+  top: 25px;
+  font-size: 14px;
+  color: red;
+}
+
 .group input{
   font-size:18px;
   padding:10px 10px 10px 5px;

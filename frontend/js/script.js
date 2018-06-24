@@ -547,12 +547,12 @@ function showAllGoodsAtStorage()
     if ( response.status == 200 )
     {
       response.json().then( (data) => {
-          let htmlResult10 = "<table>" ;
+          let htmlResult11 = "<table>" ;
           data.forEach( element => {
-            htmlResult10 += "<tr>" + "<td>" + element["GoodsOnStor.id_of_storage"] + "</td>"  +  "<td>" + element["RegOfStor.address"] + "</td>" +  "<td>" + element["SUM(GoodsOnStor.amount)"] + "</td>" + "</tr>" ;
+            htmlResult11 += "<tr>" + "<td>" + element["id_of_storage"] + "</td>"  +  "<td>" + element["address"] + "</td>" +  "<td>" + element["SUM(GoodsOnStor.amount)"] + "</td>" + "</tr>" ;
           });
-          htmlResult10 += "</table>"
-          $( "#reportTabel3" ).html( htmlResult10 );
+          htmlResult11 += "</table>"
+          $( "#reportTabel3" ).html( htmlResult11 );
       } )
     }
   } )

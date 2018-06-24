@@ -211,7 +211,7 @@ exports.listBanksWithAllMoney = function( req, res )
 
 exports.listAmountGoodsOnStor = function( req, res )
 {
-  db.all( "SELECT GoodsOnStor.id_of_storage, RegOfStor.address, SUM(GoodsOnStor.amount) FROM GoodsOnStor JOIN RegOfStor ON GoodsOnStor.id_of_storage = RegOfStor.id_of_storage GROUP BY (GoodsOnStor.id_of_storage) HAVING COUNT (GoodsOnStor.amount)", [], (err, rows) => {
+  db.all( "SELECT GoodsOnStor.id_of_storage , RegOfStor.address , SUM(GoodsOnStor.amount) FROM GoodsOnStor JOIN RegOfStor ON GoodsOnStor.id_of_storage = RegOfStor.id_of_storage GROUP BY (GoodsOnStor.id_of_storage) HAVING COUNT (GoodsOnStor.amount)", [], (err, rows) => {
     if ( err )
     {
       res.send( err );

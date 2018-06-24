@@ -5,16 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/style.css">
+
     <title>Document</title>
 </head>
 <body>
         <form action="/login" method="post" class="login-form">
-            <div>
+            <div class="exception">
                 <label>Username:</label>
+                <label id="wuser" class="textException">Wrong username</label>
                 <input type="text" name="username"/>
             </div>
-            <div>
+            <div class="exception">
                 <label>Password:</label>
+                <label id="wpas" class="textException">Wrong password</label>
                 <input type="password" name="password"/>
             </div>
             <div>
@@ -22,5 +25,7 @@
             </div>
         </form>
 </body>
+<script src="js/JQuery.js"></script>
+<script src="js/login.js"></script>
 </html>
 
