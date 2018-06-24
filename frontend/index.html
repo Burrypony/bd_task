@@ -126,32 +126,48 @@
       <div id="billTable"></div>
       <div id="billAndBillDet" class="billAndBillDet">
         <div class="addBill" id="addBill">
-          <input type="hidden" id="billAddBillId">
-          <div class="group">      
+          <div id="addBillStepWrapper">
+            <input type="hidden" id="billAddBillId">
+            <div class="group">      
               <input type="date" required id="billAddDateOfBill">
               <span class="highlight"></span>
               <label>Date of bill</label>
-          </div>
-          <div class="group">      
+            </div>
+            <div class="group">      
               <input type="text" required id="billAddNumberFromProvider">
               <span class="highlight"></span>
               <label>Number from provider</label>
-          </div> 
-          <div class="group">      
-              <input type="text" required id="billAddSumOfBill">
-              <span class="highlight"></span>
-              <label>Sum of bill</label>
-          </div>
-          <div class="customGroup">
-            <select name="" id="billProviderId"></select>
-            <label class="customLabel">Provider ID</label>
-          </div>
+            </div> 
+            <div class="customGroup">
+              <select name="" id="billProviderId"></select>
+              <label class="customLabel">Provider ID</label>
+            </div>
         
-          <div class="customGroup">
-            <select name="" id="billAccountId"></select>
-            <label class="customLabel">Account ID</label>
+            <div class="customGroup">
+              <select name="" id="billAccountId"></select>
+              <label class="customLabel">Account ID</label>
+            </div>
           </div>
         </div>
+        <div id="addBillItems" style="display: none">
+          <input type="button" value="Add another item" id="btnAddDetBillItem">
+          <table>
+            <tr>
+              <th>Name of goods</th>
+              <th>Price per unit</th>
+              <th>Ammount</th>
+              <th>Sum</th>
+              <th>VAT</th>
+              <th>Sum with VAT</th>
+            </tr>            
+          </table>
+          <div class="group">      
+              <input type="text" readonly required id="billAddSumOfBill">
+              <span class="highlight"></span>
+              <label>Sum of bill</label>
+            </div>          
+        </div>
+
         <div class="addBillDet" id="addBillDet">
             <div class="customGroup">
                 <select name="" id="billDetAllGoods"></select>
@@ -194,9 +210,11 @@
           </div>
         </div>
         <div class="inputButton" id="BillBtn">
-            <input type="button" value="add BillDet" id="btnAddBill">
+            <!-- <input type="button" value="add BillDet" id="btnAddBill"> -->
+            <input type="button" value="next" id="btnAddBillItems">
             <input type="reset" value="back" class="buttonBack">
             <input type="button" value="add account" id="btnOpenRegAccount">
+            <input type="button" value="save" id="btnSaveBill" style="display:none">
         </div>
       </div> 
       <div class="addAccount" id="addAccount">

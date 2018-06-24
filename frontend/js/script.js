@@ -1416,3 +1416,133 @@ if ( UserStatus && UserStatus == "director" )
 {
   $( "#addButton" ).prop( "hidden", true );
 }
+
+$( "#btnSaveBill" ).click( function() {
+
+  var bill = {
+    billId : $( "#billAddBillId").val(),
+    billDate : $( "#billAddDateOfBill" ).val(),
+    numFromProv: $( "#billAddNumberFromProvider" ).val(),
+    sumOfBill: $( "#billAddSumOfBill" ).val(),
+    billProviderId: $( "#billProviderId" ).val(),
+    billAccountId : $( "#billAccountId" ).val(),
+    items: []
+  }
+
+  var rows = $( "#addBillItems table .itemrow" );
+  
+  for ( var i = 0; i < rows.length; i++ )
+  {
+    bill.items.push( {
+      billDetNameOfGoods : $( rows[ i ] ).find( ".item" ).val(),
+      billDetPricePerUnit : $( rows[ i ] ).find( ".priceperunit" ).val(),
+      billDetAmount : $( rows[ i ] ).find( ".amount" ).val(),
+      billDetSum : $( rows[ i ] ).find( ".sum" ).val(),
+      billDetVAT : $( rows[ i ] ).find( ".vat" ).val(),
+      billDetSumVAT : $( rows[ i ] ).find( ".sumwithvat" ).val()
+    } )
+  }
+
+  bill.itemsLength = bill.items.length;
+
+  $.ajax({
+    type: "POST",
+    url: "/api/billwithdet",
+    dataType: "json",
+    success: function (msg) {
+      validate();
+    },
+    data: bill
+  });
+  $("#billAndBillDet").removeClass("displayFlex");
+
+} );
+
+$( "#btnAddBillItems" ).click( function() {
+
+    //name of goods  -- dropdown
+    //price per unit
+    //amount
+    //sum -- calculated
+    //vat -- calculated
+    //sum+vat -- calculated
+
+    var goods = [];
+
+    function initForm()
+    {
+      $( "#btnOpenRegAccount" ).hide();
+      $( "#addBillStepWrapper" ).hide();
+      $( "#btnAddBillItems" ).hide();
+      $( "#btnSaveBill" ).show();
+      $( "#addBillItems" ).show();
+    
+      addBillItem();      
+    }
+
+    function updateCalculatedValues()
+    {
+      function processRow( row )
+      {
+        var priceperunit = parseFloat( row.find( ".priceperunit" ).val() );
+        var amount = parseFloat( row.find( ".amount" ).val() );
+
+        if ( !isNaN( priceperunit ) && !isNaN( amount ) )
+        {
+          row.find( ".sum" ).val( Math.round( priceperunit * amount * 100 ) / 100 );
+          row.find( ".vat" ).val( Math.round( priceperunit * amount * 20 ) / 100 );
+          row.find( ".sumwithvat" ).val( Math.round( priceperunit * amount * 120 ) / 100 );
+          total += Math.round( priceperunit * amount * 120 ) / 100;
+        }
+      }
+
+      var total = 0;
+
+      var items = $( "#addBillItems .itemrow" )
+      
+      for ( var i = 0; i < items.length; i++ )
+      {
+        processRow( $( items[ i ] ) );
+      }
+
+      $( "#billAddSumOfBill" ).val( total );
+
+    }
+
+    function addBillItem()
+    {
+      var added = $( "#addBillItems table" ).append( `
+      <tr class="itemrow">var items = 
+        <td><select name="" class="item"></select></td>
+        <td><input type="number" class="priceperunit"/></td>
+        <td><input type="number" class="amount" /></td>
+        <td><input type="number" readonly class="sum" /></td>
+        <td><input type="number" readonly class="vat" /></td>
+        <td><input type="number" readonly class="sumwithvat" /></td>
+      </tr>
+      ` );
+
+      added.find( ".priceperunit" ).blur( updateCalculatedValues );
+      added.find( ".amount" ).blur( updateCalculatedValues );
+      added.find( ".item" ).html( (() => {
+        return goods.map( item => { return "<option>" + item.name_of_goods + "</option>" } );
+      })() )
+    }
+
+    $( "#btnAddDetBillItem" ).click( addBillItem );
+
+    fetch( "./api/contractgoods/" + $( "#billProviderId" ).val() ).then( (response) => {
+      if ( response.status == 200 )
+      {
+        response.json().then( (data) => {
+          // let options = "";
+  
+          // options = data.map( function( item ){ return "<option>" + item.name_of_goods + "</option>" } );
+          // $( "#billDetAllGoods" ).html( options.join( "" ) );
+
+          goods = data;
+          initForm();
+        } )
+      }
+    } );
+} );

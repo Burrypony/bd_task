@@ -548,6 +548,88 @@ exports.addBillDet = function( req, res )
   console.log( req.body );
 }
 
+function InsertBillItems( req, res, billId )
+{
+  var query;
+
+  query = "INSERT INTO BillDet (name_of_goods, price_per_unit, amount, sum, VAT, sum_VAT, bill_id) VALUES ";
+  for ( var i = 0; i < req.body.itemsLength; i++ )
+  {
+    query += "('" 
+    + req.body[ "items[" + i + "][billDetNameOfGoods]" ] + "','" + req.body[ "items[" + i + "][billDetPricePerUnit]" ] + "','" + req.body[ "items[" + i + "][billDetAmount]" ] +"','" + req.body[ "items[" + i + "][billDetSum]" ] +  "','" + req.body[ "items[" + i + "][billDetVAT]" ] + "','" + req.body[ "items[" + i + "][billDetSumVAT]" ] + "', '" + billId + "') ";
+    if ( i < req.body.itemsLength - 1 )
+    {
+      query += ", ";
+    } 
+  }
+  db.all( query , [] , ( err, rows ) => {
+    if ( err )
+    {
+      res.send( err );
+    }
+    else
+    {
+      res.send( "OK" );
+    }
+  } );  
+}
+
+exports.addBillWithDet = function( req, res )
+{
+  let query;
+  let billId;
+  
+  query = "SELECT * FROM Bill WHERE bill_id=\"" + req.body.billId + "\"";
+
+  db.all( query, [], ( err, rows ) => {
+    if ( err )
+    {
+      res.send( err );
+    }
+    else
+    {
+      if ( rows.length == 0 )
+      {
+        query = "INSERT INTO Bill (date_of_bill, number_from_provider, sum_of_bill, provider_id, account_id) VALUES ('" 
+        + req.body.billDate + "','" + req.body.numFromProv + "','" + req.body.sumOfBill + "','"
+        + req.body.billProviderId + "','" + req.body.billAccountId + "')"; 
+      }
+      else
+      {
+        billId = req.body.billId;
+        query = `UPDATE Bill SET date_of_bill="${req.body.billDate}", number_from_provider="${req.body.numFromProv}", sum_of_bill="${req.body.sumOfBill}", provider_id="${req.body.billProviderId}", account_id="${req.body.billAccountId}" WHERE bill_id="${req.body.billId}"`;
+      }
+      db.run( query , [] , ( err, rows ) => {
+        if ( err )
+        {
+          res.send( err );
+        }
+        else
+        {
+          if ( billId )
+          {
+            InsertBillItems( req, res, billId );
+          }
+          else
+          {
+            db.all( "SELECT bill_id FROM Bill ORDER BY bill_id DESC", [], ( err, rows ) => {
+              if ( err )
+              {
+                res.send( err )
+              }
+              else
+              {
+                InsertBillItems( req, res, rows[0].bill_id );
+              }
+            } )
+          }
+        }
+      } );      
+    }
+  } );  
+}
+
+
 exports.addGoodsOnStor = function( req, res )
 {
   const query = "INSERT INTO GoodsOnStor (name_of_goods, amount, sum, bill_id, id_of_storage) VALUES ('" 
