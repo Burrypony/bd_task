@@ -75,7 +75,14 @@ app.route('/login')
         }
         else
         {
-          res.redirect( "/login" );
+          if ( username == "director" || username == "buhgalter" )
+          {
+            res.redirect( "/login?err=wrongpassword" );
+          }
+          else
+          {
+            res.redirect( "/login?err=wrongusername" );
+          }
         }   
     });
 
