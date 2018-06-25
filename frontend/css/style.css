@@ -85,8 +85,9 @@ td input{
   display: none;
   flex-direction: column;
   justify-content: center;
-  width: 50%;
+  width: fit-content;
   height: auto;
+  padding: 20px;
   margin: 0 auto;
   border: 1px solid black;
   position: absolute;
@@ -237,7 +238,7 @@ td input{
   font-weight:normal;
   position:absolute;
   pointer-events:none;
-  left:270px;
+  left:16px;
   top:15px;
   transition:0.2s ease all; 
   -moz-transition:0.2s ease all; 
@@ -302,7 +303,7 @@ input:focus ~ .highlight {
   position:absolute;
   pointer-events:none;
   top:-13px;
-  left: 320px;
+  left: 170px;
   font-size:14px;
   color:#5264AE;
 }
