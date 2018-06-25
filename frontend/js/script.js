@@ -1342,7 +1342,7 @@ function printReport1()
 {
   var report1Print = document.getElementById("printZone1");
   newWin= window.open("");
-  newWin.document.write(report1.outerHTML);
+  newWin.document.write(printZone1.outerHTML);
   newWin.print();
   newWin.close();
 }
@@ -1355,13 +1355,26 @@ function printReport2()
 {
   var report2Print = document.getElementById("printZone2");
   newWin= window.open("");
-  newWin.document.write(report2.outerHTML);
+  newWin.document.write(printZone2.outerHTML);
   newWin.print();
   newWin.close();
 }
 
 $("#btnPrint2").click(function(){
   printReport2();
+});
+
+function printReport3()
+{
+  var report3Print = document.getElementById("printZone3");
+  newWin= window.open("");
+  newWin.document.write(printZone3.outerHTML);
+  newWin.print();
+  newWin.close();
+}
+
+$("#btnPrint3").click(function(){
+  printReport3();
 });
 
 
